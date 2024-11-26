@@ -4,12 +4,7 @@
     <li class="breadcrumb-item active" aria-current="page">Home</li>
 @endsection
 @section('contents')
-    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Items Home
-
-        <a class="btn btn-sm btn-outline-primary ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm"
-            aria-expanded="false" aria-controls="addItemCategoryForm"><i class="fa fa-folder-plus"></i></a>
-        <a class="btn btn-sm btn-outline-primary"><i class="fa fa-square-plus"></i></a>
-    </h1>
+    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Display Product List</h1>
 
 
     <div class="row">
@@ -57,7 +52,7 @@
             <fieldset class="mt-4 mx-0 mb-0">
                 <legend>Root &nbsp; &nbsp;
                     <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm" aria-expanded="false"
-                        aria-controls="addItemCategoryForm"><i data-bs-toggle="tooltip" title="Add New Category"
+                        aria-controls="addItemCategoryForm"><i data-bs-toggle="tooltip" data-bs-title="Add New Category"
                             class="fa fa-plus"></i></a>
                 </legend>
                 <ol id="tree" class="mt-0">
@@ -96,9 +91,9 @@
         </div>
         <div class="col col-8">
             <fieldset class="mt-4 mx-0 mb-0">
-                <legend>Display Product List &nbsp; &nbsp;
+                <legend>Products &nbsp; &nbsp;
                     <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemForm" aria-expanded="false"
-                        aria-controls="addItemForm"><i data-bs-toggle="tooltip" title="Add New Category"
+                        aria-controls="addItemForm"><i data-bs-toggle="tooltip" data-bs-title="Add New Item"
                             class="fa fa-plus"></i></a>
                 </legend>
                 <div class="row">
