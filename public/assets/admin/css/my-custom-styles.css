@@ -9,7 +9,9 @@
 a, a:link, a:focus, a:visited {
     text-decoration: none !important;
 }
-
+#content {
+    margin-left: 220px;
+}
 #contextMenu {
     position: absolute;
     padding: 1rem;
@@ -42,6 +44,13 @@ fieldset {
     padding: 2rem 1rem 1rem;
     position: relative;
     margin: 0 1rem;
+}
+
+header#main-header {
+    position: fixed;
+    z-index: 99999;
+    background-color: #fff;
+    padding-bottom: 1rem;
 }
 
 legend {

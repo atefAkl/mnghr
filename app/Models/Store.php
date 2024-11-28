@@ -20,7 +20,7 @@ class Store extends Model
         'store_id',
         'phone',
         'email',
-        'admin',
+        'admin_id',
         'branch_id',
         'status',
         'created_by',
@@ -28,4 +28,13 @@ class Store extends Model
         'updated_by',
         'updated_at'
     ];
+
+    /* get Admin info where admin->id equals to omahmed_id
+    **
+    **
+    */
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
 }

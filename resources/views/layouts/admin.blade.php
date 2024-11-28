@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <main class="d-flex flex-nowrap">
+    <main class="flex-nowrap">
         @include('inc.sidebar')
         <div id="content">
             <header id="main-header">
@@ -38,7 +38,7 @@
                     </ul>
                 </nav>
             </header>
-            <div class="container-fluid">
+            <div class="container-fluid pt-5">
                 <div class="container">
                     @if (session('success'))
                         <div class="alert alert-sm alert-success py-1 mt-2">
@@ -52,6 +52,7 @@
                         </div>
                     @endif
                     @yield('contents')
+
                 </div>
             </div>
         </div>
