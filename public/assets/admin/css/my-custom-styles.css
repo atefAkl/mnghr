@@ -38,6 +38,9 @@ h4 {
 h5 {
     font: Bold 0.9rem/1.2 Arial;
 }
+a{
+  text-decoration: none;
+}
 
 fieldset {
     border: 0.5pt solid #dee2e6;
@@ -63,6 +66,7 @@ legend {
     z-index: 9;
     top: -1rem;
     width: auto;
+    
 }
 
 /*=========================================
@@ -79,7 +83,11 @@ legend {
 ==========================================*/
 
 ol {
+<<<<<<< HEAD
+    display: block;
+=======
     display: inline-block;
+>>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
     float: left;
     clear: left;
     margin: .25rem;
@@ -266,6 +274,120 @@ ol>li>input:checked~label:before {
     background-image: url("data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAD///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAABwAAABcAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAXAAAABwNMcIsDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNMcIsDbqSphs/w/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4bP8P8DbqSpA3i0m4bP7v99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P+Gz+7/A3i0mwJ8uZeK0/D/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/itPw/wJ8uZcCf76Tj9fy/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4/X8v8Cf76TAoLCj5Tb9P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+U2/T/AoLCjwKFx4uZ4Pb/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/meD2/wKFx4sCiMuHn+X5/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5/l+f8CiMuHAorPg6Pp+/+d4/n/neP5/53j+f+d4/n/neP5/53j+f+j6fr/o+n6/6Pp+v+j6fr/o+n6/6Pp+v+m7Pv/AorPgwKN0oGo7f3/ouf7/6Ln+/+i5/v/ouf7/6Ln+/+r8P3/jNDt/4HF5/+Bxef/gcXn/4HF5/+Bxef/gcXn/wKN0oECj9Z9rvP//6vw/v+r8P7/q/D+/6vw/v+u8///j9Pv/4/T7/+r8P7/q/D+/6vw/v+r8P7/q/D+/67z//8Cj9Z9ApHZXQKR2XsCkdl7ApHZewKR2XsCkdl7ApHZewKR2Xv+/v3/+Pjz//Dw5v/p6dv//slB//S2Lv8Ckdl7ApHZXf///wH///8B////Af///wH///8B////Af///wECktsrApLbeQKS23kCktt5ApLbeQKS23kCktt5ApLbK////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//w==");
 }
 
+<<<<<<< HEAD
+/*=========================================
+===== form Styles ======================
+==========================================*/
+/* legend {
+  font: 400 1.2rem/1.2 Arial;
+  position: absolute;
+  padding: 0.25rem 0.5rem;
+  border:  1pt solid #dee2e6;
+  background-color: #eee;
+  left: 2rem;
+  z-index: 9;
+  top: -1rem;
+  width: auto;
+  
+} */
+/* .form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #444;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .25rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075);
+} */
+
+/*=========================================
+===== product list Styles ======================
+==========================================*/
+.productset {
+
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 4px 4px 0 #ededed40;
+  background: #fff;
+  margin: 0 0 25px;
+  border-radius: 5px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display:block;
+  height: auto;
+}
+.productset:hover {
+  border: 1px solid #1f1e1e40;
+}
+.productset:hover .productsetimg img {
+  transform: scale(1.2);
+}
+.productset:hover .productsetimg h6 {
+  transform: translatey(0);
+}
+.productset .productsetimg {
+  position: relative;
+  overflow: hidden;
+}
+.productset .productsetimg img {
+  transition: all 0.5s;
+  border-radius: 5px 5px 0 0;
+  max-height: 100px;
+  width: 100%;
+}
+
+.productset .productsetcontent {
+  padding: 13px;
+  text-align: center;
+}
+.productset .productsetcontent h4 {
+  font: Bold 1rem/1.2 Arial;
+  color: #000;
+  margin-bottom: 13px;
+}
+.productset .productsetcontent h5 {
+  color: #6e6b7b;
+  font: Bold 0.9rem/1.2 Arial;
+}
+.productset .productsetcontent a {
+  color: #0d6efd;
+  margin: 0 0 0 auto;
+  font-weight: 600;
+  font: Bold 0.9rem/1.2 Arial;
+  
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); 
+  color: #f1f1f1;
+  width: 100%;
+  height:100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font: Bold 0.9rem/1.2 Arial;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.productset:hover .overlay {
+  opacity: 1;
+}
+=======
 /* ===================================================
 ================= Bootstrap Modifications ============
 =================================================== */
@@ -285,3 +407,4 @@ ol>li>input:checked~label:before {
     padding: 0.5rem 1rem;
     margin: 0;
 }
+>>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1

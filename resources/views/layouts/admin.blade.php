@@ -117,7 +117,15 @@
     <script src="{{ asset('assets/admin/js/color.modes.js') }}"></script>
     <script>
         $(document).ready(() => {
+<<<<<<< HEAD
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl)
 
+            })
+=======
+
+>>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
 
             $('.sidebar-toggle').click(() => {
                 $('.sidebar').toggleClass('mini-sidebar');
