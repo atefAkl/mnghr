@@ -96,6 +96,9 @@ Route::group(
     Route::get('stores/home',                           [storesController::class, 'home'])->name('stores-home');
     Route::get('stores/index',                          [storesController::class, 'index'])->name('display-stores-list');
     Route::post('stores/store',                         [storesController::class, 'store'])->name('save-store-info');
+    Route::post('stores/update',                        [storesController::class, 'update'])->name('update-store-info');
+    Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
+    Route::post('stores/destroy/{id}',                  [storesController::class, 'destroy'])->name('destroy-store-info');
 
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================

@@ -14,7 +14,7 @@
             <div class="card card-body">
                 <form action="/admin/stores/store" method="POST">
                     @csrf
-                    <div class="input-group">
+                    <div class="input-group sm">
                         <label class="input-group-text" for="parent_store">Parent Store</label>
                         <select class="form-select" name="atore_id" id="parent_store">
                             <option value="1">Root</option>
@@ -29,7 +29,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="input-group mt-2">
+                    <div class="input-group sm mt-2">
                         <label class="input-group-text" for="store_name">Name</label>
                         <input type="text" class="form-control" name="name" id="store_name">
                         <label class="input-group-text" for="store_code">Code</label>
@@ -76,12 +76,21 @@
             @if (count($stores))
                 @foreach ($stores as $store)
                     <tr>
-                        <td>{{ $store->store_code }}</td>
+                        <td>{{ $store->code }}</td>
                         <td>{{ $store->name }}</td>
                         <td>{{ $store->branch_id }}</td>
                         <td>{{ $store->admin }}</td>
                         <td>{{ $store->staus }}</td>
-                        <td>{{ $store->code }}</td>
+                        <td>
+                            <button class="btn">
+                                <a href="{{ route('edit-store-info', $store->id) }}"><i
+                                        class="fa fa-edit text-primary"></i></a>
+                            </button>
+                            <button class="btn">
+                                <a href="{{ route('destroy-store-info', $store->id) }}"><i
+                                        class="fa fa-trash text-danger"></i></a>
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
             @else

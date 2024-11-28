@@ -55,4 +55,44 @@ class storesController extends Controller
             return redirect()->back()->withError('Failed to save, due to: ' . $err);
         }
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $stores = Store::all();
+        $branches = Branch::all();
+        $vars = [
+            'store' => Store::find($id),
+            'stores' => $stores,
+            'branches' => $branches,
+        ];
+        return view('admin.stores.edit', $vars);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $store = Branch::find($request->id);
+        try {
+
+            $store->update([
+                'name'          => $request->name,
+                'code'       => $request->address,
+                'brief'         => $request->phone,
+                'email'         => $request->email,
+                'branch_code'   => $request->branch_code,
+
+                'updated_by'    => auth()->user()->id
+            ]);
+
+            return redirect()->back()->with('success', 'Branch updated successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Error updating branch because of: ' . $e);
+        }
+    }
 }
