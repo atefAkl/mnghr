@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+    {{-- <link rel="stylesheet" href="{{ asset('/assets/admin/css/style.css') }}"> --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -69,10 +69,10 @@
         <div id="content">
             <header id="main-header">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
                         @yield('header-links')
-                    </ol>
+                    </ul>
                 </nav>
             </header>
             <div class="container-fluid">
@@ -148,9 +148,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js"
         integrity="sha512-1JkMy1LR9bTo3psH+H4SV5bO2dFylgOy+UJhMus1zF4VEFuZVu5lsi4I6iIndE4N9p01z1554ZDcvMSjMaqCBQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="sidebars.js"></script>
+    {{-- <script src="{{ asset('assets/admin/js/sidebar.js') }}"></script> --}}
+    <script src="{{ asset('assets/admin/js/app.main.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/color.modes.js') }}"></script>
     <script>
         $(document).ready(() => {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl)
+
+            })
+
             $('.sidebar-toggle').click(() => {
                 $('.sidebar').toggleClass('mini-sidebar');
                 $('.sidebar-toggle').toggleClass('turn-90')

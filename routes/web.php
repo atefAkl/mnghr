@@ -100,11 +100,13 @@ Route::group(
       ======================================================================================================================================== */
       Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
       Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
+      Route::post('items/store' ,          [ItemsController::class ,'store'])->name('store-new-item');
+      Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
 
       /* ========================================================================================================================================
       =========== Items Categories Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-      Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-item');
+      Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
       Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
       Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
   }
