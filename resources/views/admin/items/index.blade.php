@@ -4,6 +4,7 @@
 <li class="breadcrumb-item active" aria-current="page">Home</li>
 @endsection
 @section('contents')
+<<<<<<< HEAD
 <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Items Home
 
   <a class="btn btn-sm btn-outline-primary ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm"
@@ -12,6 +13,9 @@
     aria-expanded="false" aria-controls="addItemForm">
     <i class="fa fa-square-plus"></i></a>
 </h1>
+=======
+    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Display Product List</h1>
+>>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
 
 <!--  start Add New Category -->
 <div class="row">
@@ -36,6 +40,7 @@
           <label class="input-group-text" for="cat_name">Name</label>
           <input type="text" class="form-control" name="name" id="cat_name">
         </div>
+<<<<<<< HEAD
 
         <div class="input-group  mt-2">
           <label class="input-group-text" for="brief">Description</label>
@@ -177,6 +182,89 @@
             </div>
             <div class="overlay">{{$item->breif}}</div>
           </div>
+=======
+    </div>
+    <div class="row">
+        <div class="col col-4">
+            <fieldset class="mt-4 mx-0 mb-0">
+                <legend>Root &nbsp; &nbsp;
+                    <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm" aria-expanded="false"
+                        aria-controls="addItemCategoryForm"><i data-bs-toggle="tooltip" data-bs-title="Add New Category"
+                            class="fa fa-plus"></i></a>
+                </legend>
+                <ol id="tree" class="mt-0">
+                    @foreach ($cats as $item)
+                        @if ($item->id === 1)
+                            @continue
+                        @endif
+                        <li>
+                            <input type="checkbox" id="item_{{ $item->id }}" checked />
+                            <label for="item_{{ $item->id }}" class="my-0">{{ $item->name }}</label>
+                            @if ($item->children)
+                                <ol>
+                                    @foreach ($item->children as $child)
+                                        <li>
+                                            <input type="checkbox" id="item_{{ $child->id }}" checked />
+                                            <label for="item_{{ $child->id }}">{{ $child->name }}</label>
+                                            @if ($child->children)
+                                                <ol>
+                                                    @foreach ($child->children as $grandChild)
+                                                        <li>
+                                                            <label>
+                                                                {{ $grandChild->name }}
+                                                            </label>
+                                                        </li>
+                                                    @endforeach
+                                                </ol>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ol>
+                            @endif
+                        </li>
+                    @endforeach
+                </ol>
+            </fieldset>
+        </div>
+        <div class="col col-8">
+            <fieldset class="mt-4 mx-0 mb-0">
+                <legend>Products &nbsp; &nbsp;
+                    <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemForm" aria-expanded="false"
+                        aria-controls="addItemForm"><i data-bs-toggle="tooltip" data-bs-title="Add New Item"
+                            class="fa fa-plus"></i></a>
+                </legend>
+                <div class="row">
+                    <div class="card col col-6 mb-3">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img src="" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting .</p>
+                                    <p class="card-text"><small class="text-body-secondary">See more</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col col-6 mb-3">
+                        <div class="row g-0">
+                            <div class="col-3">
+                                <img src="" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting .</p>
+                                    <p class="card-text"><small class="text-body-secondary">See more</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+>>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
         </div>
         @endforeach
 
