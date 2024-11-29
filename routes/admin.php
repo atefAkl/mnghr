@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 use App\Http\Controllers\Admin\storesController;
@@ -99,4 +97,3 @@ Route::group(
         Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
     }
 );
->>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
