@@ -60,7 +60,6 @@ header#main-header {
     position: fixed;
     z-index: 99999;
     background-color: #fff;
-    padding-bottom: 1rem;
 }
 
 legend {
@@ -388,6 +387,9 @@ ol > li > input:checked ~ label:before {
 /* ===================================================
 ================= Bootstrap Modifications ============
 =================================================== */
+.table tr td {
+    padding: 0.2rem 0.5rem;
+}
 
 .card {
     border-radius: 0;

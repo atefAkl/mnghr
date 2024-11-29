@@ -55,31 +55,40 @@
             <input type="hidden" name="id" value="{{ $store->id }}">
             @csrf
             <div class="row item-info-row">
-                <div class="col col-3 item-info-head">branch:</div>
-                <div class="col col-3 item-info-data">
-                    <select class="inline-input" name="parent_store">
+                <div class="col col-2 item-info-head">branch:</div>
+                <div class="col col-4 item-info-data">
+                    <select class="inline-input" name="branch">
                         @foreach ($branches as $branch)
                             <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                         @endforeach
                     </select>
                 </div>
+                <div class="col col-2 item-info-head">Parent Store:</div>
+                <div class="col col-4 item-info-data">
+                    <select class="inline-input" name="parent_store">
 
-                <div class="col col-3 item-info-head">Store Name:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="store_name" value="{{ $store->name }}" />
+                        @foreach ($stores as $store)
+                            <option value="{{ $store->id }}">{{ $store->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Store Code:</div>
-                <div class="col col-9 item-info-data">
+
+                <div class="col col-2 item-info-head">Store Name:</div>
+                <div class="col col-4 item-info-data">
+                    <input type="text" class="inline-input" name="store_name" value="{{ $store->name }}" />
+                </div>
+                <div class="col col-2 item-info-head">Store Code:</div>
+                <div class="col col-4 item-info-data">
                     <input type="text" class="inline-input" name="store_code" value="{{ $store->code }}"
                         placeholder="Provide a valid code" />
                 </div>
             </div>
             <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Store Decription:</div>
-                <div class="col col-9 item-info-data">
-                    <input type="text" class="inline-input" name="store_code" value="{{ $store->brief }}"
+                <div class="col col-2 item-info-head">Store Decription:</div>
+                <div class="col col-10 item-info-data">
+                    <input type="text" class="inline-input" name="store_brief" value="{{ $store->brief }}"
                         placeholder="Describe your store" />
                 </div>
             </div>
