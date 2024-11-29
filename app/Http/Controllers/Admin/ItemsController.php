@@ -30,17 +30,15 @@ class ItemsController extends Controller
    */
   public function index()
   {
-    $items = Item::all();
+    $products = Item::all();
 
-    foreach ($items as $item) {
-      $item->category = ItemCategroy::where('id', '=', $item->category)->first();
-    }
     $categories = ItemCategroy::roots();
     $units = Unit::All();
     $vars = [
+      'centrals' => ItemCategroy::centralCats(),
       'cats' => $categories,
       'units' => $units,
-      'items' => $items,
+      'products' => $products
     ];
     return view('admin.items.index', $vars);
   }
@@ -73,13 +71,14 @@ class ItemsController extends Controller
 
       try {
         Item::create([
-          'name'         => $request->name,
-          'barcode'      => $request->barcode,
-          'category'    => $request->category,
-          'unit'         => $request->unit,
-          'breif'        => $request->breif,
-          'image'        => $filename,
-          'created_by'   => auth()->user()->id
+          'name'          => $request->name,
+          'barcode'       => $request->barcode,
+          'category_id'   => $request->category,
+          'unit'          => $request->unit,
+          'breif'         => $request->breif,
+          'image'         => $filename,
+          'created_by'    => auth()->user()->id,
+          'updated_by'    => auth()->user()->id
         ]);
         return redirect()->back()->withSuccess('Saves Successfully');
       } catch (QueryException $err) {
@@ -96,13 +95,13 @@ class ItemsController extends Controller
    */
   public function display($id)
   {
-      $item = Item::with('units', 'creator', 'editor')->find($id);
-  
-      if (!$item) {
-          return view('admin.items.view', ['item' => null]);
-      }
-  
-      return view('admin.items.view', compact('item'));
+    $item = Item::find($id);
+
+    if (!$item) {
+      return view('admin.items.view', ['item' => null]);
+    }
+
+    return view('admin.items.view', compact('item'));
   }
 
   /**

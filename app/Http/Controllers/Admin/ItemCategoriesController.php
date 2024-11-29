@@ -39,11 +39,11 @@ class ItemCategoriesController extends Controller
     {
         try {
             ItemCategroy::create([
-                'name'         => $request->name,
-                'parent'       => $request->parent,
-                'brief'        => $request->brief,
-                'status'       => $request->status !== null ? $request->status : 0,
-                'created_by'   => auth()->user()->id
+                'name'          => $request->name,
+                'parent_id'        => $request->parent,
+                'brief'         => $request->brief,
+                'status'        => $request->status !== null ? $request->status : 0,
+                'created_by'    => auth()->user()->id
             ]);
             return redirect()->back()->withSuccess('Saves Successfully');
         } catch (QueryException $err) {
