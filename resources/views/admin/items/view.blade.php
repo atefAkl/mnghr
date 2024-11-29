@@ -26,11 +26,11 @@
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Sub Category: </div>
-              <div class="col col-7 ">{{ @$item->category->name}}</div>
+              <div class="col col-7 ">{{  @$item->category->name}}</div>
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Unit: </div>
-              <div class="col col-7 ">{{ @$item->unit->name }}</div>
+              <div class="col col-7 ">{{ $item->units->name }}</div>
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2  ">
               <div class="col col-5 text-end fw-bold"> serial: </div>
@@ -42,7 +42,7 @@
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Created By: </div>
-              <div class="col col-7 "> {{@$item->creator->name }}</div>
+              <div class="col col-7 "> {{$item->creator->name }}</div>
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Date Created At: </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Edited By: </div>
-              <div class="col col-7 ">{{@$item->editor->name}} </div>
+              <div class="col col-7 ">{{$item->editor->name}} </div>
             </div>
             <div class="row m-0 mb-2 border-bottom border-dark-50 pb-2">
               <div class="col col-5 text-end  fw-bold"> Date Modified: </div>

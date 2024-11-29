@@ -103,24 +103,23 @@ Route::group(
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-<<<<<<< HEAD
+
       Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
       Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
       Route::post('items/store' ,          [ItemsController::class ,'store'])->name('store-new-item');
       Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
-=======
+
     Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
     Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
->>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
 
     /* ========================================================================================================================================
       =========== Items Categories Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-<<<<<<< HEAD
+
       Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
       Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
       Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
-=======
+
     Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-item');
     Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
     Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
@@ -131,6 +130,6 @@ Route::group(
     Route::get('/branches/home',                        [BranchesController::class, 'index'])->name('desplay-branches');
     Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
     Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
->>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
+
   }
 );

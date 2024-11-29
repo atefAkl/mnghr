@@ -6,7 +6,10 @@
     list-style-type: none;
 }
 
-a, a:link, a:focus, a:visited {
+a,
+a:link,
+a:focus,
+a:visited {
     text-decoration: none !important;
 }
 
@@ -17,7 +20,11 @@ a, a:link, a:focus, a:visited {
     box-shadow: 0 0 5px 2px #ccc;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     margin-bottom: 0;
 }
 
@@ -36,8 +43,8 @@ h4 {
 h5 {
     font: Bold 0.9rem/1.2 Arial;
 }
-a{
-  text-decoration: none;
+a {
+    text-decoration: none;
 }
 
 fieldset {
@@ -51,13 +58,12 @@ legend {
     font: 400 1.2rem/1.2 Arial;
     position: absolute;
     padding: 0.25rem 0.5rem;
-    border:  1pt solid #dee2e6;
+    border: 1pt solid #dee2e6;
     background-color: #fff;
     left: 2rem;
     z-index: 9;
     top: -1rem;
     width: auto;
-    
 }
 
 /*=========================================
@@ -67,21 +73,17 @@ legend {
 .main-sidebar button.btn-toggle::before {
     left: auto;
     right: 1rem !important;
-    
 }
 /*=========================================
 ===== Categories List With Tree Display Styles ======================
 ==========================================*/
 
 ol {
-<<<<<<< HEAD
     display: block;
-=======
     display: inline-block;
->>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1
     float: left;
     clear: left;
-    margin: .25rem;
+    margin: 0.25rem;
     padding: 0;
 }
 
@@ -97,7 +99,6 @@ ol:before {
     border-right: solid grey 1px;
     width: 1px;
     height: auto;
-
 }
 
 ol:after {
@@ -105,17 +106,17 @@ ol:after {
     position: absolute;
     z-index: 3;
     top: 0;
-    left: -.5rem;
-    margin: .65rem;
+    left: -0.5rem;
+    margin: 0.65rem;
     padding: 0;
-    width: .8rem;
-    height: .8rem;
+    width: 0.8rem;
+    height: 0.8rem;
     text-align: center;
-    line-height: .6rem;
+    line-height: 0.6rem;
     font-size: 1rem;
 }
 
-ol>li {
+ol > li {
     display: block;
     position: relative;
     float: left;
@@ -128,7 +129,7 @@ ol>li {
     background-color: gray;
 }
 
-ol>li>input {
+ol > li > input {
     display: block;
     position: absolute;
     float: left;
@@ -142,28 +143,28 @@ ol>li>input {
     cursor: pointer;
 }
 
-ol>li>input:checked~ol:before {
+ol > li > input:checked ~ ol:before {
     display: none;
 }
 
-ol>li>input:checked~ol:after {
-    content: "+"
+ol > li > input:checked ~ ol:after {
+    content: "+";
 }
 
-ol>li>input:checked~ol * {
+ol > li > input:checked ~ ol * {
     display: none;
 }
 
-ol>li>label {
+ol > li > label {
     display: block;
     position: relative;
     float: left;
     z-index: 3;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
     background: lightblue;
 }
 
-ol>li>label:after {
+ol > li > label:after {
     content: "";
     display: block;
     position: absolute;
@@ -171,27 +172,26 @@ ol>li>label:after {
     top: 0.9rem;
     bottom: 0;
     margin: 0;
-    border-top: solid grey .1rem;
+    border-top: solid grey 0.1rem;
     width: 0.75rem;
     height: 0;
-
 }
-ol ol ol>li>label {
-    margin-left: 1rem
+ol ol ol > li > label {
+    margin-left: 1rem;
 }
-ol ol ol>li>label:after {
+ol ol ol > li > label:after {
     margin: 0 0 0 0.3rem;
 }
 
-ol>li:last-child:before {
+ol > li:last-child:before {
     content: "";
     display: block;
     position: absolute;
     z-index: 2;
     top: 1rem;
     left: 0;
-    bottom: -.25rem;
-    width: .75rem;
+    bottom: -0.25rem;
+    width: 0.75rem;
     height: auto;
 }
 
@@ -203,25 +203,25 @@ ol>li:last-child:before {
 }
 
 #tree:before {
-    left: .5rem;
+    left: 0.5rem;
 }
 
 #tree:after {
     display: none;
 }
 
-#tree>li>label {
+#tree > li > label {
     background-color: #e4e4e4;
     padding: 0.2rem 0.5rem;
 }
 
-#tree>li>ol>li>label {
+#tree > li > ol > li > label {
     background-color: #e9e9e9;
     padding: 0.2rem 0.5rem;
     margin: 0 0 0 0.3rem;
 }
 
-#tree>li>ol>li>ol>li>label {
+#tree > li > ol > li > ol > li > label {
     background-color: #eee;
     padding: 0.2rem 0.5rem;
     margin: 1px 0 0.3rem;
@@ -229,11 +229,11 @@ ol>li:last-child:before {
 
 /*decoration*/
 ol,
-ol>li:last-child:before {
+ol > li:last-child:before {
     background: white;
 }
 
-ol>li {
+ol > li {
     background: transparent;
 }
 
@@ -241,18 +241,18 @@ ol:after {
     background: white;
     color: black;
     border: solid gray 1px;
-    border-radius: .1rem;
+    border-radius: 0.1rem;
 }
 
-ol>li>label {
-    border-radius: .25rem;
+ol > li > label {
+    border-radius: 0.25rem;
     color: black;
 }
 
-ol>li>input~label:before {
+ol > li > input ~ label:before {
     content: "";
     display: inline-block;
-    margin: 0 .25rem 0 0;
+    margin: 0 0.25rem 0 0;
     width: 1rem;
     height: 1rem;
     line-height: 1rem;
@@ -261,11 +261,10 @@ ol>li>input~label:before {
     background-size: contain;
 }
 
-ol>li>input:checked~label:before {
+ol > li > input:checked ~ label:before {
     background-image: url("data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAD///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAABwAAABcAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAXAAAABwNMcIsDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNMcIsDbqSphs/w/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4bP8P8DbqSpA3i0m4bP7v99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P+Gz+7/A3i0mwJ8uZeK0/D/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/itPw/wJ8uZcCf76Tj9fy/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4/X8v8Cf76TAoLCj5Tb9P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+U2/T/AoLCjwKFx4uZ4Pb/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/meD2/wKFx4sCiMuHn+X5/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5/l+f8CiMuHAorPg6Pp+/+d4/n/neP5/53j+f+d4/n/neP5/53j+f+j6fr/o+n6/6Pp+v+j6fr/o+n6/6Pp+v+m7Pv/AorPgwKN0oGo7f3/ouf7/6Ln+/+i5/v/ouf7/6Ln+/+r8P3/jNDt/4HF5/+Bxef/gcXn/4HF5/+Bxef/gcXn/wKN0oECj9Z9rvP//6vw/v+r8P7/q/D+/6vw/v+u8///j9Pv/4/T7/+r8P7/q/D+/6vw/v+r8P7/q/D+/67z//8Cj9Z9ApHZXQKR2XsCkdl7ApHZewKR2XsCkdl7ApHZewKR2Xv+/v3/+Pjz//Dw5v/p6dv//slB//S2Lv8Ckdl7ApHZXf///wH///8B////Af///wH///8B////Af///wECktsrApLbeQKS23kCktt5ApLbeQKS23kCktt5ApLbK////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//w==");
 }
 
-<<<<<<< HEAD
 /*=========================================
 ===== form Styles ======================
 ==========================================*/
@@ -302,89 +301,87 @@ ol>li>input:checked~label:before {
 /*=========================================
 ===== product list Styles ======================
 ==========================================*/
-.productset {
-
-  border: 1px solid #d3d3d3;
-  box-shadow: 0 4px 4px 0 #ededed40;
-  background: #fff;
-  margin: 0 0 25px;
-  border-radius: 5px;
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  display:block;
-  height: auto;
+.productlist{
+  display: flex;  
+    border: 1px solid #1f1e1e40;
+    box-shadow: 0 4px 4px 0 #ededed40;
+    background: #fff;
+    margin: 0 0 25px;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 }
-.productset:hover {
-  border: 1px solid #1f1e1e40;
+.productlist:hover {
+  border: 1px solid #6e6b7b;
 }
-.productset:hover .productsetimg img {
-  transform: scale(1.2);
+.productlist:hover .productlistimg img {
+    transform: scale(1.2);
 }
-.productset:hover .productsetimg h6 {
-  transform: translatey(0);
+.productlist:hover .productlistimg h6 {
+    transform: translatey(0);
 }
-.productset .productsetimg {
-  position: relative;
-  overflow: hidden;
+.productlist .productlistimg {
+    position: relative;
+    overflow: hidden;
 }
-.productset .productsetimg img {
-  transition: all 0.5s;
-  border-radius: 5px 5px 0 0;
-  max-height: 100px;
-  width: 100%;
+.productlist .productlistimg img {
+    transition: all 0.5s;
+    border-radius: 5px 5px 0 0;
+    max-height: 105px;
+    width: 100%;
 }
 
-.productset .productsetcontent {
-  padding: 13px;
-  text-align: center;
-}
-.productset .productsetcontent h4 {
-  font: Bold 1rem/1.2 Arial;
-  color: #000;
-  margin-bottom: 13px;
-}
-.productset .productsetcontent h5 {
-  color: #6e6b7b;
-  font: Bold 0.9rem/1.2 Arial;
-}
-.productset .productsetcontent a {
-  color: #0d6efd;
-  margin: 0 0 0 auto;
-  font-weight: 600;
-  font: Bold 0.9rem/1.2 Arial;
+.productlist .productlistcontent {
+    padding: 13px;
+    text-align: center;
   
 }
-
+.productlist .productlistcontent h4 {
+    font: Bold 1rem/1.2 Arial;
+    color: #000;
+    margin-bottom: 13px;
+    text-align: center;
+}
+.productlist .productlistcontent h5 {
+    color: #6e6b7b;
+    font: Bold 0.9rem/1.2 Arial;
+    text-align: center;
+}
+.productlist .productlistcontent a {
+    color: #0d6efd;
+    margin: 0 0 0 auto;
+    font-weight: 600;
+    text-align: center;
+    font: Bold 0.9rem/1.2 Arial;
+}
 .overlay {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4); 
+  border:1px solid #0d6efd;
   color: #f1f1f1;
-  width: 100%;
-  height:100%;
+  width: auto;
   transition: .5s ease;
   opacity:0;
-  color: white;
-  font: Bold 0.9rem/1.2 Arial;
-  padding: 20px;
+  padding: 10px;
+  font: Bold 1rem/1.2 Arial;
+  color: #000;
+  margin-bottom: 13px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-left: 6rem;
+
 }
 
 
-.productset:hover .overlay {
+.productlist:hover .overlay {
   opacity: 1;
 }
-=======
 /* ===================================================
 ================= Bootstrap Modifications ============
 =================================================== */
 
 .card {
-    border-radius: 0
+    border-radius: 0;
 }
 
 .card .card-header {
@@ -393,9 +390,8 @@ ol>li>input:checked~label:before {
 }
 .card .card-header:hover {
     background-color: #f5f5f5;
-}  
+}
 .card .card-header .card-title {
     padding: 0.5rem 1rem;
     margin: 0;
 }
->>>>>>> 4443ea6d67e6cbb05c99cb3973035dd4a3bf64f1

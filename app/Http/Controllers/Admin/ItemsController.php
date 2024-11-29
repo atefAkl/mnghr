@@ -96,7 +96,7 @@ class ItemsController extends Controller
    */
   public function display($id)
   {
-      $item = Item::with('category', 'unit', 'creator', 'editor')->find($id);
+      $item = Item::with('units', 'creator', 'editor')->find($id);
   
       if (!$item) {
           return view('admin.items.view', ['item' => null]);
