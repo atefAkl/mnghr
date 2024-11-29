@@ -13,17 +13,17 @@ class Item extends Model
     public $timestamps = true;
     protected $table = "items";
 
-    protected $fillable = ['barcode', 'category_id', 'name', 'serial', 'breif', 'unit', 'image', 'status', 'created_at', 'created_by', 'updated_by', 'updated_at'];
+    protected $fillable = ['barcode', 'category_id', 'name', 'serial', 'breif', 'unit_id', 'image', 'status', 'created_at', 'created_by', 'updated_by', 'updated_at'];
 
 
     public function parent_cat()
     {
         return $this->belongsTo(ItemCategroy::class, 'category_id');
     }
-
-    public function units()
+  
+    public function units_name()
     {
-        return $this->belongsTo(Unit::class, 'unit', 'id');
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 
     public function creator()

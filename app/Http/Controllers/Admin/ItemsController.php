@@ -95,13 +95,13 @@ class ItemsController extends Controller
    */
   public function display($id)
   {
-    $item = Item::find($id);
+    $product = Item::find($id);
 
-    if (!$item) {
-      return view('admin.items.view', ['item' => null]);
+    if (!$product) {
+      return view('admin.items.view', ['product' => null]);
     }
 
-    return view('admin.items.view', compact('item'));
+    return view('admin.items.view', compact('product'));
   }
 
   /**

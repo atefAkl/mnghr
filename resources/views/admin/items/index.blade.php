@@ -67,7 +67,7 @@
                     <div class="input-group">
                         <label class="input-group-text" for="categorey">Parent Category</label>
                         <select class="form-select" name="category" id="categorey">
-                            <option hidden> Parent Select Category </option>
+                            <option hidden placeholder="Parent Select Category">  </option>
                             < @foreach ($centrals as $cat)
                                 @foreach ($cat->children as $child)
                                     <option value="{{ $child->id }}">{{ $cat->parent->name }} -{{ $cat->name }} -
@@ -165,16 +165,19 @@
                                     <div class="productlistimg">
                                         <img src="{{ asset('assets/admin/uploads/images/product/' . $product->image) }}"
                                             alt="img">
+                                          
                                     </div>
                                     <div class="productlistcontent">
                                         <h5 class=" mt-1 mb-1">
                                             {{ $product->parent_cat->parent->name }} &gt; {{ $product->parent_cat->name }}
                                         </h5>
                                         <h4 class="mb-3">{{ $product->name }}</h4>
-
+                                        
                                     </div>
-                                    <div class="overlay bg-light mt-3">My Name is John</div>
-
+                                  
+                                  <div>
+                                      <p>{{$product->breif}}</p>
+                                  </div>
                                 </div>
                             </a>
                         </div>
