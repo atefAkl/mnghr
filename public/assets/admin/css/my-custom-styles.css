@@ -45,9 +45,6 @@ h4 {
 h5 {
     font: Bold 0.9rem/1.2 Arial;
 }
-a {
-    text-decoration: none;
-}
 
 fieldset {
     border: 0.5pt solid #dee2e6;
@@ -274,38 +271,7 @@ ol > li > input:checked ~ label:before {
     background-image: url("data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAD///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAABwAAABcAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAXAAAABwNMcIsDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNMcIsDbqSphs/w/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4bP8P8DbqSpA3i0m4bP7v99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P+Gz+7/A3i0mwJ8uZeK0/D/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/itPw/wJ8uZcCf76Tj9fy/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4/X8v8Cf76TAoLCj5Tb9P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+U2/T/AoLCjwKFx4uZ4Pb/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/meD2/wKFx4sCiMuHn+X5/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5/l+f8CiMuHAorPg6Pp+/+d4/n/neP5/53j+f+d4/n/neP5/53j+f+j6fr/o+n6/6Pp+v+j6fr/o+n6/6Pp+v+m7Pv/AorPgwKN0oGo7f3/ouf7/6Ln+/+i5/v/ouf7/6Ln+/+r8P3/jNDt/4HF5/+Bxef/gcXn/4HF5/+Bxef/gcXn/wKN0oECj9Z9rvP//6vw/v+r8P7/q/D+/6vw/v+u8///j9Pv/4/T7/+r8P7/q/D+/6vw/v+r8P7/q/D+/67z//8Cj9Z9ApHZXQKR2XsCkdl7ApHZewKR2XsCkdl7ApHZewKR2Xv+/v3/+Pjz//Dw5v/p6dv//slB//S2Lv8Ckdl7ApHZXf///wH///8B////Af///wH///8B////Af///wECktsrApLbeQKS23kCktt5ApLbeQKS23kCktt5ApLbK////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//w==");
 }
 
-/*=========================================
-===== form Styles ======================
-==========================================*/
-/* legend {
-  font: 400 1.2rem/1.2 Arial;
-  position: absolute;
-  padding: 0.25rem 0.5rem;
-  border:  1pt solid #dee2e6;
-  background-color: #eee;
-  left: 2rem;
-  z-index: 9;
-  top: -1rem;
-  width: auto;
-  
-} */
-/* .form-control {
-  display: block;
-  width: 100%;
-  padding: .375rem .75rem;
-  font-size: 0.82rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #444;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: .25rem;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075);
-} */
+
 
 /*=========================================
 ===== product list Styles ======================
@@ -347,43 +313,34 @@ ol > li > input:checked ~ label:before {
   
 }
 .productlist .productlistcontent h4 {
-    font: Bold 1rem/1.2 Arial;
+    font:  1rem/1.2 Arial;
     color: #000;
     margin-bottom: 13px;
     text-align: center;
 }
 .productlist .productlistcontent h5 {
     color: #6e6b7b;
-    font: Bold 0.9rem/1.2 Arial;
+    font:  0.9rem/1.2 Arial;
     text-align: center;
 }
-.productlist .productlistcontent a {
-    color: #0d6efd;
-    margin: 0 0 0 auto;
-    font-weight: 600;
-    text-align: center;
-    font: Bold 0.9rem/1.2 Arial;
+
+
+  .productlist  p {
+    position: absolute;
+    background: #e4e4e4;
+    color: #000;
+    font:  0.9rem/1.2 Arial;
+    padding: 5px;
+    border-radius: 5px;
+    top: 8rem;
+    right: 2.3rem;
+    transform: translatey(0);
+    transition: all 0.3s;
+    text-align: center;  
+  
 }
-.overlay {
-  position: absolute;
-  bottom: 0;
-  border:1px solid #0d6efd;
-  color: #f1f1f1;
-  width: auto;
-  transition: .5s ease;
-  opacity:0;
-  padding: 10px;
-  font: Bold 1rem/1.2 Arial;
-  color: #000;
-  margin-bottom: 13px;
-  text-align: center;
-  margin-left: 6rem;
-
-}
-
-
-.productlist:hover .overlay {
-  opacity: 1;
+.productlist:hover  p {
+  transform: translatey(-60px);
 }
 /* ===================================================
 ================= Bootstrap Modifications ============
