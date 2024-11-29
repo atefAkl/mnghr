@@ -34,6 +34,7 @@ class Admin extends Authenticatable
         //     return false;
         // }
     }
+
     public function profile()
     {
         return  $this->hasOne(AdminProfile::class, 'user_id', 'id');
@@ -53,7 +54,7 @@ class Admin extends Authenticatable
         // }
     }
 
-    public function fullName()
+    public function getFullName()
     {
         return  $this->profile->first_name . ' ' . $this->profile->last_name . ' [ ' . $this->userName . ' ]';
     }

@@ -16,21 +16,21 @@ html {
 main {
     height: 100vh;
     height: -webkit-fill-available;
-    max-height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .main-sidebar {
     box-shadow: 0 0 5px 2px var(--shadow-light-color);
     min-height: 100vh;
-    position: relative;
+    position: fixed;
 	padding: 0;
 }
 
 .main-sidebar .sidebar-toggle {
-    position: absolute;
+    position: fixed;
     left: 100%;
+    z-index: 9999999;
     padding: 0.5rem 1rem;
     top: 0;
     font-size: 1.3em;

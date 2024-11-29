@@ -39,16 +39,15 @@ Route::group(
     'middleware'    => 'auth:admin'
   ],
   function () {
-
-    Route::get('dashboard',                                         [HomeController::class, 'index'])->name('admin.dashboard');
-    Route::get('operations/log',                                    [HomeController::class, 'log'])->name('operations.log');
-    Route::get('dashboard/home',                                    [HomeController::class, 'index'])->name('home.index');
-    Route::get('logout',                                            [LoginController::class, 'logout'])->name('logout');
+    Route::get('dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('operations/log',            [HomeController::class, 'log'])->name('operations.log');
+    Route::get('dashboard/home',            [HomeController::class, 'index'])->name('home.index');
+    Route::get('logout',                    [LoginController::class, 'logout'])->name('logout');
 
     //=====================================================================================================================================================================
     //======================================================= General Stats ==========================================================================================
     //=====================================================================================================================================================================
-    Route::get('home/index',                                         [HomeController::class, 'index'])->name('home.index');
+    Route::get('home/index',                [HomeController::class, 'index'])->name('home.index');
   }
 );
 
@@ -96,7 +95,9 @@ Route::group(
     Route::get('stores/home',                           [storesController::class, 'home'])->name('stores-home');
     Route::get('stores/index',                          [storesController::class, 'index'])->name('display-stores-list');
     Route::post('stores/store',                         [storesController::class, 'store'])->name('save-store-info');
-    Route::post('stores/update',                        [storesController::class, 'update'])->name('update-store-info');
+    Route::post('stores/update',                        [storesController::class, 'update'])->name('update-store-general-info');
+    Route::post('stores/update/loc',                    [storesController::class, 'update_loc'])->name('update-store-location-info');
+    Route::post('stores/update/com',                    [storesController::class, 'update_com'])->name('update-store-communication-info');
     Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
     Route::post('stores/destroy/{id}',                  [storesController::class, 'destroy'])->name('destroy-store-info');
 
@@ -104,6 +105,7 @@ Route::group(
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
 
+<<<<<<< HEAD
       Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
       Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
       Route::post('items/store' ,          [ItemsController::class ,'store'])->name('store-new-item');
@@ -111,14 +113,30 @@ Route::group(
 
     Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
     Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
+=======
+    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
+    Route::post('items/store',          [ItemsController::class, 'store'])->name('store-new-item');
+    Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
+
+    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
+
+>>>>>>> 8ec26fdf9aa5b8ec63f7fb9e6383ad240a8100c5
 
     /* ========================================================================================================================================
       =========== Items Categories Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
 
+<<<<<<< HEAD
       Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
       Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
       Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
+=======
+    Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
+    Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
+    Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
+>>>>>>> 8ec26fdf9aa5b8ec63f7fb9e6383ad240a8100c5
 
     Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-item');
     Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
@@ -130,6 +148,9 @@ Route::group(
     Route::get('/branches/home',                        [BranchesController::class, 'index'])->name('desplay-branches');
     Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
     Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8ec26fdf9aa5b8ec63f7fb9e6383ad240a8100c5
   }
 );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Branch;
 use App\Models\Store;
 use Exception;
@@ -68,6 +69,7 @@ class storesController extends Controller
             'store' => Store::find($id),
             'stores' => $stores,
             'branches' => $branches,
+            'admins' => Admin::all()
         ];
         return view('admin.stores.edit', $vars);
     }
@@ -93,6 +95,22 @@ class storesController extends Controller
             return redirect()->back()->with('success', 'Branch updated successfully');
         } catch (Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Error updating branch because of: ' . $e);
+        }
+    }
+
+    public function update_com(Request $request)
+    {
+        // return $request;
+        $store = Store::find($request->id);
+        try {
+            $store->update([
+                'admin_id' => $request->admin,
+                'email' => $request->email,
+                'phone' => $request->mobile,
+            ]);
+            return redirect()->back()->with('success', 'Branch updated successfully');
+        } catch (Exception $err) {
+            return redirect()->back()->withInput()->withError('Failed Due to: ' . $err);
         }
     }
 }

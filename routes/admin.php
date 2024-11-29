@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8ec26fdf9aa5b8ec63f7fb9e6383ad240a8100c5
 <?php
 
 use App\Http\Controllers\Admin\storesController;
