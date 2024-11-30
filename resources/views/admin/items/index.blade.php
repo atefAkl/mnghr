@@ -6,12 +6,7 @@
 @section('contents')
     <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Items Home
 
-        <a class="btn btn-sm btn-outline-primary ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm"
-            aria-expanded="false" aria-controls="addItemCategoryForm"><i class="fa fa-folder-plus"></i></a>
-        <a class="btn btn-sm btn-outline-primary " data-bs-toggle="collapse" data-bs-toggle="tooltip"
-            data-bs-placement="top" title="Add Item" data-bs-target="#addItemForm" aria-expanded="false"
-            aria-controls="addItemForm">
-            <i class="fa fa-square-plus"></i></a>
+        
     </h1>
 
     <!--  start Add New Category -->
@@ -159,7 +154,7 @@
 
                 <div class="row ">
                     @foreach ($products as $product)
-                        <div class="col-lg-6 col-sm-6 mb-2">
+                        <div class="col-lg-6 col-sm-6 mb-1  ">
                             <a href="{{ route('display-item', [$product->id]) }}">
                                 <div class="productlist">
                                     <div class="productlistimg">
@@ -168,7 +163,7 @@
                                           
                                     </div>
                                     <div class="productlistcontent">
-                                        <h5 class=" mt-1 mb-1">
+                                        <h5 class=" mb-1">
                                             {{ $product->parent_cat->parent->name }} &gt; {{ $product->parent_cat->name }}
                                         </h5>
                                         <h4 class="mb-3">{{ $product->name }}</h4>

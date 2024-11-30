@@ -277,22 +277,16 @@ ol > li > input:checked ~ label:before {
 ===== product list Styles ======================
 ==========================================*/
 .productlist{
-  display: flex;  
-    border: 1px solid #1f1e1e40;
-    box-shadow: 0 4px 4px 0 #ededed40;
+    display: flex;  
     background: #fff;
-    margin: 0 0 25px;
     border-radius: 5px;
     position: relative;
     width: 100%;
     overflow: hidden;
+    height:70px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 }
-.productlist:hover {
-  border: 1px solid #6e6b7b;
-}
-.productlist:hover .productlistimg img {
-    transform: scale(1.2);
-}
+
 .productlist:hover .productlistimg h6 {
     transform: translatey(0);
 }
@@ -303,27 +297,26 @@ ol > li > input:checked ~ label:before {
 .productlist .productlistimg img {
     transition: all 0.5s;
     border-radius: 5px 5px 0 0;
-    max-height: 105px;
+    max-height: 70px;
     width: 100%;
 }
 
 .productlist .productlistcontent {
     padding: 13px;
-    text-align: center;
+    text-align: left;
   
 }
 .productlist .productlistcontent h4 {
-    font:  1rem/1.2 Arial;
+    font: bold 1rem/1.2 Arial;
     color: #000;
     margin-bottom: 13px;
-    text-align: center;
+    
 }
 .productlist .productlistcontent h5 {
-    color: #6e6b7b;
-    font:  0.9rem/1.2 Arial;
-    text-align: center;
+    color: #4f5357;
+    font: bold 1rem/1.2 Arial;
+    
 }
-
 
   .productlist  p {
     position: absolute;
@@ -332,8 +325,8 @@ ol > li > input:checked ~ label:before {
     font:  0.9rem/1.2 Arial;
     padding: 5px;
     border-radius: 5px;
-    top: 8rem;
-    right: 2.3rem;
+    top: 5rem;
+    right: 1rem;
     transform: translatey(0);
     transition: all 0.3s;
     text-align: center;  
