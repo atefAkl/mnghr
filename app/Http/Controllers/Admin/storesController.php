@@ -79,22 +79,22 @@ class storesController extends Controller
      */
     public function update(Request $request)
     {
-        $store = Branch::find($request->id);
+        $store = Store::find($request->id);
+
         try {
 
             $store->update([
-                'name'          => $request->name,
-                'code'       => $request->address,
-                'brief'         => $request->phone,
-                'email'         => $request->email,
-                'branch_code'   => $request->branch_code,
+                'store_id' => $request->parent_store,
+                'name'      => $request->store_name,
+                'code'      => $request->store_code,
+                'brief'     => $request->store_brief,
 
                 'updated_by'    => auth()->user()->id
             ]);
 
             return redirect()->back()->with('success', 'Branch updated successfully');
         } catch (Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Error updating branch because of: ' . $e);
+            return redirect()->back()->withInput()->with('error', 'Error updating branch because of: ' . $e->getMessage());
         }
     }
 

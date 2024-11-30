@@ -61,7 +61,7 @@
     </div>
 
 
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered mt-3">
         <thead>
             <tr>
                 <th>Code</th>
@@ -82,14 +82,14 @@
                         <td>{{ $store->admin->profile->phone }}</td>
                         <td>{{ $store->staus }}</td>
                         <td>
-                            <button class="btn">
-                                <a href="{{ route('edit-store-info', $store->id) }}"><i
-                                        class="fa fa-edit text-primary"></i></a>
-                            </button>
-                            <button class="btn">
-                                <a href="{{ route('destroy-store-info', $store->id) }}"><i
-                                        class="fa fa-trash text-danger"></i></a>
-                            </button>
+
+                            <a class="btn btn-sm py-0" href="{{ route('edit-store-info', $store->id) }}"><i
+                                    class="fa fa-edit text-primary"></i></a>
+
+
+                            <a class="btn btn-sm py-0" href="{{ route('destroy-store-info', $store->id) }}"><i
+                                    class="fa fa-trash text-danger"></i></a>
+
                         </td>
                     </tr>
                 @endforeach
