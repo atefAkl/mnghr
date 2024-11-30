@@ -11,7 +11,7 @@
 
     <!--  start Add New Category -->
     <div class="row">
-        <div class="col col-12 collapse" id="addItemCategoryForm">
+        <div class="col col-12 collapse" id="addItemCategoryForm" >
             <div class="card card-body">
                 <form action="/admin/items/categories/store" method="POST">
                     @csrf
@@ -208,5 +208,18 @@
             });
 
         });
+
+
+      
+  $(document).ready(function() {
+    $('#addItemForm').on('show.bs.collapse', function() {
+      $('#addItemCategoryForm').collapse('hide');
+    });
+
+    $('#addItemCategoryForm').on('show.bs.collapse', function() {
+      $('#addItemForm').collapse('hide');
+    });
+  });
+
     </script>
 @endsection
