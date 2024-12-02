@@ -108,21 +108,14 @@ Route::group(
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
 
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::post('items/store',          [ItemsController::class, 'store'])->name('store-new-item');
-    Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
-
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::post('items/store',          [ItemsController::class, 'store'])->name('store-new-item');
-    Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
-
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-
+    Route::get('items/home',                            [ItemsController::class, 'home'])->name('product-home');
+    Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-list');
+    Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');
+    Route::post('items/store',                          [ItemsController::class, 'store'])->name('store-new-product');
+    Route::get('item/display/{id}',                     [ItemsController::class, 'display'])->name('display-product');
+    Route::post('item/update',                          [ItemsController::class, 'update'])->name('update-product-info');
+    Route::get('items/edit/{id}',                       [ItemsController::class, 'edit'])->name('edit-product-info');
+    Route::get('items/destroy/{id}',                   [ItemsController::class, 'destroy'])->name('destroy-product-info');
 
     /* ========================================================================================================================================
       =========== Items Categories Routes Collection ===========================================================================================================

@@ -1,0 +1,31 @@
+<div class="row ">
+        @foreach ($products as $product)
+        <div class="col-lg-6 col-sm-6 mb-1  ">
+          <a href="{{ route('display-product', [$product->id]) }}">
+            <div class="productlist">
+              <div class="productlistimg">
+                <img src="{{ asset('assets/admin/uploads/images/product/' . $product->image) }}"
+                  alt="img">
+
+              </div>
+              <div class="productlistcontent">
+                <h5 class=" mb-1">
+                  @if ($product->parent_cat && $product->parent_cat->parent)
+                  {{ $product->parent_cat->parent->name }} &gt; {{ $product->parent_cat->name }}
+                  @else
+                  {{ $product->name }}
+                  @endif
+                </h5>
+                <h4 class="mb-3">{{ $product->name }}</h4>
+
+              </div>
+
+              <div>
+                <p>{{$product->breif}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        @endforeach
+
+      </div>
