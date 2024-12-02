@@ -17,7 +17,7 @@ class BranchesController extends Controller
     {
         //
         $branches = Branch::all();
-        return view('admin.settings.home', ['branches' => $branches]);
+        return view('admin.settings.branches.home', ['branches' => $branches]);
     }
 
     /**

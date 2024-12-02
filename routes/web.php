@@ -102,26 +102,26 @@ Route::group(
     Route::post('stores/update/loc',                    [storesController::class, 'update_loc'])->name('update-store-location-info');
     Route::post('stores/update/com',                    [storesController::class, 'update_com'])->name('update-store-communication-info');
     Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
-    Route::post('stores/destroy/{id}',                  [storesController::class, 'destroy'])->name('destroy-store-info');
+    Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
 
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
 
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::post('items/store',          [ItemsController::class, 'store'])->name('store-new-item');
-    Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
+    Route::get('items/home',                          [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',                         [ItemsController::class, 'index'])->name('display-items-list');
+    Route::post('items/store',                        [ItemsController::class, 'store'])->name('store-new-item');
+    Route::get('item/display/{id}',                   [ItemsController::class, 'display'])->name('display-item');
 
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
-    Route::post('items/store',          [ItemsController::class, 'store'])->name('store-new-item');
-    Route::get('item/display/{id}',      [ItemsController::class, 'display'])->name('display-item');
+    Route::get('items/home',                          [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',                         [ItemsController::class, 'index'])->name('display-items-list');
+    Route::get('items/home',                          [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',                         [ItemsController::class, 'index'])->name('display-items-list');
+    Route::post('items/store',                        [ItemsController::class, 'store'])->name('store-new-item');
+    Route::get('item/display/{id}',                   [ItemsController::class, 'display'])->name('display-item');
 
-    Route::get('items/home',             [ItemsController::class, 'home'])->name('items-home');
-    Route::get('items/index',            [ItemsController::class, 'index'])->name('display-items-list');
+    Route::get('items/home',                          [ItemsController::class, 'home'])->name('items-home');
+    Route::get('items/index',                         [ItemsController::class, 'index'])->name('display-items-list');
 
 
     /* ========================================================================================================================================
@@ -145,5 +145,6 @@ Route::group(
     Route::get('/branches/home',                        [BranchesController::class, 'index'])->name('desplay-branches');
     Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
     Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
+    Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
   }
 );

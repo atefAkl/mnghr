@@ -87,7 +87,9 @@
                                     class="fa fa-edit text-primary"></i></a>
 
 
-                            <a class="btn btn-sm py-0" href="{{ route('destroy-store-info', $store->id) }}"><i
+                            <a class="btn btn-sm py-0"
+                                onclick="if (!confirm('You are going to delete this store, are you sure?'))return false"
+                                href="{{ route('destroy-store-info', $store->id) }}"><i
                                     class="fa fa-trash text-danger"></i></a>
 
                         </td>

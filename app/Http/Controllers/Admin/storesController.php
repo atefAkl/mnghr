@@ -113,4 +113,15 @@ class storesController extends Controller
             return redirect()->back()->withInput()->withError('Failed Due to: ' . $err);
         }
     }
+
+    public function destroy($id)
+    {
+        $store = Store::find($id);
+        try {
+            $store->delete();
+            return redirect()->back()->with('success', 'Branch deleted successfully');
+        } catch (Exception $err) {
+            return redirect()->route('display-stores-list')->with('error', 'Error deleting branch because of: ' . $err->getMessage());
+        }
+    }
 }

@@ -67,8 +67,8 @@
                 <div class="col col-4 item-info-data">
                     <select class="inline-input" name="parent_store">
 
-                        @foreach ($stores as $store)
-                            <option value="{{ $store->id }}">{{ $store->name }}</option>
+                        @foreach ($stores as $store_option)
+                            <option value="{{ $store_option->id }}">{{ $store_option->name }}</option>
                         @endforeach
                     </select>
                 </div>

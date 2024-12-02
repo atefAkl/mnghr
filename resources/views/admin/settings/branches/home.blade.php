@@ -104,9 +104,10 @@
                                     data-bs-toggle="collapse" data-bs-target="#editBranchInfo">
                                     <i data-bs-toggle="tooltip" data-bs-title="Tooltip on top" class="fa fa-edit"></i>
                                 </button>
-                                <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#editBranchInfo">
-                                    <i data-bs-toggle="tooltip" data-bs-title="Tooltip on top" class="fa fa-edit"></i>
-                                </button>
+                                <a class="btn btn-sm" href="{{ route('destroy-branch', $item->id) }}">
+                                    <i data-bs-toggle="tooltip" data-bs-title="Tooltip on top"
+                                        class="fa fa-trash text-danger"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
