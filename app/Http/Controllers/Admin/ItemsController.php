@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Unit;
 use App\Models\User;
-
+use Exception;
 
 class ItemsController extends Controller
 {
@@ -21,7 +21,13 @@ class ItemsController extends Controller
    */
   public function home()
   {
-    //
+
+    $products = Item::all();
+    $vars = [
+
+      'products' => $products
+    ];
+    return view('admin.items.home', $vars);
   }
   /**
    * Display a listing of the resource.
@@ -73,8 +79,8 @@ class ItemsController extends Controller
         Item::create([
           'name'          => $request->name,
           'barcode'       => $request->barcode,
-          'category_id'   => $request->category,
-          'unit'          => $request->unit,
+          'parent_id'     => $request->category,
+          'unit_id'       => $request->unit,
           'breif'         => $request->breif,
           'image'         => $filename,
           'created_by'    => auth()->user()->id,
@@ -103,7 +109,46 @@ class ItemsController extends Controller
 
     return view('admin.items.view', compact('product'));
   }
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function filterProductsAccordingToCategory(Request $request)
+  {
+    $id = $request->input('id');
+    $filtered = Item::where(['category_id' => $id])->get();
 
+    $categories = ItemCategroy::roots();
+    $units = Unit::All();
+    $vars = [
+      'centrals' => ItemCategroy::centralCats(),
+      'cats' => $categories,
+      'units' => $units,
+      'products' => $filtered
+    ];
+    return view('admin.items.index', $vars);
+  }
+
+
+  public function filter(Request $request)
+  {
+    $categoryId = $request->category_id;
+
+
+    $products = Item::whereHas('categories', function ($query) use ($categoryId) {
+      $query->where('id', $categoryId)
+        ->orWhereHas('parent', function ($query) use ($categoryId) {
+          $query->where('id', $categoryId);
+        });
+    })->get();
+
+
+    return response()->json([
+      'html' => view('admin.items.filter', compact('products'))->render()
+    ]);
+  }
   /**
    * Show the form for editing the specified resource.
    *
@@ -112,7 +157,12 @@ class ItemsController extends Controller
    */
   public function edit($id)
   {
-    //
+
+    $product = Item::find($id);
+    $units = Unit::All();
+    $centrals = ItemCategroy::centralCats();
+
+    return view('admin.items.edit', compact('product', 'units', 'centrals'));
   }
 
   /**
@@ -122,9 +172,27 @@ class ItemsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(Request $request)
   {
-    //
+    $product = Item::find($request->id);
+
+    //return $request->product_serial;
+    try {
+      $product->update([
+        'barcode'           => $request->product_barcode,
+        'parent_id'         => $request->parent_id,
+        'name'              => $request->product_name,
+        'serial'            => $request->product_serial,
+        'breif'             => $request->product_breif,
+        'unit_id'           => $request->product_unit_id,
+        'updated_by'        => auth()->user()->id,
+        'updated_by'        => auth()->user()->id
+
+      ]);
+      return redirect()->back()->with('success', 'product updated successfully');
+    } catch (Exception $e) {
+      return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
+    }
   }
 
   /**
@@ -135,6 +203,7 @@ class ItemsController extends Controller
    */
   public function destroy($id)
   {
-    //
+    Item::find($id)->delete();
+    return redirect()->back()->with(['Success' => 'Product Removed Successfully']);
   }
 }
