@@ -56,7 +56,7 @@ class ItemsController extends Controller
    */
   public function create()
   {
-    //
+    // All changes has been
   }
 
   private static $path = 'assets/admin/uploads/images/product';
