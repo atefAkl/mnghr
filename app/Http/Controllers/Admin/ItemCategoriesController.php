@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ItemCategroy;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\itemCategoryRequest;
 class ItemCategoriesController extends Controller
 {
     /**
@@ -35,13 +35,14 @@ class ItemCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(itemCategoryRequest $request)
     {
+      $validated = $request->safe()->only(['name','breif']);
         try {
             ItemCategroy::create([
-                'name'          => $request->name,
+                'name'            => $validated['name'],
                 'parent_id'        => $request->parent,
-                'brief'         => $request->brief,
+                'breif'           => $validated['breif'],
                 'status'        => $request->status !== null ? $request->status : 0,
                 'created_by'    => auth()->user()->id
             ]);

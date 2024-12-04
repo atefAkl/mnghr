@@ -14,10 +14,10 @@
       </legend>
 
       <div class="row">
-  
+
         <div class="col-lg-8 col-sm-8">
           <div class="bulk border-dark p-0 m-1">
-          <div class="row m-0 mb-1  border-bottom border-dark-50 pb-1 ">
+            <div class="row m-0 mb-1  border-bottom border-dark-50 pb-1 ">
               <div class="col col-5 text-end fw-bold"> Barcode: </div>
               <div class="col col-7  ">{{ $product->barcode }}</div>
             </div>
@@ -31,11 +31,17 @@
             </div>
             <div class="row m-0 mb-1  border-bottom border-dark-50 pb-1">
               <div class="col col-5 text-end  fw-bold"> Sub Category: </div>
-              <div class="col col-7 ">  {{ $product->parent_cat->name }}  </div>
+              <div class="col col-7 "> {{ $product->parent_cat->name }} </div>
             </div>
             <div class="row m-0 mb-1  border-bottom border-dark-50 pb-1">
               <div class="col col-5 text-end  fw-bold"> Unit: </div>
-              <div class="col col-7 ">{{ $product->units_name->name }}</div>
+              <div class="col col-7 ">
+                @if ($product->units_name)
+                {{ $product->units_name->name }}
+                @else
+                N/A
+                @endif
+              </div>
             </div>
             <div class="row m-0 mb-1  border-bottom border-dark-50 pb-1">
               <div class="col col-5 text-end fw-bold"> serial: </div>
@@ -63,7 +69,7 @@
             </div>
           </div>
         </div>
-    
+
       </div>
   </div>
   </fieldset>

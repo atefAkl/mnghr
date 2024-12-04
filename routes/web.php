@@ -108,12 +108,12 @@ Route::group(
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
 
-    Route::get('items/home',                            [ItemsController::class, 'home'])->name('product-home');
-    Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-list');
+    Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-product-list');
+    Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-all');
     Route::get('items/filter',                          [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
     Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');
     Route::post('items/store',                          [ItemsController::class, 'store'])->name('store-new-product');
-    Route::get('item/display/{id}',                     [ItemsController::class, 'display'])->name('display-product');
+    Route::get('item/display/{id}',                     [ItemsController::class, 'display'])->name('view-product-info');
     Route::post('item/update',                          [ItemsController::class, 'update'])->name('update-product-info');
     Route::get('items/edit/{id}',                       [ItemsController::class, 'edit'])->name('edit-product-info');
     Route::get('items/destroy/{id}',                   [ItemsController::class, 'destroy'])->name('destroy-product-info');

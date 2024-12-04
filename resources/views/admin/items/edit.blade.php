@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('header-links')
-    <li class="breadcrumb-item"><a href="/admin/items/home"> All Items </a></li>
+    <li class="breadcrumb-item"><a href="/admin/items/home"> Items </a></li>
+    <li class="breadcrumb-item"><a href="/admin/items/index"> Index </a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Item</li>
 @endsection
 @section('contents')

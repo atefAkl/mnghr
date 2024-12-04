@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use App\Models\ItemCategroy;
 use Illuminate\Http\Request;
+use App\Http\Requests\ItemRequest;
 use App\Models\Item;
 use App\Models\Unit;
 use App\Models\User;
 use Exception;
+
 
 class ItemsController extends Controller
 {
@@ -19,7 +21,7 @@ class ItemsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function home()
+  public function index()
   {
 
     $products = Item::all();
@@ -27,14 +29,14 @@ class ItemsController extends Controller
 
       'products' => $products
     ];
-    return view('admin.items.home', $vars);
+    return view('admin.items.index', $vars);
   }
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function home()
   {
     $products = Item::all();
 
@@ -46,7 +48,7 @@ class ItemsController extends Controller
       'units' => $units,
       'products' => $products
     ];
-    return view('admin.items.index', $vars);
+    return view('admin.items.home', $vars);
   }
 
   /**
@@ -66,8 +68,10 @@ class ItemsController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(ItemRequest $request)
   {
+    $validated = $request->safe()->only(['name', 'barcode','breif']);
+
     if ($request->hasFile('image')) {
 
       $filehandler = $request->image;
@@ -77,14 +81,14 @@ class ItemsController extends Controller
 
       try {
         Item::create([
-          'name'          => $request->name,
-          'barcode'       => $request->barcode,
-          'parent_id'     => $request->category,
-          'unit_id'       => $request->unit,
-          'breif'         => $request->breif,
-          'image'         => $filename,
-          'created_by'    => auth()->user()->id,
-          'updated_by'    => auth()->user()->id
+          'name'            => $validated['name'],
+          'barcode'         => $validated['barcode'],
+          'category_id'     => $request->category_id,
+          'unit_id'         => $request->unit,
+          'breif'           => $validated['breif'],
+          'image'           => $filename,
+          'created_by'      => auth()->user()->id,
+          'updated_by'      => auth()->user()->id
         ]);
         return redirect()->back()->withSuccess('Saves Successfully');
       } catch (QueryException $err) {
@@ -128,27 +132,11 @@ class ItemsController extends Controller
       'units' => $units,
       'products' => $filtered
     ];
-    return view('admin.items.index', $vars);
+    return view('admin.items.home', $vars);
   }
 
 
-  public function filter(Request $request)
-  {
-    $categoryId = $request->category_id;
 
-
-    $products = Item::whereHas('categories', function ($query) use ($categoryId) {
-      $query->where('id', $categoryId)
-        ->orWhereHas('parent', function ($query) use ($categoryId) {
-          $query->where('id', $categoryId);
-        });
-    })->get();
-
-
-    return response()->json([
-      'html' => view('admin.items.filter', compact('products'))->render()
-    ]);
-  }
   /**
    * Show the form for editing the specified resource.
    *
