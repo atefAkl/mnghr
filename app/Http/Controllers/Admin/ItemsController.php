@@ -31,24 +31,29 @@ class ItemsController extends Controller
     ];
     return view('admin.items.index', $vars);
   }
+
+  public function home()
+  {
+      return view('admin.items.home');
+  }
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function home()
+  public function productList()
   {
     $products = Item::all();
 
     $categories = ItemCategroy::roots();
     $units = Unit::All();
     $vars = [
-      'centrals' => ItemCategroy::centralCats(),
-      'cats' => $categories,
-      'units' => $units,
-      'products' => $products
+      'centrals'   => ItemCategroy::centralCats(),
+      'cats'       => $categories,
+      'units'      => $units,
+      'products'   => $products
     ];
-    return view('admin.items.home', $vars);
+    return view('admin.items.productList', $vars);
   }
 
   /**
@@ -70,12 +75,12 @@ class ItemsController extends Controller
    */
   public function store(ItemRequest $request)
   {
-    $validated = $request->safe()->only(['name', 'barcode','breif']);
+       $validated   = $request->safe()->only(['name', 'barcode','breif']);
 
     if ($request->hasFile('image')) {
 
-      $filehandler = $request->image;
-      $filename = time() . 'image_product.' . $filehandler->getClientOriginalExtension();
+      $filehandler   = $request->image;
+      $filename      = time() . 'image_product.' . $filehandler->getClientOriginalExtension();
       $filehandler->move(self::$path, $filename);
 
 
@@ -128,11 +133,11 @@ class ItemsController extends Controller
     $units = Unit::All();
     $vars = [
       'centrals' => ItemCategroy::centralCats(),
-      'cats' => $categories,
-      'units' => $units,
+      'cats'     => $categories,
+      'units'    => $units,
       'products' => $filtered
     ];
-    return view('admin.items.home', $vars);
+    return view('admin.items.filter', $vars);
   }
 
 
@@ -146,9 +151,9 @@ class ItemsController extends Controller
   public function edit($id)
   {
 
-    $product = Item::find($id);
-    $units = Unit::All();
-    $centrals = ItemCategroy::centralCats();
+    $product   = Item::find($id);
+    $units     = Unit::All();
+    $centrals  = ItemCategroy::centralCats();
 
     return view('admin.items.edit', compact('product', 'units', 'centrals'));
   }

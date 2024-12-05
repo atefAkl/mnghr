@@ -4,9 +4,7 @@
     <li class="breadcrumb-item active" aria-current="page">index</li>
 @endsection
 @section('contents')
-    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">All Product
-        
-    </h1>
+    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Display Items List</h1>
     <table class="table table-striped table-bordered mt-3">
         <thead>
             <tr>

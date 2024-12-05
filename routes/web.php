@@ -107,8 +107,8 @@ Route::group(
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-
-    Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-product-list');
+    Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-items');
+    Route::get('items/productList',                     [ItemsController::class, 'productList'])->name('display-product-list');
     Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-all');
     Route::get('items/filter',                          [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
     Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');
@@ -116,7 +116,7 @@ Route::group(
     Route::get('item/display/{id}',                     [ItemsController::class, 'display'])->name('view-product-info');
     Route::post('item/update',                          [ItemsController::class, 'update'])->name('update-product-info');
     Route::get('items/edit/{id}',                       [ItemsController::class, 'edit'])->name('edit-product-info');
-    Route::get('items/destroy/{id}',                   [ItemsController::class, 'destroy'])->name('destroy-product-info');
+    Route::get('items/destroy/{id}',                    [ItemsController::class, 'destroy'])->name('destroy-product-info');
 
     /* ========================================================================================================================================
       =========== Items Categories Routes Collection ===========================================================================================================

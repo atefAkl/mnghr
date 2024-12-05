@@ -25,8 +25,8 @@ class itemCategoryRequest extends FormRequest
   {
     return [
     
-      'name' => 'required|string|max:50',
-      'breif' => 'nullable|string|max:255'
+      'cat_name' => 'required|string|max:50',
+      'cat_brief' => 'nullable|string|max:255'
     ];
   }
 
@@ -40,12 +40,12 @@ class itemCategoryRequest extends FormRequest
     return [
       
 
-      'name.required' => 'The name field is required.',
-      'name.string' => 'The name must be a string.',
-      'name.max' => 'The name may not be greater than 50 characters.',
+      'cat_name.required' => 'The name field is required.',
+      'cat_name.string' => 'The name must be a string.',
+      'cat_name.max' => 'The name may not be greater than 50 characters.',
 
-      'breif.string' => 'The brief description must be a string.',
-      'breif.max' => 'The brief description may not be greater than 255 characters.',
+      'cat_brief.string' => 'The brief description must be a string.',
+      'cat_brief.max' => 'The brief description may not be greater than 255 characters.',
 
     ];
   }

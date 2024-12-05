@@ -22,7 +22,7 @@
                             Home</a>
                     </li>
 
-                    <li><a href="/admin/items/index"
+                    <li><a href="/admin/items/home"
                             class="link-body-emphasis d-inline-flex text-decoration-none rounded">
                             <i class="fa fa-tags"></i> &nbsp; Items</a>
                     </li>

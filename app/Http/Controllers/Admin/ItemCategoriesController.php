@@ -37,14 +37,14 @@ class ItemCategoriesController extends Controller
      */
     public function store(itemCategoryRequest $request)
     {
-      $validated = $request->safe()->only(['name','breif']);
+      $validated = $request->safe()->only(['cat_name','cat_brief']);
         try {
             ItemCategroy::create([
-                'name'            => $validated['name'],
-                'parent_id'        => $request->parent,
-                'breif'           => $validated['breif'],
-                'status'        => $request->status !== null ? $request->status : 0,
-                'created_by'    => auth()->user()->id
+                'cat_name'            => $validated['cat_name'],
+                'parent_id'           => $request->parent,
+                'cat_brief'           => $validated['cat_brief'],
+                'status'              => $request->status !== null ? $request->status : 0,
+                'created_by'          => auth()->user()->id
             ]);
             return redirect()->back()->withSuccess('Saves Successfully');
         } catch (QueryException $err) {

@@ -12,7 +12,7 @@ class ItemCategroy extends Model
     public $timestamps = true;
 
     protected $table = 'items_categories';
-    protected $fillable = ['name', 'parent_id', 'brief', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'];
+    protected $fillable = ['cat_name', 'parent_id', 'cat_brief', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'];
 
     public static function roots()
     {

@@ -25,9 +25,9 @@ class ItemRequest extends FormRequest
   {
     return [
       'barcode' => 'required|string|max:14',
-      'name' => 'required|string|max:50',
+      'cat_name' => 'required|string|max:50',
       'serial' => 'nullable|string|size:14',
-      'breif' => 'nullable|string|max:255'
+      'cat_breif' => 'nullable|string|max:255'
     ];
   }
 
