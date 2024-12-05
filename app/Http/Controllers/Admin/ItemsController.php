@@ -92,8 +92,8 @@ class ItemsController extends Controller
           'unit_id'         => $request->unit,
           'breif'           => $validated['breif'],
           'image'           => $filename,
-          'created_by'      => auth()->user()->id,
-          'updated_by'      => auth()->user()->id
+          'created_by'      => currentUserId(),
+          'updated_by'      => currentUserId()
         ]);
         return redirect()->back()->withSuccess('Saves Successfully');
       } catch (QueryException $err) {
