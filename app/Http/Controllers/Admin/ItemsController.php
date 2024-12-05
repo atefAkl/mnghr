@@ -34,7 +34,7 @@ class ItemsController extends Controller
 
   public function home()
   {
-      return view('admin.items.home');
+    return view('admin.items.home');
   }
   /**
    * Display a listing of the resource.
@@ -75,7 +75,7 @@ class ItemsController extends Controller
    */
   public function store(ItemRequest $request)
   {
-       $validated   = $request->safe()->only(['name', 'barcode','breif']);
+    $validated   = $request->safe()->only(['name', 'barcode', 'breif']);
 
     if ($request->hasFile('image')) {
 
@@ -92,8 +92,8 @@ class ItemsController extends Controller
           'unit_id'         => $request->unit,
           'breif'           => $validated['breif'],
           'image'           => $filename,
-          'created_by'      => auth()->user()->id,
-          'updated_by'      => auth()->user()->id
+          'created_by'      => currentUserId(),
+          'updated_by'      => currentUserId()
         ]);
         return redirect()->back()->withSuccess('Saves Successfully');
       } catch (QueryException $err) {
@@ -178,8 +178,8 @@ class ItemsController extends Controller
         'serial'            => $request->product_serial,
         'breif'             => $request->product_breif,
         'unit_id'           => $request->product_unit_id,
-        'updated_by'        => auth()->user()->id,
-        'updated_by'        => auth()->user()->id
+        'updated_by'        => currentUserId(),
+        'updated_by'        => currentUserId()
 
       ]);
       return redirect()->back()->with('success', 'product updated successfully');
