@@ -241,44 +241,51 @@
 
 
   $(document).ready(function() {
-    $('#addItemForm').on('show.bs.collapse', function() {
-      $('#addItemCategoryForm').collapse('hide');
+    $('#addItemForm').on('show.bs.collapse', function() { //  فورم الايتم مفتوح collapse ف اذكان  
+      $('#addItemCategoryForm').collapse('hide'); // Categoryقفلي بتاع الــ 
     });
 
-    $('#addItemCategoryForm').on('show.bs.collapse', function() {
-      $('#addItemForm').collapse('hide');
+    $('#addItemCategoryForm').on('show.bs.collapse', function() { //    فورم الاصناف مفتوح collapse ف اذكان  
+      $('#addItemForm').collapse('hide'); // item قفلي بتاع الــ 
+    });
     });
   });
 
   $(document).ready(function() {
-    @if($errors->any())
-      
-        @if($errors->has('cat_name')|| $errors->has('cat_brief'))
-            $('#addItemCategoryForm').collapse('show');
 
-        @else($errors->has('name')|| $errors->has('breif')|| $errors->has('barcode'))
-            $('#addItemForm').collapse('show');
+    @if($errors->any())// لو حصل لدينا اي ايرر
+        @if($errors->has('cat_name')|| $errors->has('cat_brief')) // input cat_name or input cat_brief  لو الايرر موجود في 
+            $('#addItemCategoryForm').collapse('show');//   مفتوحaddItemCategoryForm الذي لديه collapse خليلى  
+
+        @else($errors->has('name')|| $errors->has('breif')|| $errors->has('barcode')) //   item بتاع input name or input brief or input barcode   لو الايرر موجود في 
+            $('#addItemForm').collapse('show');//   مفتوحa addItemForm الذي لديه collapse خليلى  
         @endif
     @endif
 });
     
 
 
-$(document).on('click', '#filter-link', function () {
+$(document).on('click', '#filter-link', function () { 
+  //  عند النقر على  #filter-link
+  // #filter-link = link grandChild category
             
-            const el = $(this)
-            const  url = el.data('url')
-    fetch(url)
+            const el = $(this) // #filter-link يشير على الايتم الذي تم النقر علية 
+            const  url = el.data('url') //    urlاعطيني  data-urlمن العنصر الذي تم النقر عليه  
+    fetch(url) //جلب url
+    // if response not ok
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             return response.text();
         })
+        //if response is ok 
+        // div id = product-list اعطيني الداتا وحطهم في 
         .then(data => {
           
             document.getElementById('product-list').innerHTML = data;
         })
+        // div id = product-list في حال حدث ايرر طلع لي الايرر ورسالة الايرر جوا الدف 
         .catch(error => {
             console.error('Error fetching product item:', error);
             const errorMessage = error.message || 'An error occurred while loading  product item. Please try again later.';
