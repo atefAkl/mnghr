@@ -255,7 +255,8 @@
       
         @if($errors->has('cat_name')|| $errors->has('cat_brief'))
             $('#addItemCategoryForm').collapse('show');
-        @elseif($errors->has('name')|| $errors->has('breif')|| $errors->has('barcode'))
+
+        @else($errors->has('name')|| $errors->has('breif')|| $errors->has('barcode'))
             $('#addItemForm').collapse('show');
         @endif
     @endif

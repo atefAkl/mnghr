@@ -11,9 +11,9 @@
               <div class="productlistcontent">
                 <h5 class=" mb-1">
                   @if ($product->parent_cat && $product->parent_cat->parent)
-                  {{ $product->parent_cat->parent->name }} &gt; {{ $product->parent_cat->name }}
+                  {{ $product->parent_cat->parent->cat_name }} &gt; {{ $product->parent_cat->cat_name }}
                   @else
-                  {{ $product->name }}
+                  {{ $product->cat_name }}
                   @endif
                 </h5>
                 <h4 class="mb-3">{{ $product->name }}</h4>
