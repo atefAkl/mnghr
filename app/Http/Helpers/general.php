@@ -16,6 +16,7 @@ function getUserName($id)
 	$profile = AdminProfile::where('user_id', $id)->first();
 	return $profile->first_name . ' ' . $profile->last_name;
 }
+
 function currentUserId(): int|null
 {
 	return auth()->user() == null ? null : auth()->user()->id;

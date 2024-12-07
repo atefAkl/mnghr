@@ -7,6 +7,7 @@ use App\Models\ItemCategroy;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests\itemCategoryRequest;
+
 class ItemCategoriesController extends Controller
 {
     /**
@@ -37,14 +38,14 @@ class ItemCategoriesController extends Controller
      */
     public function store(itemCategoryRequest $request)
     {
-      $validated = $request->safe()->only(['cat_name','cat_brief']);
+        $validated = $request->safe()->only(['cat_name', 'cat_brief']);
         try {
             ItemCategroy::create([
                 'cat_name'            => $validated['cat_name'],
                 'parent_id'           => $request->parent,
                 'cat_brief'           => $validated['cat_brief'],
                 'status'              => $request->status !== null ? $request->status : 0,
-                'created_by'          => auth()->user()->id
+                'created_by'          => currentUserId()
             ]);
             return redirect()->back()->withSuccess('Saves Successfully');
         } catch (QueryException $err) {

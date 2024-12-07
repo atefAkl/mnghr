@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Helper;
+
 
 use App\Models\AdminProfile;
 use App\Models\Possitions;
@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class AdminsController extends Controller
 {
 
-    use Helper;
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +46,7 @@ class AdminsController extends Controller
     {
         //
         $vars = [
-            'jobs' => Possitions::all(),
+            'jobs' => static::$professions,
         ];
         return view('admin.admins.create', $vars);
     }
@@ -65,7 +65,7 @@ class AdminsController extends Controller
             'email'            => $request->email,
             'password'         => bcrypt($request->password),
             'created_at'       => date('Ymd H:i:s'),
-            'created_by'       => auth()->user()->id
+            'created_by'       => currentUserId()
         ]);
 
         if ($admin != null) {
@@ -116,7 +116,7 @@ class AdminsController extends Controller
                 'userName'         => $request->userName  ?? $admin->userName,
                 'email'            => $request->email     ?? $admin->email,
                 'updated_at'       => date('Ymd H:i:s')   ?? $admin->updated_at,
-                'updated_by'       => auth()->user()->id  ?? $admin->updated_by,
+                'updated_by'       => currentUserId()  ?? $admin->updated_by,
             ]);
 
             $profile->update([
@@ -204,27 +204,7 @@ class AdminsController extends Controller
         return view('admin.admins.log', $vars);
     }
 
-    public function addRules(Request $req)
-    {
-        //
-        $userRule = new AdminRole();
 
-        $userRule->user_id      = $req->user_id;
-
-        $userRule->rule_id      = $req->rule_id;
-
-        $userRule->created_by   = auth()->user()->id;
-
-        $userRule->created_at   = date('Y-m-d H:i:s');
-
-        $userRule->company      = auth()->user()->company;
-
-        if ($userRule->save()) {
-
-            return redirect()->back()->with(['success' => 'تمت إضافة الدور للمستخدم بنجاح.']);
-        }
-        return redirect()->back()->with(['error' => 'لم تتم إضافة الدور للمستخدم بسبب حدوث خطأ. نرجو مراجعة مدير التطبيق.']);
-    }
 
     // /**
     //  * Update the specified resource in storage.
@@ -252,7 +232,7 @@ class AdminsController extends Controller
 
 
         $profile->updated_at       = date('Ymd H:i:s');
-        $profile->updated_by       = auth()->user()->id;
+        $profile->updated_by       = currentUserId();
 
         if ($profile->update()) {
 
@@ -261,26 +241,7 @@ class AdminsController extends Controller
         return redirect()->back()->with(['error' => 'حدث خطأ أثناء تحديث بيانات الموظف']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function assignRoles(Request $req)
-    {
-        //
-        foreach ($req->admins as $admin_id)
-            try {
-                AdminRole::create([
-                    'role_id' => $req->role_id,
-                    'admin_id' => $admin_id
-                ]);
-            } catch (QueryException $err) {
-                return redirect()->back()->withError('failed to assign role due to: ' . $err);
-            }
-        return redirect()->back()->with(['success' => 'Role assigned successfully']);
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -291,37 +252,17 @@ class AdminsController extends Controller
     public function assignRole($admin_id, $role_id)
     {
         //
-        $admin=Admin::find($admin_id);
+        $admin = Admin::find($admin_id);
         $sm = "تم تعيين الدور بنجاح إلى $admin->userName";
         $em = "لم يتم تعيين الدور إلى $admin->userName بسبب: ";
         try {
             $admin->assignRole($role_id);
             return redirect()->back()->with(['success' => $sm]);
-        }
-        catch (QueryException $err) {
+        } catch (QueryException $err) {
             return redirect()->back()->withError($em . $err);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function dettachRole($admin_id, $role_id)
-    {
-        //
-        $admin_role=AdminRole::where(['admin_id'=>$admin_id, 'role_id'=>$role_id])->first();
-        
-        try {
-            $admin_role->delete();
-            return redirect()->back()->with(['success' => "تمت ازالة الدور بنجاح"]);
-        }
-        catch (QueryException $err) {
-            return redirect()->back()->withError("فشل فى ازالة الدور بسبب: " . $err);
-        }
-    }
 
     /**
      * Remove the specified resource from storage.

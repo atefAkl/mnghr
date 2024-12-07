@@ -75,7 +75,7 @@ class ItemsController extends Controller
    */
   public function store(ItemRequest $request)
   {
-    $validated   = $request->safe()->only(['name', 'barcode', 'breif']);
+    //$validated   = $request->safe()->only(['name', 'barcode', 'breif']);
 
     if ($request->hasFile('image')) {
 
@@ -86,11 +86,11 @@ class ItemsController extends Controller
 
       try {
         Item::create([
-          'name'            => $validated['name'],
-          'barcode'         => $validated['barcode'],
+          'name'            => $request['name'],
+          'barcode'         => $request['barcode'],
           'category_id'     => $request->category_id,
           'unit_id'         => $request->unit,
-          'breif'           => $validated['breif'],
+          'breif'           => $request['breif'],
           'image'           => $filename,
           'created_by'      => currentUserId(),
           'updated_by'      => currentUserId()

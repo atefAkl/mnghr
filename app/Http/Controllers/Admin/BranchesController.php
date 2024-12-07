@@ -43,8 +43,8 @@ class BranchesController extends Controller
                 'email'         => $request->email,
                 'ismain'        => 0,
                 'branch_code'   => $request->branch_code,
-                'created_by'    => auth()->user()->id,
-                'updated_by'    => auth()->user()->id
+                'created_by'    => currentUserId(),
+                'updated_by'    => currentUserId()
             ]);
             if ($branch) {
                 return redirect()->back()->with('success', 'Branch created successfully');
@@ -85,7 +85,7 @@ class BranchesController extends Controller
                 'email'         => $request->email,
                 'branch_code'   => $request->branch_code,
 
-                'updated_by'    => auth()->user()->id
+                'updated_by'    => currentUserId()
             ]);
 
             return redirect()->back()->with('success', 'Branch updated successfully');
