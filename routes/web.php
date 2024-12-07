@@ -25,9 +25,7 @@ use App\Http\Controllers\Admin\HomeController;
 |
 */
 
-Route::get('/', function () {
-  return redirect()->route('admin.auth.login');
-});
+
 Route::get('/',            [IndexController::class, 'index']);
 Route::get('home',         [IndexController::class, 'index'])->name('home');
 

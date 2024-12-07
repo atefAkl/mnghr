@@ -49,6 +49,8 @@
                 <a class="navbar-brand" href="index.html">
                     <img src="assets/front/uploads/images/ayerp.logo.png" height="40" alt="logo" /> AYERP
                     SOFTWARE
+
+                    {{ currentUserId() }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -63,7 +65,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/admin/auth/login">
+                            <a class="nav-link" aria-current="page" href="/admin/dashboard/home">
                                 Go to ERP
                             </a>
                         </li>

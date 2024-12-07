@@ -47,8 +47,8 @@ class storesController extends Controller
                 'branch_id'     => $request->branch_id,
                 'ismovable'     => $request->ismovable,
                 'status'        => $request->status !== null ? $request->status : 0,
-                'created_by'    => auth()->user()->id,
-                'updated_by'    => auth()->user()->id,
+                'created_by'    => currentUserId(),
+                'updated_by'    => currentUserId(),
 
             ]);
             return redirect()->back()->withSuccess('Saves Successfully');
@@ -89,7 +89,7 @@ class storesController extends Controller
                 'code'      => $request->store_code,
                 'brief'     => $request->store_brief,
 
-                'updated_by'    => auth()->user()->id
+                'updated_by'    => currentUserId()
             ]);
 
             return redirect()->back()->with('success', 'Branch updated successfully');
