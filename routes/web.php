@@ -106,7 +106,7 @@ Route::group(
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
     Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-items');
-    Route::get('items/productList',                     [ItemsController::class, 'productList'])->name('display-product-list');
+    Route::get('items/itemsStatistics',                     [ItemsController::class, 'productList'])->name('display-product-list');
     Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-all');
     Route::get('items/filter',                          [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
     Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');
@@ -123,14 +123,7 @@ Route::group(
     Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
     Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
     Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
-    Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
-    Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
-    Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
-
-    Route::post('items/categories/store',               [ItemCategoriesController::class, 'store'])->name('store-new-item');
-    Route::get('items/categories/edit/{id}',            [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
-    Route::get('items/categories/delete/{id}',          [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
-
+  
     /* ========================================================================================================================================
       =========== Company Branches Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
