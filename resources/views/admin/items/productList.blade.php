@@ -8,6 +8,7 @@
   .border-red {
     border-color: #dc3545 !important;
   }
+
   .ul-error {
     margin-top: 1rem;
     text-align: left;
@@ -27,7 +28,7 @@
 
     </div>
     <div class="card card-body ">
-      <form id="categoryForm" action="/admin/items/categories/store" method="POST">
+      <form id="categoryForm" action="{{route('store-new-itemCategory')}}" method="POST">
         @csrf
         <div class="input-group">
           <label class="input-group-text" for="parent_cat">Parent Category</label>
@@ -84,7 +85,7 @@
 <!-- start Add New item -->
 <div class="row">
   <div class="col col-12 collapse @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm" style="border-bottom: 2px solid #dedede">
-  <div class="card card-head" style="background-color: #bbb;color: #fff;">
+    <div class="card card-head" style="background-color: #bbb;color: #fff;">
       <h4 class="mt-2 pb-2 ms-3">Create New Product </h4>
     </div>
     <div class=" card card-body">
@@ -135,9 +136,9 @@
           <button type="submit" class="form-control btn btn-outline-primary">Save Item</button>
         </div>
       </form
+        </div>
     </div>
   </div>
-</div>
   <div class="col-3 p-0" id="error-items" style="display: none;border: 1px solid #dedede">
     <div class="card card-head" style="background-color: #bbb;color: #fff;">
       <h4 class="mt-2 pb-2 ms-3">Errors </h4>
@@ -290,6 +291,12 @@
     const el = $(this) // #filter-link يشير على الايتم الذي تم النقر علية 
     const url = el.data('url') //    urlاعطيني  data-urlمن العنصر الذي تم النقر عليه  
     fetch(url) //جلب url
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        return response.text();
+      })
       //if response is ok 
       // div id = product-list اعطيني الداتا وحطهم في 
       .then(data => {
@@ -305,7 +312,7 @@
       });
   });
 
-//categoryForm error validation
+  //categoryForm error validation
   $(document).ready(function() {
     $("#categoryForm").on('submit', function(e) {
       e.preventDefault();
@@ -361,6 +368,7 @@
         method: 'POST',
         data: $(this).serialize(),
         success: function(response) {
+          console.log(response);
           $("#addItemForm").removeClass('col-9').addClass('col-12');
           $("#error-items").hide();
           $("#error-messages-items").empty();
