@@ -75,30 +75,31 @@ class ItemsController extends Controller
    */
   public function store(ItemRequest $request)
   {
-    //$validated   = $request->safe()->only(['name', 'barcode', 'breif']);
+    $validated = $request->safe()->only(['name', 'barcode', 'breif']);
 
+    // Handle image upload, even if it's optional
+    $filename = null;
     if ($request->hasFile('image')) {
-
-      $filehandler   = $request->image;
-      $filename      = time() . 'image_product.' . $filehandler->getClientOriginalExtension();
+      $filehandler = $request->image;
+      $filename = time() . 'image_product.' . $filehandler->getClientOriginalExtension();
       $filehandler->move(self::$path, $filename);
+    }
 
+    try {
+      Item::create([
+        'name' => $validated['name'],
+        'barcode' => $validated['barcode'],
+        'category_id' => $request->category_id,
+        'unit_id' => $request->unit,
+        'breif' => $validated['breif'],
+        'image' => $filename, // Include the filename, even if it's null
+        'created_by' => currentUserId(),
+        'updated_by' => currentUserId()
+      ]);
 
-      try {
-        Item::create([
-          'name'            => $request['name'],
-          'barcode'         => $request['barcode'],
-          'category_id'     => $request->category_id,
-          'unit_id'         => $request->unit,
-          'breif'           => $request['breif'],
-          'image'           => $filename,
-          'created_by'      => currentUserId(),
-          'updated_by'      => currentUserId()
-        ]);
-        return redirect()->back()->withSuccess('Saves Successfully');
-      } catch (QueryException $err) {
-        return redirect()->back()->withError('Failed to save, due to: ' . $err);
-      }
+      return redirect()->back()->withSuccess('Item created successfully!');
+    } catch (QueryException $err) {
+      return redirect()->back()->withError('Failed to save, due to: ' . $err->getMessage());
     }
   }
 

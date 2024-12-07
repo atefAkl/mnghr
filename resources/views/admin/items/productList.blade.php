@@ -28,7 +28,7 @@
 
             </div>
             <div class="card card-body ">
-                <form id="categoryForm" action="/admin/items/categories/store" method="POST">
+                <form id="categoryForm" action="{{ route('store-new-itemCategory') }}" method="POST">
                     @csrf
                     <div class="input-group">
                         <label class="input-group-text" for="parent_cat">Parent Category</label>
@@ -179,7 +179,7 @@
                                                     @foreach ($child->children as $grandChild)
                                                         <li>
                                                             <label>
-                                                                <a class="filter-link"
+                                                                <a id="filter-link"
                                                                     data-url="{{ route('display-product-list-filtered', ['id' => $grandChild->id]) }}">
                                                                     {{ $grandChild->cat_name }}</a>
 
@@ -269,8 +269,6 @@
 
         });
 
-
-
         $(document).ready(function() {
             $('#addItemForm').on('show.bs.collapse', function() { //  فورم الايتم مفتوح collapse ف اذكان  
                 $('#addItemCategoryForm').collapse('hide'); // Categoryقفلي بتاع الــ 
@@ -282,44 +280,32 @@
                 });
         });
 
-
-
-        $(document).on('click', '.filter-link', function() {
+        $(document).on('click', '#filter-link', function() {
             //  عند النقر على  #filter-link
             // #filter-link = link grandChild category
+
             const el = $(this) // #filter-link يشير على الايتم الذي تم النقر علية 
             const url = el.data('url') //    urlاعطيني  data-urlمن العنصر الذي تم النقر عليه  
-            $.ajax({
-                url, // URL of the server-side script
-                type: "GET", // HTTP method (GET, POST, PUT, DELETE, etc.)
-                data: {},
-                success: function(response) {
-                    // Handle successful response
-                    console.log(response);
-                    document.getElementById('product-list').innerHTML = response;
-                    // Update HTML, display data, etc.
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors
-                    console.error(error);
-                    // Display error message to the user
-                }
-            });
+            fetch(url) //جلب url
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                //if response is ok 
+                // div id = product-list اعطيني الداتا وحطهم في 
+                .then(data => {
 
-            //     fetch(url) //جلب url
-            //         // if response is ok 
-            //         // div id = product-list اعطيني الداتا وحطهم في 
-            //         .then(data => {
-
-            //             document.getElementById('product-list').innerHTML = data;
-            //         })
-            //         //div id = product-list في حال حدث ايرر طلع لي الايرر ورسالة الايرر جوا الدف 
-            //         .catch(error => {
-            //             console.error('Error fetching product item:', error);
-            //             const errorMessage = error.message ||
-            //                 'An error occurred while loading  product item. Please try again later.';
-            //             $('#product-list').html('<p class="error-message">' + errorMessage + '</p>');
-            //         });
+                    document.getElementById('product-list').innerHTML = data;
+                })
+                // div id = product-list في حال حدث ايرر طلع لي الايرر ورسالة الايرر جوا الدف 
+                .catch(error => {
+                    console.error('Error fetching product item:', error);
+                    const errorMessage = error.message ||
+                        'An error occurred while loading  product item. Please try again later.';
+                    $('#product-list').html('<p class="error-message">' + errorMessage + '</p>');
+                });
         });
 
         //categoryForm error validation
@@ -370,22 +356,23 @@
                 e.preventDefault();
                 // Send form data using AJAX
                 var actionUrl = $(this).attr('action');
-                console.log("Form action URL:", actionUrl);
-
+                var formData = new FormData(this);
                 // Send form data using AJAX
                 $.ajax({
                     url: actionUrl,
                     method: 'POST',
-                    data: $(this).serialize(),
+                    contentType: false,
+                    processData: false,
+                    data: formData,
                     success: function(response) {
-                        console.log($(this))
+
+                        console.log(response);
                         $("#addItemForm").removeClass('col-9').addClass('col-12');
                         $("#error-items").hide();
                         $("#error-messages-items").empty();
                         $("#success-message-items").show().delay(3000).fadeOut();
                         $('#addItemForm').collapse('hide');
                         $("#itemForm")[0].reset();
-                        console.log(response)
                     },
                     error: function(response) {
                         if (response.status === 422) {
