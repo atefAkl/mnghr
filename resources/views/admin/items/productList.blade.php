@@ -20,137 +20,154 @@
 
     <!--  start Add New Category   ;-->
 
-    <div class="row ">
-        <div class="col col-12 collapse @if ($errors->has('cat_brief') || $errors->has('cat_name')) show @endif" id="addItemCategoryForm"
-            style="border-bottom: 2px solid #dedede">
-            <div class="card card-head" style="background-color: #bbb;color: #fff;">
-                <h4 class="mt-2 pb-2 ms-3">Create New Category </h4>
+    <div class="collapse @if ($errors->has('cat_brief') || $errors->has('cat_name')) show @endif" id="addItemCategoryForm"
+        style="border-bottom: 2px solid #dedede">
+        <div class="row">
+            <div class="col @if ($errors->has('cat_brief') || $errors->has('cat_name')) col-9 show @else col-12 @endif">
+                <div class="card card-head" style="background-color: #bbb;color: #fff;">
+                    <h4 class="mt-2 pb-2 ms-3">Create New Category </h4>
 
-            </div>
-            <div class="card card-body ">
-                <form id="categoryForm" action="{{ route('store-new-itemCategory') }}" method="POST">
-                    @csrf
-                    <div class="input-group">
-                        <label class="input-group-text" for="parent_cat">Parent Category</label>
-                        <select class="form-select" name="parent" id="parent_cat">
-                            <option value="1">Root</option>
-                            @foreach ($cats as $cat)
-                                @if ($cat->id === 1)
-                                    @continue
-                                @endif
-                                <option value="{{ $cat->id }}">
-                                    {{ $cat->cat_name }}
-                                </option>
-                                @foreach ($cat->children as $cc)
-                                    <option value="{{ $cc->id }}">{{ $cat->cat_name }} - {{ $cc->cat_name }}</option>
+                </div>
+                <div class="card card-body ">
+                    <form id="categoryForm" action="{{ route('store-new-itemCategory') }}" method="POST">
+                        @csrf
+                        <div class="input-group sm">
+                            <label class="input-group-text" for="parent_cat">Parent Category</label>
+                            <select class="form-select" name="parent" id="parent_cat">
+                                <option value="1">Root</option>
+                                @foreach ($cats as $cat)
+                                    @if ($cat->id === 1)
+                                        @continue
+                                    @endif
+                                    <option value="{{ $cat->id }}">
+                                        {{ $cat->cat_name }}
+                                    </option>
+                                    @foreach ($cat->children as $cc)
+                                        <option value="{{ $cc->id }}">{{ $cat->cat_name }} - {{ $cc->cat_name }}
+                                        </option>
+                                    @endforeach
                                 @endforeach
-                            @endforeach
-                        </select>
-                        <label class="input-group-text" for="cat_name">Name</label>
-                        <input type="text" id="cat_name" class="form-control " name="cat_name"
-                            value="{{ old('cat_name') }}">
-                    </div>
-                    <div class="input-group  mt-2">
-                        <label class="input-group-text" for="cat_brief">Description</label>
-                        <input type="text" id="cat_brief" class="form-control " name="cat_brief"
-                            value="{{ old('cat_brief') }}">
-                    </div>
-                    <div class="input-group mt-2">
-                        <div class="input-group-text">
-                            <input class="form-check-input mt-0" name="status" type="checkbox" value="1"
-                                aria-label="Checkbox for following text input">
+                            </select>
+                            <label class="input-group-text" for="cat_name">Name</label>
+                            <input type="text" id="cat_name" class="form-control " name="cat_name"
+                                value="{{ old('cat_name') }}">
                         </div>
-                        <button type="button" class="input-group-text text-start">Active</button>
-                        <button type="submit" class="form-control btn btn-outline-primary">Save Category</button>
-                    </div>
-                </form>
-            </div>
+                        <div class="input-group sm mt-2">
+                            <label class="input-group-text" for="cat_brief">Description</label>
+                            <input type="text" id="cat_brief" class="form-control " name="cat_brief"
+                                value="{{ old('cat_brief') }}">
+                        </div>
+                        <div class="input-group sm mt-2">
+                            <div class="input-group-text">
+                                <input class="form-check-input mt-0" name="status" type="checkbox" value="1"
+                                    aria-label="Checkbox for following text input">
+                            </div>
+                            <button type="button" class="input-group-text text-start">Active</button>
+                            <button type="submit" class="form-control btn btn-outline-primary">Save Category</button>
+                        </div>
+                    </form>
+                </div>
 
-        </div>
-        <div class="col-3 p-0" id="error-container" style="display: none;border: 1px solid #dedede">
-            <div class="card card-head" style="background-color: #bbb;color: #fff;">
-                <h4 class="mt-2 pb-2 ms-3">Errors </h4>
             </div>
-            <span class="text-danger mt-4 text-align-left" id="error-messages">
-            </span>
-        </div>
-        <!-- Success alert -->
-        <div class="alert alert-success" id="success-message" style="display: none;">
-            Category created successfully!
+            <div class="col p-0  {{ $errors->has('cat_brief') || $errors->has('cat_name') ? 'col-3 d-block' : 'd-none' }}"
+                id="error-container" style="border: 1px solid #dedede">
+                <div class="card card-head" style="background-color: #bbb;color: #fff;">
+                    <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+                </div>
+                @error('cat_name')
+                    <div class="alert alert-danger col-sm py-1 mb-1">{{ $message }}</div>
+                @enderror
+                @error('cat_brief')
+                    <div class="alert alert-danger col-sm py-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
     </div>
+    {{-- <span class="text-danger mt-4 text-align-left" id="error-messages">
+    </span> --}}
+    {{-- <!-- Success alert -->
+    <div class="alert alert-success" id="success-message" style="display: none;">
+        Category created successfully!
+    </div> --}}
 
     <!--  -->
 
     <!-- start Add New item -->
-    <div class="row">
-        <div class="col col-12 collapse @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm"
-            style="border-bottom: 2px solid #dedede">
-            <div class="card card-head" style="background-color: #bbb;color: #fff;">
-                <h4 class="mt-2 pb-2 ms-3">Create New Product </h4>
-            </div>
-            <div class=" card card-body">
-                <form id="itemForm" action="{{ route('store-new-product') }}" method="POST" accept="[]"
-                    enctype="multipart/form-data">
-                    @csrf
+    <div class="collapse @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm"
+        style="border-bottom: 2px solid #dedede">
+        <div class="row">
+            <div class="col @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) col-9 show @else  col-12 @endif" id="addItemForm">
+                <div class="card card-head" style="background-color: #bbb;color: #fff;">
+                    <h4 class="mt-2 pb-2 ms-3">Create New Product </h4>
+                </div>
+                <div class=" card card-body">
+                    <form id="itemForm" action="{{ route('store-new-product') }}" method="POST" accept="[]"
+                        enctype="multipart/form-data">
+                        @csrf
 
-                    <div class="input-group">
-                        <label class="input-group-text" for="categorey">Parent Category</label>
-                        <select class="form-select" name="category_id" id="categorey">
-                            <option hidden placeholder="Parent Select Category"> </option>
-                            @foreach ($centrals as $cat)
-                                @foreach ($cat->children as $child)
-                                    <option value="{{ $child->id }}">{{ $cat->parent->cat_name }}
-                                        -{{ $cat->cat_name }} -
-                                        {{ $child->cat_name }}
-                                    </option>
+                        <div class="input-group">
+                            <label class="input-group-text" for="categorey">Parent Category</label>
+                            <select class="form-select" name="category_id" id="categorey">
+                                <option hidden placeholder="Parent Select Category"> </option>
+                                @foreach ($centrals as $cat)
+                                    @foreach ($cat->children as $child)
+                                        <option value="{{ $child->id }}">{{ $cat->parent->cat_name }}
+                                            -{{ $cat->cat_name }} -
+                                            {{ $child->cat_name }}
+                                        </option>
+                                    @endforeach
                                 @endforeach
-                            @endforeach
-                        </select>
-                        <label class="input-group-text" for="barcode">Barcode</label>
-                        <input type="text" id="barcode" class="form-control" name="barcode"
-                            value="{{ old('barcode') }}">
+                            </select>
+                            <label class="input-group-text" for="barcode">Barcode</label>
+                            <input type="text" id="barcode" class="form-control" name="barcode"
+                                value="{{ old('barcode') }}">
 
-                    </div>
+                        </div>
 
-                    <div class="input-group  mt-2">
-                        <label class="input-group-text" for="name">Name</label>
-                        <input type="text" id="name" placeholder="Product Name" class="form-control" name="name"
-                            value="{{ old('name') }}">
+                        <div class="input-group  mt-2">
+                            <label class="input-group-text" for="name">Name</label>
+                            <input type="text" id="name" placeholder="Product Name" class="form-control"
+                                name="name" value="{{ old('name') }}">
 
-                        <input type="file" class="form-control" name="image" id="image">
+                            <input type="file" class="form-control" name="image" id="image">
 
-                    </div>
-                    <div class="input-group  mt-2">
-                        <label class="input-group-text" for="breif">Description</label>
-                        <input type="text" id="breif" class="form-control " name="breif"
-                            value="{{ old('breif') }}">
-                    </div>
-                    <div class="input-group mt-2">
-                        <label class="input-group-text" for="unit">Unit</label>
-                        <select class="form-select" name="unit" id="unit">
-                            <option value="1"></option>
-                            @foreach ($units as $unit)
-                                <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="form-control btn btn-outline-primary">Save Item</button>
-                    </div>
-                </form>
+                        </div>
+                        <div class="input-group  mt-2">
+                            <label class="input-group-text" for="breif">Description</label>
+                            <input type="text" id="breif" class="form-control " name="breif"
+                                value="{{ old('breif') }}">
+                        </div>
+                        <div class="input-group mt-2">
+                            <label class="input-group-text" for="unit">Unit</label>
+                            <select class="form-select" name="unit" id="unit">
+                                <option value="1"></option>
+                                @foreach ($units as $unit)
+                                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="form-control btn btn-outline-primary">Save Item</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="col-3 p-0" id="error-items" style="display: none;border: 1px solid #dedede">
-            <div class="card card-head" style="background-color: #bbb;color: #fff;">
-                <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+            <div class="col-3 p-0" id="error-items"
+                style="display: {{ $errors->has('name') || $errors->has('barcode') ? 'block' : 'none' }};border: 1px solid #dedede">
+                <div class="card card-head" style="background-color: #bbb;color: #fff;">
+                    <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+                </div>
+                @error('name')
+                    <div class="alert alert-danger col-sm py-1 mb-1">{{ $message }}</div>
+                @enderror
+                @error('barcode')
+                    <div class="alert alert-danger col-sm py-1 mb-1">{{ $message }}</div>
+                @enderror
             </div>
-            <span class="text-danger mt-4 text-align-left" id="error-messages-items">
-            </span>
-        </div>
-        <!-- Success alert -->
-        <div class="alert alert-success" id="success-message-items" style="display: none;">
-            Category created successfully!
-        </div>
+            <!-- Success alert -->
+            <div class="alert alert-success" id="success-message-items" style="display: none;">
+                Category created successfully!
+            </div>
 
+        </div>
     </div>
 
     <!-- end -->
@@ -179,10 +196,9 @@
                                                     @foreach ($child->children as $grandChild)
                                                         <li>
                                                             <label>
-                                                                <a id="filter-link"
+                                                                <a class="filter-link"
                                                                     data-url="{{ route('display-product-list-filtered', ['id' => $grandChild->id]) }}">
                                                                     {{ $grandChild->cat_name }}</a>
-
                                                             </label>
                                                         </li>
                                                     @endforeach
@@ -202,7 +218,8 @@
                 <legend>Display Product List &nbsp; &nbsp;
                     <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemForm" aria-expanded="false"
                         aria-controls="addItemForm"><i data-bs-toggle="tooltip" title="Add New Item"
-                            class="fa fa-plus"></i></a>
+                            class="fa fa-plus"></i>
+                    </a>
                 </legend>
 
                 <div id="product-list">
@@ -280,118 +297,136 @@
                 });
         });
 
-        $(document).on('click', '#filter-link', function() {
+        $(document).on('click', '.filter-link', function() {
             //  عند النقر على  #filter-link
             // #filter-link = link grandChild category
 
             const el = $(this) // #filter-link يشير على الايتم الذي تم النقر علية 
             const url = el.data('url') //    urlاعطيني  data-urlمن العنصر الذي تم النقر عليه  
-            fetch(url) //جلب url
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Network response was not ok: ${response.statusText}`);
-                    }
-                    return response.text();
-                })
-                //if response is ok 
-                // div id = product-list اعطيني الداتا وحطهم في 
-                .then(data => {
 
-                    document.getElementById('product-list').innerHTML = data;
-                })
-                // div id = product-list في حال حدث ايرر طلع لي الايرر ورسالة الايرر جوا الدف 
-                .catch(error => {
-                    console.error('Error fetching product item:', error);
-                    const errorMessage = error.message ||
-                        'An error occurred while loading  product item. Please try again later.';
-                    $('#product-list').html('<p class="error-message">' + errorMessage + '</p>');
-                });
+            $.ajax({
+                url, // URL of the server-side script
+                type: "GET", // HTTP method (GET, POST, PUT, DELETE, etc.)
+
+                success: function(response) {
+                    // Handle successful response
+                    console.log(response);
+                    $('#product-list').html(response)
+                    // Update HTML, display data, etc.
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error(error);
+                    // Display error message to the user
+                }
+            });
+
+            // fetch(url) //جلب url
+            //     .then(response => {
+            //         if (!response.ok) {
+            //             throw new Error(`Network response was not ok: ${response.statusText}`);
+            //         }
+            //         return response.text();
+            //     })
+            //     //if response is ok 
+            //     // div id = product-list اعطيني الداتا وحطهم في 
+            //     .then(data => {
+
+            //         document.getElementById('product-list').innerHTML = data;
+            //     })
+            //     // div id = product-list في حال حدث ايرر طلع لي الايرر ورسالة الايرر جوا الدف 
+            //     .catch(error => {
+            //         console.error('Error fetching product item:', error);
+            //         const errorMessage = error.message ||
+            //             'An error occurred while loading  product item. Please try again later.';
+            //         $('#product-list').html('<p class="error-message">' + errorMessage + '</p>');
+            //     });
         });
 
         //categoryForm error validation
         $(document).ready(function() {
-            $("#categoryForm").on('submit', function(e) {
-                e.preventDefault();
-                // Send form data using AJAX
-                var actionUrl = $(this).attr('action');
-                console.log("Form action URL:", actionUrl);
+            // $("#categoryForm").on('submit', function(e) {
+            //     e.preventDefault();
+            //     // Send form data using AJAX
+            //     var actionUrl = $(this).attr('action');
+            //     console.log("Form action URL:", actionUrl);
 
-                // Send form data using AJAX
-                $.ajax({
-                    url: actionUrl,
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $("#addItemCategoryForm").removeClass('col-9').addClass('col-12');
-                        $("#error-container").hide();
-                        $("#error-messages").empty();
-                        $("#success-message").show().delay(3000).fadeOut();
-                        $('#addItemCategoryForm').collapse('hide');
-                        $("#categoryForm")[0].reset();
-                    },
-                    error: function(response) {
-                        if (response.status === 422) {
-                            let errors = response.responseJSON.errors;
-                            let errorHtml = '<ul class="ul-error">';
-                            for (let field in errors) {
-                                errorHtml += '<li>' + errors[field][0] + '</li>';
+            //     // Send form data using AJAX
+            //     $.ajax({
+            //         url: actionUrl,
+            //         method: 'POST',
+            //         data: $(this).serialize(),
+            //         success: function(response) {
+            //             $("#addItemCategoryForm").removeClass('col-9').addClass('col-12');
+            //             $("#error-container").hide();
+            //             $("#error-messages").empty();
+            //             $("#success-message").show().delay(3000).fadeOut();
+            //             $('#addItemCategoryForm').collapse('hide');
+            //             $("#categoryForm")[0].reset();
+            //         },
+            //         error: function(response) {
+            //             if (response.status === 422) {
+            //                 let errors = response.responseJSON.errors;
+            //                 let errorHtml = '<ul class="ul-error">';
+            //                 for (let field in errors) {
+            //                     errorHtml += '<li>' + errors[field][0] + '</li>';
 
-                                $("#" + field).addClass('border-red');
-                            }
-                            errorHtml += '</ul>';
-                            $("#error-messages").html(errorHtml);
-                            $("#addItemCategoryForm").removeClass('col-12').addClass('col-9');
-                            $("#error-container").show();
-                            $("#categoryForm")[0].reset();
-                        }
-                    }
-                });
-            });
+            //                     $("#" + field).addClass('border-red');
+            //                 }
+            //                 errorHtml += '</ul>';
+            //                 $("#error-messages").html(errorHtml);
+            //                 $("#addItemCategoryForm").removeClass('col-12').addClass('col-9');
+            //                 $("#error-container").show();
+            //                 $("#categoryForm")[0].reset();
+            //             }
+            //         }
+            //     });
+            // });
         });
         //end
 
         //ItemForm error validation
         $(document).ready(function() {
-            $("#itemForm").on('submit', function(e) {
-                e.preventDefault();
-                // Send form data using AJAX
-                var actionUrl = $(this).attr('action');
-                var formData = new FormData(this);
-                // Send form data using AJAX
-                $.ajax({
-                    url: actionUrl,
-                    method: 'POST',
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function(response) {
+            // $("#itemForm").on('submit', function(e) {
+            //     e.preventDefault();
+            //     // Send form data using AJAX
+            //     var actionUrl = $(this).attr('action');
+            //     var formData = new FormData(this);
+            //     // Send form data using AJAX
+            //     $.ajax({
+            //         url: actionUrl,
+            //         method: 'POST',
+            //         contentType: false,
+            //         processData: false,
+            //         data: formData,
+            //         success: function(response) {
 
-                        console.log(response);
-                        $("#addItemForm").removeClass('col-9').addClass('col-12');
-                        $("#error-items").hide();
-                        $("#error-messages-items").empty();
-                        $("#success-message-items").show().delay(3000).fadeOut();
-                        $('#addItemForm').collapse('hide');
-                        $("#itemForm")[0].reset();
-                    },
-                    error: function(response) {
-                        if (response.status === 422) {
-                            let errors = response.responseJSON.errors;
-                            let errorHtml = '<ul class="ul-error">';
-                            for (let field in errors) {
-                                errorHtml += '<li>' + errors[field][0] + '</li>';
+            //             console.log(response);
+            //             $("#addItemForm").removeClass('col-9').addClass('col-12');
+            //             $("#error-items").hide();
+            //             $("#error-messages-items").empty();
+            //             $("#success-message-items").show().delay(3000).fadeOut();
+            //             $('#addItemForm').collapse('hide');
+            //             $("#itemForm")[0].reset();
+            //         },
+            //         error: function(response) {
+            //             if (response.status === 422) {
+            //                 let errors = response.responseJSON.errors;
+            //                 let errorHtml = '<ul class="ul-error">';
+            //                 for (let field in errors) {
+            //                     errorHtml += '<li>' + errors[field][0] + '</li>';
 
-                                $("#" + field).addClass('border-red');
-                            }
-                            errorHtml += '</ul>';
-                            $("#error-messages-items").html(errorHtml);
-                            $("#addItemForm").removeClass('col-12').addClass('col-9');
-                            $("#error-items").show();
-                            $("#itemForm")[0].reset();
-                        }
-                    }
-                });
-            });
+            //                     $("#" + field).addClass('border-red');
+            //                 }
+            //                 errorHtml += '</ul>';
+            //                 $("#error-messages-items").html(errorHtml);
+            //                 $("#addItemForm").removeClass('col-12').addClass('col-9');
+            //                 $("#error-items").show();
+            //                 $("#itemForm")[0].reset();
+            //             }
+            //         }
+            //     });
+            // });
         });
     </script>
 @endsection

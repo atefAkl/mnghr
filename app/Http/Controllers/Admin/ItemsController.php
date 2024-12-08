@@ -75,7 +75,7 @@ class ItemsController extends Controller
    */
   public function store(ItemRequest $request)
   {
-    $validated = $request->safe()->only(['name', 'barcode', 'breif']);
+    //$validated = $request->safe()->only(['name', 'barcode', 'breif']);
 
     // Handle image upload, even if it's optional
     $filename = null;
@@ -87,11 +87,11 @@ class ItemsController extends Controller
 
     try {
       Item::create([
-        'name' => $validated['name'],
-        'barcode' => $validated['barcode'],
+        'name' => $request['name'],
+        'barcode' => $request['barcode'],
         'category_id' => $request->category_id,
         'unit_id' => $request->unit,
-        'breif' => $validated['breif'],
+        'breif' => $request['breif'],
         'image' => $filename, // Include the filename, even if it's null
         'created_by' => currentUserId(),
         'updated_by' => currentUserId()
@@ -114,10 +114,10 @@ class ItemsController extends Controller
     $product = Item::find($id);
 
     if (!$product) {
-      return view('admin.items.view', ['product' => null]);
+      return redirect()->back()->withError('The product is not exist, may be deleted or you have insuffecient privilleges.');
     }
 
-    return view('admin.items.view', compact('product'));
+    return view('admin.items.view', ['product' => $product]);
   }
   /**
    * Display the specified resource.
@@ -197,7 +197,16 @@ class ItemsController extends Controller
    */
   public function destroy($id)
   {
-    Item::find($id)->delete();
-    return redirect()->back()->with(['Success' => 'Product Removed Successfully']);
+    $product = Item::find($id);
+    if (!$product) {
+      return redirect()->back()->withError('The product is not exist, may be deleted or you have insuffecient privilleges to delete it.');
+    }
+    try {
+      $product->delete();
+      return redirect()->route('display-product-all')->with(['success' => 'Product Removed Successfully']);
+    } catch (Exception $err) {
+
+      return redirect()->back()->with(['error' => 'Product can not be Removed due to: ' . $err]);
+    }
   }
 }
