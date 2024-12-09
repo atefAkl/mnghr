@@ -41,7 +41,7 @@ class ItemsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function productList()
+  public function ItemsStatistics()
   {
     $products = Item::all();
 
@@ -53,7 +53,7 @@ class ItemsController extends Controller
       'units'      => $units,
       'products'   => $products
     ];
-    return view('admin.items.productList', $vars);
+    return view('admin.items.itemsStatistics', $vars);
   }
 
   /**

@@ -106,7 +106,7 @@ Route::group(
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
     Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-items');
-    Route::get('items/itemsStatistics',                 [ItemsController::class, 'productList'])->name('display-product-list');
+    Route::get('items/itemsStatistics',                 [ItemsController::class, 'ItemsStatistics'])->name('display-product-list');
     Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-all');
     Route::get('items/filter',                          [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
     Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');

@@ -292,12 +292,9 @@ ol > li > input:checked ~ label:before {
 .productlist .productlistimg {
     position: relative;
     overflow: hidden;
-}
-.productlist .productlistimg img {
-    transition: all 0.5s;
-    border-radius: 5px 5px 0 0;
     max-height: 70px;
-    width: 100%;
+    width: 70px;
+    background-size: contain;                                         
 }
 
 .productlist .productlistcontent {
@@ -317,23 +314,7 @@ ol > li > input:checked ~ label:before {
     
 }
 
-  .productlist  p {
-    position: absolute;
-    background: #e4e4e4;
-    color: #000;
-    font:  0.9rem/1.2 Arial;
-    padding: 5px;
-    border-radius: 5px;
-    top: 5rem;
-    right: 1rem;
-    transform: translatey(0);
-    transition: all 0.3s;
-    text-align: center;  
-  
-}
-.productlist:hover  p {
-  transform: translatey(-60px);
-}
+
 /* ===================================================
 ================= Bootstrap Modifications ============
 =================================================== */
@@ -362,20 +343,13 @@ ol > li > input:checked ~ label:before {
 ================= error message ============
 =================================================== */
 
-
-.is-invalid {
-  border-color: #dc3545; 
-  padding: .25rem .75rem;
-  font-size: .875rem;
-  color: #dc3545;
-  background-color: #fff;
-  border-radius: .25rem;
-}
-
 .invalid-feedback {
   display: block;
   width: 100%;
   margin-top: .25rem;
   font-size: .875rem;
   color: #dc3545;
+
 }
+
+
