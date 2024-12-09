@@ -9,7 +9,7 @@
 
 <!--  start Add New Category   ;-->
 
-<div class="collapse @if ($errors->has('cat_brief') || $errors->has('cat_name')) show @endif" id="addItemCategoryForm">
+<div class="collapse pt-3 pb-3 @if ($errors->has('cat_brief') || $errors->has('cat_name')) show @endif" id="addItemCategoryForm">
   <div class="row">
     <div class="col @if ($errors->has('cat_brief') || $errors->has('cat_name')) col-9 show @else col-12 @endif">
       <div class="card card-head" style="background-color: #bbb;color: #fff;">
@@ -70,12 +70,13 @@
       @enderror
     </div>
   </div>
+  <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
 </div>
 
 <!--  -->
 
 <!-- start Add New item -->
-<div class="collapse @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm">
+<div class="collapse  pt-3 pb-3 @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm">
   <div class="row">
     <div class="col @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) col-9 show @else  col-12 @endif" id="addItemForm">
       <div class="card card-head" style="background-color: #bbb;color: #fff;">
@@ -86,7 +87,7 @@
           enctype="multipart/form-data">
           @csrf
 
-          <div class="input-group sm mt-2">
+          <div class="input-group sm ">
             <label class="input-group-text" for="categorey">Parent Category</label>
             <select class="form-select" name="category_id" id="categorey">
               <option hidden placeholder="Parent Select Category"> </option>
@@ -118,7 +119,7 @@
             <input type="text" id="breif" class="form-control " name="breif"
               value="{{ old('breif') }}">
           </div>
-          <div class="input-group sm mt-2 mb-3">
+          <div class="input-group sm mt-2 ">
             <label class="input-group-text" for="unit">Unit</label>
             <select class="form-select" name="unit" id="unit">
               <option value="1"></option>
@@ -151,9 +152,11 @@
 
 
   </div>
+  <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
 </div>
 
 <!-- end -->
+
 <div class="row">
   <div class="col col-4">
     <fieldset class="mt-4 mx-0 mb-0">
@@ -264,9 +267,6 @@
       $('#contextMenu').fadeOut(200);
     });
 
-  });
-
-  $(document).ready(function() {
     $('#addItemForm').on('show.bs.collapse', function() { //  فورم الايتم مفتوح collapse ف اذكان  
       $('#addItemCategoryForm').collapse('hide'); // Categoryقفلي بتاع الــ 
     });
@@ -275,9 +275,8 @@
       function() { //    فورم الاصناف مفتوح collapse ف اذكان  
         $('#addItemForm').collapse('hide'); // item قفلي بتاع الــ 
       });
-  });
 
-  $(document).on('click', '.filter-link', function() {
+      $(document).on('click', '.filter-link', function() {
     //  عند النقر على  #filter-link
     // #filter-link = link grandChild category
 
@@ -303,5 +302,11 @@
 
 
   });
+
+  });
+
+
+
+
 </script>
 @endsection

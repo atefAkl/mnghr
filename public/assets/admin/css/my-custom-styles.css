@@ -254,6 +254,10 @@ ol > li > label {
     color: black;
 }
 
+ol > li > label >a{
+  border-radius: 0.25rem;
+  color: black;
+}
 ol > li > input ~ label:before {
     content: "";
     display: inline-block;
@@ -294,7 +298,11 @@ ol > li > input:checked ~ label:before {
     overflow: hidden;
     max-height: 70px;
     width: 70px;
-    background-size: contain;                                         
+    /* background-size: contain; */
+    background-size: 70px 70px;
+    /* background-position: center center; */
+    background-repeat: no-repeat;       
+
 }
 
 .productlist .productlistcontent {

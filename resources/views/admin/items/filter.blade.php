@@ -3,10 +3,10 @@
         <div class="col-lg-6 col-sm-6 mb-1  ">
             <a href="{{ route('view-product-info', [$product->id]) }}">
                 <div class="productlist">
-                    <div class="productlistimg">
-                        <img src="{{ asset('assets/admin/uploads/images/product/' . $product->image) }}" alt="img">
+                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}');">
 
-                    </div>
+
+                </div>
                     <div class="productlistcontent">
                         <h5 class=" mb-1">
                             @if ($product->parent_cat && $product->parent_cat->parent)
@@ -19,9 +19,7 @@
 
                     </div>
 
-                    <div>
-                        <p>{{ $product->breif }}</p>
-                    </div>
+                  
                 </div>
             </a>
         </div>
