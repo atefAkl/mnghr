@@ -56,10 +56,180 @@
                 </div>
 
             </div>
+<<<<<<< HEAD
+            <button type="button" class="input-group-text text-start">Active</button>
+            <button type="submit" class="form-control btn btn-outline-primary">Save Category</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <div class="col p-0  {{ $errors->has('cat_brief') || $errors->has('cat_name') ? 'col-3 d-block' : 'd-none' }}"
+      id="error-container" style="border: 1px solid #dedede">
+      <div class="card card-head" style="background-color: #bbb;color: #fff;">
+        <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+      </div>
+      @error('cat_name')
+      <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
+      @enderror
+      @error('cat_brief')
+      <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
+      @enderror
+    </div>
+  </div>
+  <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
+</div>
+
+<!--  -->
+
+<!-- start Add New item -->
+<div class="collapse  pt-3 pb-3 @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) show @endif" id="addItemForm">
+  <div class="row">
+    <div class="col @if ($errors->has('breif') || $errors->has('name') || $errors->has('barcode')) col-9 show @else  col-12 @endif" id="addItemForm">
+      <div class="card card-head" style="background-color: #bbb;color: #fff;">
+        <h4 class="mt-2 pb-2 ms-3">Create New Product </h4>
+      </div>
+      <div class=" card card-body">
+        <form id="itemForm" action="{{ route('store-new-product') }}" method="POST" accept="[]"
+          enctype="multipart/form-data">
+          @csrf
+
+          <div class="input-group sm ">
+            <label class="input-group-text" for="categorey">Parent Category</label>
+            <select class="form-select" name="category_id" id="categorey">
+              <option hidden placeholder="Parent Select Category"> </option>
+              @foreach ($centrals as $cat)
+              @foreach ($cat->children as $child)
+              <option value="{{ $child->id }}">{{ $cat->parent->cat_name }}
+                -{{ $cat->cat_name }} -
+                {{ $child->cat_name }}
+              </option>
+              @endforeach
+              @endforeach
+            </select>
+            <label class="input-group-text " for="barcode">Barcode</label>
+            <input type="text" id="barcode" class="form-control" name="barcode"
+              value="{{ old('barcode') }}">
+
+          </div>
+
+          <div class="input-group sm mt-2">
+            <label class="input-group-text" for="name">Name</label>
+            <input type="text" id="name" placeholder="Product Name" class="form-control"
+              name="name" value="{{ old('name') }}">
+
+            <input type="file" class="form-control" name="image" id="image">
+
+          </div>
+          <div class="input-group sm mt-2">
+            <label class="input-group-text" for="breif">Description</label>
+            <input type="text" id="breif" class="form-control " name="breif"
+              value="{{ old('breif') }}">
+          </div>
+          <div class="input-group sm mt-2 ">
+            <label class="input-group-text" for="unit">Unit</label>
+            <select class="form-select" name="unit" id="unit">
+              <option value="1"></option>
+              @foreach ($units as $unit)
+              <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+              @endforeach
+            </select>
+            <button type="submit" class="form-control btn btn-outline-primary">Save Item</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-3 p-0"
+      style="display: {{ $errors->has('name') || $errors->has('barcode')|| $errors->has('breif') ? 'block' : 'none' }} border: 1px solid #dedede">
+      <div class="card card-head" style="background-color: #bbb;color: #fff;">
+        <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+      </div>
+      @error('name')
+      <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
+      @enderror
+      @error('barcode')
+      <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
+      @enderror
+      @error('breif')
+      <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
+      @enderror
+
+    </div>
+
+
+
+  </div>
+  <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
+</div>
+
+<!-- end -->
+
+<div class="row">
+  <div class="col col-4">
+    <fieldset class="mt-4 mx-0 mb-0">
+      <legend>Root &nbsp; &nbsp;
+        <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemCategoryForm"
+          aria-expanded="false" aria-controls="addItemCategoryForm"><i data-bs-toggle="tooltip"
+            title="Add New Category" class="fa fa-plus"></i></a>
+      </legend>
+      <ol id="tree" class="mt-0">
+        @foreach ($cats as $item)
+        <li>
+          <input type="checkbox" id="item_{{ $item->id }}" checked />
+          <label for="item_{{ $item->id }}" class="my-0">{{ $item->cat_name }}</label>
+          @if ($item->children)
+          <ol>
+            @foreach ($item->children as $child)
+            <li>
+
+              <input type="checkbox" id="item_{{ $child->id }}" checked />
+              <label for="item_{{ $child->id }}">{{ $child->cat_name }}</label>
+              @if ($child->children)
+              <ol>
+                @foreach ($child->children as $grandChild)
+                <li>
+                  <label>
+                    <a class="filter-link"
+                      data-url="{{ route('display-product-list-filtered', ['id' => $grandChild->id]) }}">
+                      {{ $grandChild->cat_name }}</a>
+                  </label>
+                </li>
+                @endforeach
+              </ol>
+              @endif
+            </li>
+            @endforeach
+          </ol>
+          @endif
+        </li>
+        @endforeach
+      </ol>
+    </fieldset>
+  </div>
+  <div class="col col-8">
+    <fieldset class="mt-4 mx-0 mb-0">
+      <legend>Display Product List &nbsp; &nbsp;
+        <a class=" ms-3" data-bs-toggle="collapse" data-bs-target="#addItemForm" aria-expanded="false"
+          aria-controls="addItemForm"><i data-bs-toggle="tooltip" title="Add New Item"
+            class="fa fa-plus"></i>
+        </a>
+      </legend>
+
+      <div id="product-list">
+        <div class="row ">
+          @foreach ($products as $product)
+          <div class="col-lg-6 col-sm-6 mb-1  ">
+            <a href="{{ route('view-product-info', [$product->id]) }}">
+              <div class="productlist">
+                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}'">
+
+
+=======
             <div class="col p-0  {{ $errors->has('cat_brief') || $errors->has('cat_name') ? 'col-3 d-block' : 'd-none' }}"
                 id="error-container" style="border: 1px solid #dedede">
                 <div class="card card-head" style="background-color: #bbb;color: #fff;">
                     <h4 class="mt-2 pb-2 ms-3">Errors </h4>
+>>>>>>> 633a85591c6e50434df4176941a1b8aa777fef82
                 </div>
                 @error('cat_name')
                     <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>

@@ -4,12 +4,14 @@ use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\storesController;
+use App\Http\Controllers\Admin\StoreReceiptsController;
 use App\Http\Controllers\admin\AdminsController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\ItemCategoriesController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
+
 
 
 
@@ -102,6 +104,16 @@ Route::group(
     Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
     Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
 
+
+      /* ========================================================================================================================================
+      =========== Store Receipt Routes Collection ===========================================================================================================
+      ======================================================================================================================================== */
+      Route::get('/receipts/index',                     [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
+      Route::post('/receipts/store',                    [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
+      Route::get('receipts/edit/{id}',                  [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
+      Route::get('receipts/destroy/{id}',               [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
+
+
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
@@ -131,5 +143,8 @@ Route::group(
     Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
     Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
     Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
+
+
+      
   }
 );

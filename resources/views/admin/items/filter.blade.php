@@ -3,7 +3,7 @@
         <div class="col-lg-6 col-sm-6 mb-1  ">
             <a href="{{ route('view-product-info', [$product->id]) }}">
                 <div class="productlist">
-                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}');">
+                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}'">
 
 
                 </div>
