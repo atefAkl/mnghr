@@ -144,11 +144,7 @@
                 @error('breif')
                     <div class="invalid-feedback col-sm py-1 mb-1 ms-3">{{ $message }}</div>
                 @enderror
-
             </div>
-
-
-
         </div>
     </div>
 
