@@ -4,14 +4,13 @@
     <li class="breadcrumb-item active" aria-current="page">Receipts</li>
 @endsection
 @section('contents')
-<<<<<<< HEAD
 <h1 class="mt-3 pb-2 " style="border-bottom: 2px solid #dedede">Store Movement Receipts
 </h1>
 
 <div class="row ">
-  <div class="col col-12 collapse pt-3" id="addtreceiptForm">
+  <div class="col col-12 collapse  @if ($errors->has('reference') || $errors->has('serial') ||$errors->has('reception_date') || $errors->has('brief') || $errors->has('notes')) show @endif pt-3" id="addtreceiptForm">
   <div class="row">
-        <div class="col col-12 ">
+        <div class="col @if($errors->has('reference') || $errors->has('serial') ||$errors->has('reception_date') || $errors->has('brief') || $errors->has('notes')) col-9 show @else col-12 @endif">
           <div class="card card-body">
             <form action="/admin/receipts/store" method="POST">
               @csrf
@@ -72,108 +71,32 @@
             </form>
           </div>
         </div>
+    
+        <div class="col p-0 pb-3 card alert alert-danger {{ $errors->has('reference') || $errors->has('serial') ||$errors->has('reception_date') || $errors->has('brief') || $errors->has('notes') ? 'col-3 d-block' : 'd-none' }}"
+                 style="border: 1px solid #dedede;margin-bottom:-.1rem;">
+                @error('reference')
+                    <ul ><li class="mt-2 mb-2"style="list-style-type: disc"> {{ $message }}</li></ul>
+                @enderror
+                @error('serial')
+                    <ul ><li class="mt-2 mb-2"style="list-style-type: disc"> {{ $message }}</li></ul>
+                @enderror
+                @error('reception_date')
+                    <ul ><li class="mt-2 mb-2"style="list-style-type: disc"> {{ $message }}</li></ul>
+                @enderror
+                @error('brief')
+                <ul ><li class="mt-2 mb-2"style="list-style-type: disc"> {{ $message }}</li></ul>
+                @enderror
+                @error('notes')
+                <ul ><li class="mt-2 mb-2"style="list-style-type: disc"> {{ $message }}</li></ul>
+                @enderror
+            
+            </div>
       </div>
     <div class="pt-2 pb-4" style="border-bottom: 2px solid #dedede"></div>
   </div>
-=======
-    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Store Movement Receipts
-    </h1>
-
-    <div class="row ">
-        <div class="col col-12 collapse" id="addtreceiptForm">
-            <fieldset class="mt-4 mx-0 mb-0">
-                <legend> Add New Receipt &nbsp; &nbsp;
-
-                </legend>
-                <div class="row">
-                    <div class="col col-12 ">
-                        <div class=" card-body">
-                            <form action="/admin/receipts/store" method="POST">
-                                @csrf
-                                <div class="input-group sm mb-2">
-                                    <label class="input-group-text" for="reception_date">Reception Date</label>
-                                    <input type="date" class="form-control" name="reception_date" id="reception_date">
-                                    <label class="input-group-text" for="reference">Reference</label>
-                                    <input type="number" class="form-control" name="reference" id="reference">
-                                    <label class="input-group-text" for="reference_type"> reference_type</label>
-                                    <select class="form-select" name="reference_type" id="reference_type">
-                                        <option value="1"></option>
-                                        @foreach ($reference_type as $key => $value)
-                                            <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="input-group sm mt-2">
-                                    <label class="input-group-text" for="serial">Serial Number</label>
-                                    <input type="text" class="form-control" name="serial" id="serial">
-                                    <label class="input-group-text" for="admin_id">Representative</label>
-                                    <select class="form-select" name="admin_id" id="admin_id">
-                                        <option value="1"></option>
-                                        @foreach ($admins as $admin)
-                                            <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label class="input-group-text" for="store_id"> Store</label>
-                                    <select class="form-select" name="store_id" id="store_id">
-                                        <option value="1"></option>
-                                        @foreach ($stores as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="input-group mt-2">
-                                    <label class="input-group-text" for="brief">Description</label>
-                                    <input type="text" class="form-control" name="brief" id="brief">
-                                </div>
-                                <div class="input-group mt-2">
-                                    <label class="input-group-text" for="notes">Notes</label>
-                                    <input type="text" class="form-control" name="notes" id="notes">
-                                </div>
-                                <div class="input-group mt-2">
-                                    <div class="input-group-text">
-                                        <input class="form-check-input mt-0" name="direction" type="checkbox" value="1"
-                                            aria-label="Checkbox for following text input">
-                                    </div>
-                                    <button type="button" class="input-group-text text-start">Input</button>
-                                    <div class="input-group-text">
-                                        <input class="form-check-input mt-0" name="direction" type="checkbox" value="2"
-                                            aria-label="Checkbox for following text input">
-                                    </div>
-                                    <button type="button" class="input-group-text text-start">Output</button>
-                                    <button type="submit" class="form-control btn btn-outline-primary">Save
-                                        Receipt</button>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
-        </div>
->>>>>>> e510cbfe7f100a6153f4a29493fc4b3b86fb269b
 
     </div>
 
-<<<<<<< HEAD
-            <th>Serial Number</th>
-            <th>Reference Type</th>
-            <th>Date</th>
-            <th>Representative</th>
-            <th>Control</th>
-          </tr>
-        </thead>
-        <tbody>
-          @if (count($receipts))
-          @foreach ($receipts as $receipt)
-          <tr>
-            <td>{{ $receipt->serial }}</td>
-            <td>{{ $reference_type[$receipt->reference_type] }}</td>
-            <td>{{ $receipt->reception_date }}</td>
-            <td>{{ @$receipt->admin->userName}}</td>
-            <td>
-=======
     <div class="row">
         <div class="col col-12">
             <fieldset class="mt-4 mx-0 mb-0">
@@ -185,7 +108,6 @@
                 </legend>
                 <div class="input-group">
                     <button class="py-0 pt-1 pb-1 ms-4 btn btn-primary">Input
->>>>>>> e510cbfe7f100a6153f4a29493fc4b3b86fb269b
 
                     </button>
                     <button class="py-0  pt-1 pb-1 btn btn-outline-secondary">Output</button>
@@ -206,9 +128,9 @@
                             @foreach ($receipts as $receipt)
                                 <tr>
                                     <td>{{ $receipt->serial }}</td>
-                                    <td>{{ $reference_type[$receipt->reference_type] }}</td>
+                                    <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                                     <td>{{ $receipt->reception_date }}</td>
-                                    <td>{{ $receipt->admin->userName }}</td>
+                                    <td>{{ @$receipt->admin->userName }}</td>
                                     <td>
 
                                         <a class="btn btn-sm py-0"
