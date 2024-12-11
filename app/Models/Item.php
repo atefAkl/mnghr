@@ -20,7 +20,7 @@ class Item extends Model
     {
         return $this->belongsTo(ItemCategroy::class, 'category_id');
     }
-  
+
     public function units_name()
     {
         return $this->belongsTo(Unit::class, 'unit_id');

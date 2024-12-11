@@ -132,6 +132,7 @@ ol > li {
     text-align: center;
     color: white;
     background-color: gray;
+    transition: all 0.3s ease-in-out;
 }
 
 ol > li > input {
