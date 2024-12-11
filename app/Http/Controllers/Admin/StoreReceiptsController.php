@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests\ItemRequest;
 use App\Models\StoreReceipt;
@@ -11,24 +12,34 @@ use App\Models\Admin;
 
 class StoreReceiptsController extends Controller
 {
+
+  private static $reference_type=[
+    '1'=> 'Purchases',  
+    '2'=> 'Sales inverse',
+    '3'=> 'Purchases inverse',
+    '4'=> 'Transfer',
+    '5'=> 'Sales',
+    '6'=> 'Project supplies',
+    '7'=> 'Administration supplies',
+    '8'=> 'Credit transfer',
+ ];
+ private const insert_intry=1;
+ private const output_intry=2;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       $reference_type=[
-          '1'=> 'Purchases',  '2'=> 'Sales inverse',  '3'=> 'Purchases inverse',
-          '4'=> 'Transfer','5'=> 'Sales','6'=> 'Project supplies','7'=> 'Administration supplies',
-          '8'=> 'Credit transfer',
-       ];
       $receipts = StoreReceipt::all();
       $stores   = Store::all();
       $admins   = Admin::all();
       $vars = [
-        'reference_type' =>$reference_type,
-        'admins'         =>$admins,
-        'receipts'       => $receipts,
-        'stores'         => $stores,
+        'reference_type'   =>self::$reference_type,
+        'direction_input'  =>self::insert_intry,
+        'direction_output' =>self::output_intry,
+        'admins'           =>$admins,
+        'receipts'         => $receipts,
+        'stores'           => $stores,
         
       ];
       return view('admin.receipts.index', $vars);

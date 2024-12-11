@@ -4,27 +4,23 @@
 <li class="breadcrumb-item active" aria-current="page">Receipts</li>
 @endsection
 @section('contents')
-<h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Store Movement Receipts
+<h1 class="mt-3 pb-2 " style="border-bottom: 2px solid #dedede">Store Movement Receipts
 </h1>
 
 <div class="row ">
-  <div class="col col-12 collapse" id="addtreceiptForm">
-    <fieldset class="mt-4 mx-0 mb-0">
-      <legend> Add New Receipt &nbsp; &nbsp;
-
-      </legend>
-      <div class="row">
+  <div class="col col-12 collapse pt-3" id="addtreceiptForm">
+  <div class="row">
         <div class="col col-12 ">
-          <div class=" card-body">
+          <div class="card card-body">
             <form action="/admin/receipts/store" method="POST">
               @csrf
               <div class="input-group sm mb-2">
                 <label class="input-group-text" for="reception_date">Reception Date</label>
-                  <input type="date" class="form-control" name="reception_date" id="reception_date">
+                  <input type="date" class="form-control sm " name="reception_date" id="reception_date">
                 <label class="input-group-text" for="reference">Reference</label>
-                  <input type="number" class="form-control" name="reference" id="reference">
-                <label class="input-group-text" for="reference_type"> reference_type</label>
-                <select class="form-select" name="store_id" id="reference_type">
+                  <input type="number" class="form-control sm" name="reference" id="reference">
+                <label class="input-group-text" for="reference_type"> Reference Type</label>
+                <select class="form-select sm" name="reference_type" id="reference_type">
                   <option value="1"></option>
                   @foreach ($reference_type as $key => $value)
                   <option value="{{ $key }}">{{ $value }}</option>
@@ -33,7 +29,7 @@
               </div>
               <div class="input-group sm mt-2">
                 <label class="input-group-text" for="serial">Serial Number</label>
-                   <input type="text" class="form-control" name="serial" id="serial">
+                   <input type="text" class="form-control sm" name="serial" id="serial">
                 <label class="input-group-text" for="admin_id">Representative</label>
                 <select class="form-select" name="admin_id" id="admin_id">
                   <option value="1"></option>
@@ -42,7 +38,7 @@
                   @endforeach
                 </select>
                 <label class="input-group-text" for="store_id"> Store</label>
-                <select class="form-select" name="store_id" id="store_id">
+                <select class="form-select sm" name="store_id" id="store_id">
                   <option value="1"></option>
                   @foreach ($stores as $item)
                   <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -50,23 +46,23 @@
                 </select>
               </div>
 
-              <div class="input-group mt-2">
+              <div class="input-group sm mt-2">
                 <label class="input-group-text" for="brief">Description</label>
-                <input type="text" class="form-control" name="brief" id="brief">
+                <input type="text" class="form-control sm" name="brief" id="brief">
               </div>
-              <div class="input-group mt-2">
+              <div class="input-group sm mt-2">
                 <label class="input-group-text" for="notes">Notes</label>
                 <input type="text" class="form-control" name="notes" id="notes">
               </div>
-              <div class="input-group mt-2">
+              <div class="input-group sm mt-2">
                 <div class="input-group-text">
-                  <input class="form-check-input mt-0" name="direction" type="checkbox" value="1"
-                    aria-label="Checkbox for following text input">
+                  <input class="form-check-input sm mt-0" name="direction" type="radio" value="{{$direction_input}}"
+                    aria-label="radio for following text input">
                 </div>
                 <button type="button" class="input-group-text text-start">Input</button>
                 <div class="input-group-text">
-                  <input class="form-check-input mt-0" name="direction" type="checkbox" value="2"
-                    aria-label="Checkbox for following text input">
+                  <input class="form-check-input mt-0 sm" name="direction" type="radio" value="{{$direction_output}}"
+                    aria-label="radio for following text input">
                 </div>
                 <button type="button" class="input-group-text text-start">Output</button>
                 <button type="submit" class="form-control btn btn-outline-primary">Save Receipt</button>
@@ -76,8 +72,7 @@
           </div>
         </div>
       </div>
-    </fieldset>
-    <div class="pt-3 pb-4" style="border-bottom: 2px solid #dedede"></div>
+    <div class="pt-2 pb-4" style="border-bottom: 2px solid #dedede"></div>
   </div>
 
 </div>
@@ -113,9 +108,9 @@
           @foreach ($receipts as $receipt)
           <tr>
             <td>{{ $receipt->serial }}</td>
-            <td>{{ $receipt->reference_type }}</td>
+            <td>{{ $reference_type[$receipt->reference_type] }}</td>
             <td>{{ $receipt->reception_date }}</td>
-            <td>{{ $receipt->admin->userName}}</td>
+            <td>{{ @$receipt->admin->userName}}</td>
             <td>
 
               <a class="btn btn-sm py-0" href="{{ route('edit-receipt-info', $receipt->id) }}"><i
