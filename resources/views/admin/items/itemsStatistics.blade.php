@@ -133,7 +133,7 @@
       </div>
     </div>
     <div class="col-3 p-0"
-      style="display: {{ $errors->has('name') || $errors->has('barcode')|| $errors->has('breif') ? 'block' : 'none' }};border: 1px solid #dedede">
+      style="display: {{ $errors->has('name') || $errors->has('barcode')|| $errors->has('breif') ? 'block' : 'none' }} border: 1px solid #dedede">
       <div class="card card-head" style="background-color: #bbb;color: #fff;">
         <h4 class="mt-2 pb-2 ms-3">Errors </h4>
       </div>
@@ -214,7 +214,7 @@
           <div class="col-lg-6 col-sm-6 mb-1  ">
             <a href="{{ route('view-product-info', [$product->id]) }}">
               <div class="productlist">
-                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}');">
+                <div class="productlistimg" style="background-image: url('{{ asset('assets/admin/uploads/images/product/' . $product->image) }}'">
 
 
                 </div>
