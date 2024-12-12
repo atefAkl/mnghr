@@ -15,14 +15,7 @@
                 $errors->has('brief') ||
                 $errors->has('notes')) show @endif pt-3" id="addtreceiptForm">
             <div class="row">
-                <div
-                    class="col {{ $errors->has('reference') ||
-                    $errors->has('serial') ||
-                    $errors->has('reception_date') ||
-                    $errors->has('brief') ||
-                    $errors->has('notes')
-                        ? 'col-9 show'
-                        : 'col-12' }}">
+                <div class="col">
                     <div class="card card-body">
                         <form action="/admin/receipts/store" method="POST">
                             @csrf
@@ -153,8 +146,7 @@
                                                 class="fa fa-edit text-primary"></i></a>
 
                                         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="insert Receipt"
-                                            href="{{ route('add-store-input-entey', [$receipt->id]) }}"><i
-                                                class="fa fa-square-plus text-success"></i></a>
+                                            href=""><i class="fa fa-square-plus text-success"></i></a>
 
 
                                         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="delete Receipt"
