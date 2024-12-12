@@ -131,17 +131,25 @@
                                     <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                                     <td>{{ $receipt->reception_date }}</td>
                                     <td>{{ @$receipt->admin->userName }}</td>
-                                    <td>
+                                    <td >
 
-                                        <a class="btn btn-sm py-0"
+                                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt" 
                                             href="{{ route('edit-receipt-info', $receipt->id) }}"><i
-                                                class="fa fa-edit text-primary"></i></a>
+                                             class="fa fa-edit text-primary"></i></a> 
 
+                                                  <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="insert Receipt" 
+                                            href=""><i
+                                                class="fa fa-square-plus text-success"></i></a> 
+                                                
 
-                                        <a class="btn btn-sm py-0"
+                                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="delete Receipt" 
                                             onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
                                             href="{{ route('destroy-receipt-info', $receipt->id) }}"><i
                                                 class="fa fa-trash text-danger"></i></a>
+
+                                                  <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt" 
+                                            href=""><i
+                                                class="fa fa-print text-info"></i></a> 
 
                                     </td>
                                 </tr>
