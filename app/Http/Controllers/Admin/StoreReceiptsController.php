@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use App\Http\Requests\ItemRequest;
+use App\Http\Requests\StoreReceiptRequest;
 use App\Models\StoreReceipt;
 use App\Models\Store;
 use App\Models\Admin;
@@ -24,8 +25,9 @@ class StoreReceiptsController extends Controller
         '8' => 'Credit transfer',
     ];
 
-    private const intro_type = 1;
-    private const outro_type = 2;
+    private const insert_entry = 1;
+    private const output_intry = 2;
+
     /**
      * Display a listing of the resource.
      */
@@ -35,12 +37,12 @@ class StoreReceiptsController extends Controller
         $stores   = Store::all();
         $admins   = Admin::all();
         $vars = [
-            'intro_type'        => self::intro_type,
-            'outro_type'        => self::outro_type,
-            'reference_type'    => self::$reference_type,
-            'admins'            => $admins,
-            'receipts'          => $receipts,
-            'stores'            => $stores,
+            'reference_type'   => self::$reference_type,
+            'direction_input'  => self::insert_entry,
+            'direction_output' => self::output_intry,
+            'admins'           => $admins,
+            'receipts'         => $receipts,
+            'stores'           => $stores,
 
         ];
         return view('admin.receipts.index', $vars);
@@ -57,7 +59,7 @@ class StoreReceiptsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreReceiptRequest $request)
     {
 
         try {
