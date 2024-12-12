@@ -24,18 +24,19 @@ class StoreReceiptsController extends Controller
         '8' => 'Credit transfer',
     ];
 
-    private const insert_entry = 1;
+    private const intro_type = 1;
+    private const outro_type = 2;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         $receipts = StoreReceipt::all();
         $stores   = Store::all();
         $admins   = Admin::all();
         $vars = [
-            'types'             => self::insert_entry,
+            'intro_type'        => self::intro_type,
+            'outro_type'        => self::outro_type,
             'reference_type'    => self::$reference_type,
             'admins'            => $admins,
             'receipts'          => $receipts,

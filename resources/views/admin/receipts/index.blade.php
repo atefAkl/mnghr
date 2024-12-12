@@ -60,13 +60,13 @@
                                 </div>
                                 <div class="input-group mt-2">
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" name="direction" type="checkbox" value="1"
-                                            aria-label="Checkbox for following text input">
+                                        <input class="form-check-input mt-0" name="direction" type="checkbox"
+                                            value="intro_type" aria-label="Checkbox for following text input">
                                     </div>
                                     <button type="button" class="input-group-text text-start">Input</button>
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" name="direction" type="checkbox" value="2"
-                                            aria-label="Checkbox for following text input">
+                                        <input class="form-check-input mt-0" name="direction" type="checkbox"
+                                            value="outro_type" aria-label="Checkbox for following text input">
                                     </div>
                                     <button type="button" class="input-group-text text-start">Output</button>
                                     <button type="submit" class="form-control btn btn-outline-primary">Save
