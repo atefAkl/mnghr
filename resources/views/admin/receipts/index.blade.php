@@ -153,7 +153,7 @@
                                                 class="fa fa-edit text-primary"></i></a>
 
                                         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="insert Receipt"
-                                            href="{{ route('add-store-input-entey', [$receipt->id]) }}"><i
+                                            href="{{ route('add-store-input-entry', [$receipt->id]) }}"><i
                                                 class="fa fa-square-plus text-success"></i></a>
 
 

@@ -24,6 +24,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/admin/css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/my-custom-styles.css') }}" rel="stylesheet">
+    @yield('extra-links')
 </head>
 
 <body>
