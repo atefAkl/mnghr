@@ -4,9 +4,11 @@ namespace App\Models;
 use App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StoreReceipt extends Model
 {
+  use SoftDeletes;
   public $timestamps = true;
 
   protected $table = 'store_receipts';
@@ -19,6 +21,7 @@ class StoreReceipt extends Model
       'direction',
       'brief',
       'notes',
+      'status',
       'admin_id',
       'store_id',
       'created_by',
@@ -26,6 +29,8 @@ class StoreReceipt extends Model
       'updated_by',
       'updated_at'
   ];
+  
+  protected $dates = ['deleted_at'];
 
   public function admin()
   {

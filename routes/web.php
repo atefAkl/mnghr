@@ -111,7 +111,9 @@ Route::group(
       Route::get('/receipts/index',                     [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
       Route::post('/receipts/store',                    [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
       Route::get('receipts/edit/{id}',                  [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
+      Route::post('receipts/update',                    [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
       Route::get('receipts/destroy/{id}',               [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
+      Route::get('receipts/load-data/{type}',           [StoreReceiptsController::class, 'loadData'])->name('load.data');
 
 
     /* ========================================================================================================================================
@@ -121,7 +123,6 @@ Route::group(
     Route::get('items/itemsStatistics',                 [ItemsController::class, 'ItemsStatistics'])->name('display-product-list');
     Route::get('items/index',                           [ItemsController::class, 'index'])->name('display-product-all');
     Route::get('items/filter',                          [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
-    Route::post('/products/ajax/filter',                [ItemsController::class, 'filter'])->name('product.filter');
     Route::post('items/store',                          [ItemsController::class, 'store'])->name('store-new-product');
     Route::get('item/display/{id}',                     [ItemsController::class, 'display'])->name('view-product-info');
     Route::post('item/update',                          [ItemsController::class, 'update'])->name('update-product-info');
