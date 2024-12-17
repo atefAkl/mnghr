@@ -32,7 +32,7 @@ class StoreEntriesController extends Controller
             'receipt' => $receipt,
             'units' => $units,
         ];
-        return view('admin.stores.movement.inputs.create', $vars);
+        return view('admin.stores.entries.inputs.create', $vars);
     }
 
     /**

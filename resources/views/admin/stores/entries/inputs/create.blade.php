@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{ ++$counter }}</td>
                                 <td>
-                                    <input  value="{{ $entry->item->barcode }}" style="width: 150px">
+                                    <input value="{{ $entry->item->barcode }}" style="width: 150px">
                                 </td>
 
                                 <td data-bs-toggle="tooltip" data-bs-title="{{ $entry->item->breif }}">
@@ -78,79 +78,50 @@
                 @endif
                 {{-- end of entries --}}
                 {{-- Start input form --}}
-                <form action="{{ route('save-store-inputs-entry') }}" method="post" id="new-entry-form">
+                <form action="{{ route('save-store-inputs-entry') }}" method="post">
                     @csrf
                     <input type="hidden" name="receipt_id" value="{{ $receipt->id }}">
-                    <tr class="new-entry-row">
-                        <style>
-                            .new-entry-row input,
-                            .new-entry-row select {
-                                width: 100%;
-                                padding: 0.25rem;
-                            }
-                            .btn-group button {
-                                padding: 0.25rem 0.5rem;
-                            }
-                            .search-container {
-                                position: relative;
-                            }
-                            #products-list {
-                                width: 100%;
-                                max-height: 200px;
-                                overflow-y: auto;
-                            }
-                        </style>
+
+                    <tr>
                         <td>{{ ++$counter }}</td>
-                        <td class="search-container">
-                            <input type="text" 
-                                class="form-control form-control-sm" 
-                                id="search" 
-                                placeholder="ابحث عن منتج..."
-                                autocomplete="off">
-                        </td>
                         <td>
-                            <select name="product" id="product" class="form-select form-select-sm" required>
-                                <option value="" hidden>اختر المنتج</option>
+                            <input list="products-list" type="search" placeholder="Search By Name" id="search" style="width: 150px"
+                                placeholder="2510000">
+                                <datalist id="products-list"></datalist>
+                            </td>
+
+
+                        <td>
+                            <select name="product" id="product" style="min-width: 220px" required>
+                                <option value="" hidden>No Products</option>
                             </select>
                         </td>
+
                         <td>
-                            <select name="unit" id="unit" class="form-select form-select-sm" required>
-                                <option value="" hidden>اختر الوحدة</option>
+                            <select name="unit" id="unit" style="width: 120px" required>
+                                <option hidden>Unit</option>
                                 @foreach ($units as $unit)
                                     <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                                 @endforeach
                             </select>
                         </td>
+
                         <td>
-                            <input type="number" 
-                                name="quantity" 
-                                class="form-control form-control-sm" 
-                                required 
-                                min="0.01" 
-                                step="0.01"
-                                placeholder="الكمية">
+                            <input type="number" name="quantity" required id="quantity" style="width: 100px">
                         </td>
+
                         <td>
-                            <input type="text" 
-                                name="notes" 
-                                class="form-control form-control-sm"
-                                placeholder="ملاحظات">
+                            <input type="text" name="notes" id="notes">
                         </td>
+
                         <td>
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-sm btn-outline-primary" title="حفظ">
-                                    <i class="fas fa-save"></i>
-                                </button>
-                                <button type="reset" class="btn btn-sm btn-outline-secondary" title="مسح">
-                                    <i class="fas fa-undo"></i>
-                                </button>
+                            <div class="btn-group ">
+                                <input type="submit" class="btn btn-sm py-1 btn-outline-secondary" value="Insert" />
+                                <input type="reset" class="btn btn-sm py-1 btn-outline-secondary" value="reset form" />
                             </div>
                         </td>
                     </tr>
                 </form>
-                {{-- end of input form --}}
-
-                
             </tbody>
 
         </table>
@@ -162,43 +133,82 @@
             <button class="btn btn-outline-secondary btn-sm">Print</button>
         </div>
     </fieldset>
-
-	<script>
+    <script>
         $(document).ready(function() {
 
-            $('#search').on('keyup', function() {
+            // $('#search').on('keyup', function() {
 
-                $.ajax({
-                    url: "{{ route('get-products-like-query') }}", // URL of the server-side script
-                    type: "POST", // HTTP method
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        search_text: $(this).val(),
-                    },
-                    success: function(response) {
-                        // Handle successful response
-                        console.log(response);
-                        if (response.length > 0) {
-                            const options = response.map(item => {
-                                return `<option value="${item.id}">${item.name}</option>`
-                            })
-                            $('#product').html(options.join(''))
+            //     $.ajax({
+            //         url: "{{ route('get-products-like-query') }}", // URL of the server-side script
+            //         type: "POST", // HTTP method
+            //         data: {
+            //             _token: "{{ csrf_token() }}",
+            //             search_text: $(this).val(),
+            //         },
+            //         success: function(response) {
+            //             // Handle successful response
+            //             console.log(response);
+            //             if (response.length > 0) {
+            //                 const options = response.map(item => {
+            //                     return `<option value="${item.id}">${item.name}</option>`
+            //                 })
+            //                 $('#product').html(options.join(''))
 
-                        } else {
-                            $('#product').html(
-                                '<option value="" hidden>No products found</option>');
-                        }
+            //             } else {
+            //                 $('#product').html(
+            //                     '<option value="" hidden>No products found</option>');
+            //             }
 
-                        // Update HTML, display data, etc.
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors
-                        console.error(error);
-                        // Display error message to the user
-                    }
-                });
-            })
+            //             // Update HTML, display data, etc.
+            //         },
+            //         error: function(xhr, status, error) {
+            //             // Handle errors
+            //             console.error(error);
+            //             // Display error message to the user
+            //         }
+            //     });
+            // })
 
+            $('#search').on('input', function() {
+        const searchText = $(this).val();
+        
+        // لا نبحث إذا كان النص أقل من حرفين
+        if(searchText.length < 2) {
+            $('#products-list').empty();
+            $('#product').html('<option value="" hidden>اختر المنتج</option>');
+            return;
+        }
+        
+        $.ajax({
+            url: "{{ route('get-products-like-query') }}",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                search_text: searchText
+            },
+            success: function(response) {
+                const datalist = $('#products-list');
+                const product = $('#product');
+                console.log(response,searchText);
+                // مسح القوائم القديمة
+                datalist.empty();
+                select.html('<option value="" hidden>اختر المنتج</option>');
+                
+                if(response.length > 0) {
+                    response.forEach(function(item) {
+                        // إضافة للـ datalist
+                        datalist.append(`<option value="${item.name}" data-id="${item.id}">`);
+                        
+                        // إضافة للـ select
+                        select.append(`<option value="${item.id}">${item.name}</option>`);
+                    });
+                } else {
+                    datalist.append('<option value="" >No Matches</option>');
+                }
+            }
+        });
+    });
+    
             // Choosing products Unit Automatically
 
         })
