@@ -59,7 +59,9 @@ Route::group(
         Route::post('entries/update',                    	[StoreEntriesController::class, 'update'])->name('update-entry-info');
         Route::get('entries/destroy/{id}',               	[StoreEntriesController::class, 'destroy'])->name('destroy-entry-info');
         Route::get('entries/input/create/{id}',          	[StoreEntriesController::class, 'createInsert'])->name('add-store-input-entry');
-        Route::get('entries/input/store',                	[StoreEntriesController::class, 'storeInsert'])->name('save-store-inputs-entry');
+        Route::get('entries/input/destroy/{id}',          	[StoreEntriesController::class, 'destroy'])->name('destroy-store-input-entry');
+        Route::post('entries/input/store',                	[StoreEntriesController::class, 'storeInsert'])->name('save-store-inputs-entry');
+        Route::post('entries/input/update',                	[StoreEntriesController::class, 'updateInsert'])->name('update-store-inputs-entry');
         Route::post('entries/get/products/like',      		[StoreEntriesController::class, 'getProductsLike'])->name('get-products-like-query');
 
         /* ========================================================================================================================================

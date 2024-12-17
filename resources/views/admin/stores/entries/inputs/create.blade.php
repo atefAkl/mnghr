@@ -13,7 +13,7 @@
     <fieldset class="table mt-5">
         <legend>Input Receipt & Records</legend>
 
-        <table class="mt-3">
+        <table class="mt-3 w-100">
             <thead>
                 <tr>
                     <th>#</th>
@@ -59,12 +59,20 @@
                                 <td><input type="text" name="notes" value="{{ $entry->notes }}"></td>
                                 <td>
                                     <div class="d-flex btn-group">
-                                        <input type="submit" class="btn btn-sm py-1 btn-outline-secondary"
-                                            value="Update" />
-                                        <input type="button" class="btn btn-sm py-1 btn-outline-secondary"
-                                            value="Copy" />
-                                        <input type="reset" class="btn btn-sm py-1 btn-outline-secondary"
-                                            value="Delete" />
+                                        <button type="submit" class="btn btn-sm py-1 btn-outline-secondary" title="Update">
+                                            <i class="fas fa-save"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm py-1 btn-outline-secondary" title="Copy">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        <a href="{{route('destroy-store-input-entry', $entry->id)}}" 
+                                           class="btn btn-sm py-1 btn-outline-secondary delete-entry"
+                                           data-entry-id="{{ $entry->id }}"
+                                           data-product-name="{{ $entry->item->name }}"
+                                           onclick="return confirmDelete(this)"
+                                           title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </td>
 
@@ -85,16 +93,24 @@
                     <tr>
                         <td>{{ ++$counter }}</td>
                         <td>
-                            <input list="products-list" type="search" placeholder="Search By Name" id="search" style="width: 150px"
-                                placeholder="2510000">
-                                <datalist id="products-list"></datalist>
-                            </td>
-
+                            <input type="text" 
+                                   list="barcodes-list" 
+                                   id="barcode_search" 
+                                   class="form-control form-control-sm"
+                                   style="width: 150px"
+                                   placeholder="Product Barcode">
+                            <datalist id="barcodes-list"></datalist>
+                        </td>
 
                         <td>
-                            <select name="product" id="product" style="min-width: 220px" required>
-                                <option value="" hidden>No Products</option>
-                            </select>
+                            <input type="text" 
+                                   list="products-list" 
+                                   id="product_search" 
+                                   class="form-control form-control-sm"
+                                   style="min-width: 220px"
+                                   placeholder="Product Name">
+                            <datalist id="products-list"></datalist>
+                            <input type="hidden" name="product" id="product_id" required>
                         </td>
 
                         <td>
@@ -116,8 +132,12 @@
 
                         <td>
                             <div class="btn-group ">
-                                <input type="submit" class="btn btn-sm py-1 btn-outline-secondary" value="Insert" />
-                                <input type="reset" class="btn btn-sm py-1 btn-outline-secondary" value="reset form" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary" title="Save">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                                <button type="reset" class="btn btn-sm btn-outline-secondary" title="Reset">
+                                    <i class="fas fa-undo"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -126,91 +146,124 @@
 
         </table>
 
-        <div class="input-group pt-2 justify-content-end">
-            <button class="btn btn-outline-secondary btn-sm">Store</button>
-            <button class="btn btn-outline-secondary btn-sm">Receipts</button>
-            <button class="btn btn-outline-secondary btn-sm">Approve</button>
-            <button class="btn btn-outline-secondary btn-sm">Print</button>
+        <div class="input-group pt-2 px-3 justify-content-end">
+            <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Bach to Store">
+                 Back To Store
+            </button>
+            <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Back to Receipts">
+                 Back To Receipts
+            </button>
+            <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Approve Receipt">
+                 Approve Receipt
+            </button>
+            <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Print Receipt">
+                Print Receipt
+            </button>
         </div>
     </fieldset>
     <script>
-        $(document).ready(function() {
-
-            // $('#search').on('keyup', function() {
-
-            //     $.ajax({
-            //         url: "{{ route('get-products-like-query') }}", // URL of the server-side script
-            //         type: "POST", // HTTP method
-            //         data: {
-            //             _token: "{{ csrf_token() }}",
-            //             search_text: $(this).val(),
-            //         },
-            //         success: function(response) {
-            //             // Handle successful response
-            //             console.log(response);
-            //             if (response.length > 0) {
-            //                 const options = response.map(item => {
-            //                     return `<option value="${item.id}">${item.name}</option>`
-            //                 })
-            //                 $('#product').html(options.join(''))
-
-            //             } else {
-            //                 $('#product').html(
-            //                     '<option value="" hidden>No products found</option>');
-            //             }
-
-            //             // Update HTML, display data, etc.
-            //         },
-            //         error: function(xhr, status, error) {
-            //             // Handle errors
-            //             console.error(error);
-            //             // Display error message to the user
-            //         }
-            //     });
-            // })
-
-            $('#search').on('input', function() {
-        const searchText = $(this).val();
-        
-        // لا نبحث إذا كان النص أقل من حرفين
-        if(searchText.length < 2) {
-            $('#products-list').empty();
-            $('#product').html('<option value="" hidden>اختر المنتج</option>');
-            return;
+        function confirmDelete(element) {
+            const productName = element.getAttribute('data-product-name');
+            return confirm(`You are going to delete entry for "${productName}", are you sure?`);
         }
-        
-        $.ajax({
-            url: "{{ route('get-products-like-query') }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                search_text: searchText
-            },
-            success: function(response) {
-                const datalist = $('#products-list');
-                const product = $('#product');
-                console.log(response,searchText);
-                // مسح القوائم القديمة
-                datalist.empty();
-                select.html('<option value="" hidden>اختر المنتج</option>');
-                
-                if(response.length > 0) {
-                    response.forEach(function(item) {
-                        // إضافة للـ datalist
-                        datalist.append(`<option value="${item.name}" data-id="${item.id}">`);
-                        
-                        // إضافة للـ select
-                        select.append(`<option value="${item.id}">${item.name}</option>`);
-                    });
-                } else {
-                    datalist.append('<option value="" >No Matches</option>');
-                }
-            }
-        });
-    });
-    
-            // Choosing products Unit Automatically
 
-        })
+        $(document).ready(function() {
+            let searchTimeout;
+
+            // دالة البحث المشتركة
+            function searchProducts(searchText, searchType) {
+                clearTimeout(searchTimeout);
+                
+                
+
+                searchTimeout = setTimeout(function() {
+                    $.ajax({
+                        url: "{{ route('get-products-like-query') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            searchText,
+                            
+                        },
+                        success: function(response) {
+                            console.log('Search Response:', response);
+                            
+                            const barcodesList = $('#barcodes-list');
+                            const productsList = $('#products-list');
+                            
+                            // تنظيف القوائم
+                            if(searchType === 'barcode') {
+                                barcodesList.empty();
+                            } else {
+                                productsList.empty();
+                            }
+                            
+                            if(response.length > 0) {
+                                response.forEach(function(item) {
+                                    if(searchType === 'barcode') {
+                                        barcodesList.append(`<option value="${item.barcode}" data-id="${item.id}" data-name="${item.name}">`);
+                                    } else {
+                                        productsList.append(`<option value="${item.name}" data-id="${item.id}" data-barcode="${item.barcode}">`);
+                                    }
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                }, 300);
+            }
+
+            // البحث بالباركود
+            $('#barcode_search').on('input', function() {
+                searchProducts($(this).val(), 'barcode');
+            });
+
+            // البحث باسم المنتج
+            $('#product_search').on('input', function() {
+                searchProducts($(this).val(), 'product');
+            });
+
+            // عند اختيار منتج من قائمة الباركود
+            $('#barcode_search').on('change', function() {
+                const selectedBarcode = $(this).val();
+                const option = $(`#barcodes-list option[value="${selectedBarcode}"]`);
+                
+                if(option.length) {
+                    const productId = option.data('id');
+                    const productName = option.data('name');
+                    
+                    $('#product_id').val(productId);
+                    $('#product_search').val(productName);
+                }
+            });
+
+            // عند اختيار منتج من قائمة المنتجات
+            $('#product_search').on('change', function() {
+                const selectedName = $(this).val();
+                const option = $(`#products-list option[value="${selectedName}"]`);
+                
+                if(option.length) {
+                    const productId = option.data('id');
+                    const barcode = option.data('barcode');
+                    
+                    $('#product_id').val(productId);
+                    $('#barcode_search').val(barcode);
+                }
+            });
+
+            // التحقق من صحة النموذج
+            $('form').on('submit', function(e) {
+                const productId = $('#product_id').val();
+                const unit = $('#unit').val();
+                const quantity = $('input[name="quantity"]').val();
+                
+                if(!productId || !unit || !quantity || quantity <= 0) {
+                    e.preventDefault();
+                    alert('Please fill in all required fields.');
+                }
+            });
+        });
     </script>
 @endsection

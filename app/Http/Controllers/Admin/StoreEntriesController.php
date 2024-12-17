@@ -38,7 +38,7 @@ class StoreEntriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function saveInsert(Request $request)
+    public function storeInsert(Request $request)
     {
         //
         $receipt = StoreReceipt::find($request->receipt_id);
@@ -91,7 +91,7 @@ class StoreEntriesController extends Controller
      */
     public function getProductsLike(Request $query)
     {
-        return Item::where('name', 'LIKE', '%' . $query->search_text . '%')->get();
+        return Item::where('name', 'LIKE', '%' . $query->nameSearch . '%')->orWhere('barcode', 'LIKE', '%' . $query->barcodeSearch . '%')->get();
     }
 
     /**
@@ -124,6 +124,17 @@ class StoreEntriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // get the entry
+        $entry = StoreEntry::find($id);
+        try {
+            if (!$entry) {
+                return redirect()->back()->withError('The entry is not exist, may be deleted or you have insuffecient privilleges to delete it.');
+            }
+            $entry->delete();
+            return redirect()->back()->with(['success' => 'Entry Removed Successfully']);
+        } catch (Exception $err) {
+            return redirect()->back()->with(['error' => 'Entry can not be Removed due to: ' . $err]);
+        }
+
     }
 }
