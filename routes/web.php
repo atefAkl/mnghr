@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Web\IndexController;
-use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\storesController;
-use App\Http\Controllers\Admin\StoreReceiptsController;
-use App\Http\Controllers\admin\AdminsController;
-use App\Http\Controllers\Admin\BranchesController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\ItemCategoriesController;
+use App\Http\Controllers\Admin\StoreReceiptsController;
+use App\Http\Controllers\Admin\StoreEntriesController;
+use App\Http\Controllers\Admin\BranchesController;
+use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\storesController;
+use App\Http\Controllers\admin\AdminsController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\StoreEntriesController;
+use App\Http\Controllers\Web\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,17 @@ Route::group(
 		'middleware'    => 'guest:admin'
 	],
 	function () {
+
+		// Registration Routes
+		Route::get('/register', 										[RegisterController::class, 'showRegistrationForm'])->name('register');
+		Route::post('/register', 										[RegisterController::class, 'register'])->name('register.submit');
+
+		// Password Reset Routes
+		Route::get('/forgot-password', 									[PasswordResetController::class, 'showForgotForm'])->name('password.request');
+		Route::post('/forgot-password', 								[PasswordResetController::class, 'sendResetLink'])->name('password.email');
+		Route::get('/reset-password/{token}', 							[PasswordResetController::class, 'showResetForm'])->name('password.reset');
+		Route::post('/reset-password', 									[PasswordResetController::class, 'resetPassword'])->name('password.update');
+
 		// Route::get('logout',                                    [LoginController::class, 'logout']);
 		// Route::get('logout',                                    [LoginController::class, 'logout']);
 		Route::get('/auth/login',                                       [LoginController::class, 'index'])->name('login');
@@ -116,6 +128,7 @@ Route::group(
 		Route::get('/store/input/entries/create/{id}',    	[StoreEntriesController::class, 'insert'])->name('add-store-input-entry');
 		Route::post('/store/input/entries/insert', 			[StoreEntriesController::class, 'saveInsert'])->name('save-store-inputs-entry');
 		Route::post('/get/products/like',		 			[StoreEntriesController::class, 'getProductsLike'])->name('get-products-like-query');
+		Route::post('/store/input/entries/update',			[StoreEntriesController::class, 'updateInsert'])->name('update-store-inputs-entry');
 
 
 		/* ========================================================================================================================================
@@ -148,4 +161,7 @@ Route::group(
 		Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
 		Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
 	}
+
+	
+
 );

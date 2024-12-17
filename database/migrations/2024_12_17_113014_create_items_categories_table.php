@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('items_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 150);
-            $table->text('address')->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->boolean('ismain')->default(0);
-            $table->string('branch_code', 50)->nullable();
+            $table->string('cat_name', 255);
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('cat_brief', 255)->nullable();
+            $table->boolean('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->datetime('created_at')->useCurrent();
+            $table->datetime('updated_at')->useCurrent();
 
+            // Foreign Keys
+            $table->foreign('parent_id')->references('id')->on('items_categories');
             $table->foreign('created_by')->references('id')->on('admins');
             $table->foreign('updated_by')->references('id')->on('admins');
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('items_categories');
     }
 };

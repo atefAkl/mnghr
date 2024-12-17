@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\StoreEntry;
 use App\Models\StoreReceipt;
+use App\Models\Unit;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -26,8 +27,10 @@ class StoreEntriesController extends Controller
     {
         //
         $receipt = StoreReceipt::find($id);
+        $units = Unit::all();
         $vars = [
             'receipt' => $receipt,
+            'units' => $units,
         ];
         return view('admin.stores.movement.inputs.create', $vars);
     }
@@ -40,7 +43,7 @@ class StoreEntriesController extends Controller
         //
         $receipt = StoreReceipt::find($request->receipt_id);
         try {
-            return [
+            $entry = StoreEntry::create([
                 'item_id'         => $request->product,
                 'store_id'        => $receipt->store_id,
                 'receipt_id'      => $request->receipt_id,
@@ -52,13 +55,34 @@ class StoreEntriesController extends Controller
                 'status'          => 'active',
                 'created_by'      => currentUserId(),
                 'updated_by'      => currentUserId()
-            ];
-            $request->receipt_id;
+            ]);
 
-            //StoreEntry::create();
-            //return redirect()->back()->with('success', 'Store Entry');
+            if ($entry) {
+                return redirect()->back()->with('success', 'Store Entry saved successfully.');
+            }
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['Insertion Error Happened: ' => $e->getMessage()]);
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateInsert(Request $request)
+    {
+        //
+        $entry = StoreEntry::find($request->entry_id);
+        try {
+            $entry->update([
+
+                'inputs'          => $request->quantity,
+                'notes'           => $request->notes,
+                'updated_by'      => currentUserId()
+            ]);
+
+
+            return redirect()->back()->with('success', 'Store Entry Updated successfully.');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['Update Error Happened: ' => $e->getMessage()]);
         }
     }
 
@@ -89,10 +113,11 @@ class StoreEntriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.
