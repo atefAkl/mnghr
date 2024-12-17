@@ -369,6 +369,29 @@ INSERT INTO `units` (`id`, `name`, `brief`, `short_name`, `status`, `created_by`
 (2, 'Piece', 'Piece', 'pcs', 1, NULL, NULL, NULL, NULL);
 
 --
+-- Table structure for table `store_entries`
+--
+
+DROP TABLE IF EXISTS `store_entries`;
+CREATE TABLE IF NOT EXISTS store_entries (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    item_id BIGINT UNSIGNED,
+    store_id BIGINT UNSIGNED,
+    receipt_id BIGINT UNSIGNED,
+    ref_type_id INT,
+    unit_id BIGINT UNSIGNED,
+    inputs DECEMAL(10, 2),
+    outputs DECEMAL(10, 2),
+    notes VARCHAR(MAX),
+    status VARCHAR(50),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    created_by BIGINT UNSIGNED,
+    updated_by BIGINT UNSIGNED,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
 -- Constraints for dumped tables
 --
 

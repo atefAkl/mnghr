@@ -1,0 +1,97 @@
+
+:root {
+    --primary-color: #1e3799;
+    --secondary-color: #4a69bd;
+    --gradient: linear-gradient(45deg, #1e3799, #4a69bd);
+}
+
+body {
+    background: var(--gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cairo', sans-serif;
+}
+
+.register-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    margin: 20px;
+}
+
+.register-banner {
+    background: var(--gradient);
+    color: white;
+    padding: 40px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-form {
+    padding: 40px;
+    width: 60%;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.input-group-text {
+    background: transparent;
+    border-right: 0;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(30, 55, 153, 0.25);
+}
+
+.btn-register {
+    background: var(--gradient);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 35px;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.btn-register:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.links-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.links-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.links-section a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .register-banner {
+        display: none;
+    }
+    .register-form {
+        width: 100%;
+    }
+}

@@ -1,100 +1,184 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AKLSOFT | Log in</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('assets\admin\fonts\ionicons\2.0.1\css\ionicons.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/adminlte.min.css') }}">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="{{ asset('assets\admin\fonts\SansPro\SansPro.min.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3799;
+            --secondary-color: #4a69bd;
+            --gradient: linear-gradient(45deg, #1e3799, #4a69bd);
+        }
+        
+        body {
+            background: var(--gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            margin: 20px;
+        }
+        
+        .login-banner {
+            background: var(--gradient);
+            color: white;
+            padding: 40px;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .login-form {
+            padding: 40px;
+            width: 50%;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+        }
+        
+        .input-group-text {
+            background: transparent;
+            border-right: 0;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(30, 55, 153, 0.25);
+        }
+        
+        .btn-login {
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            padding: 12px 35px;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .btn-login:hover {
+            opacity: 0.9;
+            color: white;
+        }
+        
+        .links-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .links-section a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .links-section a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .login-banner {
+                display: none;
+            }
+            .login-form {
+                width: 100%;
+            }
+        }
+        
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .input-group > .form-control {
+            border-right: 0;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="card">
-            <div class="login-logo">
-                <a href=""><b>AKL</b>SOFT</a>
-            </div>
-            @if (Session::has('error'))
-                <div class="container my-0">
-                    <div class="alert alert-sm py-2 my-0 alert-danger text-right">
-                        {!! Session::get('error') !!}
-                    </div>
+<body>
+    <div class="login-container">
+        <div class="login-banner">
+            <h1 class="mb-4">Welcome Back!</h1>
+            <p>Sign in to access your admin dashboard and manage your website with ease.</p>
+        </div>
+        
+        <div class="login-form">
+            <h2 class="text-center mb-4">Sign In</h2>
+            
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
                 </div>
             @endif
-            <!-- /.login-logo -->
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
-                <form action="{{ route('admin.login') }}" method="post">
-                    @csrf
-                    <div class="input-group mt-3">
-                        <input type="text" name="userName" class="form-control" placeholder="Username Or Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
+            
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
+            <form method="POST" action="{{ route('admin.login') }}">
+                @csrf
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input type="text" class="form-control @error('userName') is-invalid @enderror" 
+                           name="userName" placeholder="Username"
+                           value="{{ old('userName') }}" required>
                     @error('userName')
-                        <p class="validationError text-danger d-block">{{ $message }}</p>
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <div class="input-group mt-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                           name="password" placeholder="Password" required>
                     @error('password')
-                        <p class="validationError text-danger d-block">{{ $message }}</p>
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <div class="row">
-                        <div class="col-8 mt-4">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4 mt-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-                <p class="mb-1">
-                    <a href="#">I forgot my password</a>
-                </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
-            </div>
-            <!-- /.login-card-body -->
+                </div>
+                
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">Remember me</label>
+                </div>
+                
+                <button type="submit" class="btn btn-login">Sign In</button>
+                
+                <div class="links-section">
+                    <a href="{{ route('password.request') }}" class="d-block mb-2">Forgot Password?</a>
+                    <span class="d-block text-muted">Don't have an account?</span>
+                    <a href="{{ route('register') }}">Create new account</a>
+                </div>
+            </form>
         </div>
     </div>
-    <!-- /.login-box -->
-
-    <!-- jQuery -->
-    <script src="{{ asset('assets/admin/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
