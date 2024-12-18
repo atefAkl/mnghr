@@ -159,7 +159,7 @@
     align-items: center;
 }
 
-.main-header .navbar {
+#main-header .navbar {
     width: 100%;
     height: 100%;
     padding: 0 1.5rem;
@@ -168,7 +168,7 @@
     justify-content: space-between;
 }
 
-.main-header .breadcrumb {
+#main-header .breadcrumb {
     margin: 0;
     padding: 0;
     background: none;
@@ -178,19 +178,19 @@
     align-items: center;
 }
 
-.main-header .breadcrumb-item+.breadcrumb-item::before {
+#main-header .breadcrumb-item+.breadcrumb-item::before {
     color: #6c757d;
 }
 
-.main-header .breadcrumb-item a {
+#main-header .breadcrumb-item a {
     color: #0d6efd;
     text-decoration: none;
 }
 
-.main-header .breadcrumb-item a:hover {
+#main-header .breadcrumb-item a:hover {
     text-decoration: underline;
 }
 
-.main-header .breadcrumb-item.active {
+#main-header .breadcrumb-item.active {
     color: #6c757d;
 }
