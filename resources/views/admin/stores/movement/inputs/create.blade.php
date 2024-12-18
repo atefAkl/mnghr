@@ -167,6 +167,7 @@
         $(document).ready(function() {
 
             $('#search').on('keyup', function() {
+				
 
                 $.ajax({
                     url: "{{ route('get-products-like-query') }}", // URL of the server-side script

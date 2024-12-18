@@ -1,0 +1,48 @@
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+#content {
+    flex: 1;
+    margin-left: 220px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    position: relative;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .main-sidebar {
+        transform: translateX(-220px);
+        transition: transform 0.3s ease;
+    }
+
+    .main-sidebar.show {
+        transform: translateX(0);
+    }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999999;
+    }
+
+    .sidebar-backdrop.show {
+        display: block;
+    }
+}

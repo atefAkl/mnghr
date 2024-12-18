@@ -24,14 +24,16 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/admin/css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/my-custom-styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/admin-layout.css') }}" rel="stylesheet">
     @yield('extra-links')
 </head>
 
 <body>
-    <main class="flex-nowrap">
+    <div class="admin-wrapper">
         @include('inc.sidebar')
         <div id="content">
             <header id="main-header">
+                
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
@@ -57,7 +59,9 @@
                 </div>
             </div>
         </div>
-    </main>
+        <div class="sidebar-backdrop"></div>
+    </div>
+
     {{-- ========== Theme Color Toggler  ======================== --}}
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
         <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
@@ -124,6 +128,26 @@
                 $('.sidebar-toggle').toggleClass('turn-90')
             });
         })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebar = document.querySelector('.main-sidebar');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            const body = document.body;
+
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+                backdrop.classList.toggle('show');
+                body.classList.toggle('sidebar-open');
+            });
+
+            backdrop.addEventListener('click', function() {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+                body.classList.remove('sidebar-open');
+            });
+        });
     </script>
 </body>
 
