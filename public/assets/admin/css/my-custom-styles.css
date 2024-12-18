@@ -73,6 +73,16 @@ legend {
     width: auto;
 }
 
+legend .title-approved{
+  left: 15.5rem;
+
+}
+
+legend .title-archived{
+  left: 28.4rem;
+
+}
+
 /*=========================================
 ===== Sidebar Styles ======================
 ==========================================*/
