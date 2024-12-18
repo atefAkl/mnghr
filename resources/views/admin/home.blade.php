@@ -56,11 +56,7 @@
             </div>{{-- /.card --}}
         </div>
 
-        <main>
-            <h1>Hello from main</h1>
-            <h2>Hello from main h2</h2>
-            <h3>Hello from main h3</h3>
-        </main>
+       
 
     </div>
     {{-- /.row --}}
