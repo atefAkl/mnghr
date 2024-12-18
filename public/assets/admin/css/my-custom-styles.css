@@ -12,9 +12,7 @@ a:focus,
 a:visited {
     text-decoration: none !important;
 }
-#content {
-    margin-left: 220px;
-}
+
 #contextMenu {
     position: absolute;
     padding: 1rem;
@@ -33,15 +31,19 @@ h5 {
 h1 {
     font: Bold 1.4rem/1.2 Arial;
 }
+
 h2 {
     font: Bold 1.3rem/1.2 Arial;
 }
+
 h3 {
     font: Bold 1.2rem/1.2 Arial;
 }
+
 h4 {
     font: Bold 1rem/1.2 Arial;
 }
+
 h5 {
     font: Bold 0.9rem/1.2 Arial;
 }
@@ -89,6 +91,7 @@ legend .title-archived{
     left: auto;
     right: 1rem !important;
 }
+
 /*=========================================
 ===== Categories List With Tree Display Styles ======================
 ==========================================*/
@@ -131,7 +134,7 @@ ol:after {
     font-size: 1rem;
 }
 
-ol > li {
+ol>li {
     display: block;
     position: relative;
     float: left;
@@ -145,7 +148,7 @@ ol > li {
     transition: all 0.3s ease-in-out;
 }
 
-ol > li > input {
+ol>li>input {
     display: block;
     position: absolute;
     float: left;
@@ -159,19 +162,19 @@ ol > li > input {
     cursor: pointer;
 }
 
-ol > li > input:checked ~ ol:before {
+ol>li>input:checked~ol:before {
     display: none;
 }
 
-ol > li > input:checked ~ ol:after {
+ol>li>input:checked~ol:after {
     content: "+";
 }
 
-ol > li > input:checked ~ ol * {
+ol>li>input:checked~ol * {
     display: none;
 }
 
-ol > li >  label {
+ol>li>label {
     display: block;
     position: relative;
     float: left;
@@ -180,7 +183,7 @@ ol > li >  label {
     background: lightblue;
 }
 
-ol > li > label:after {
+ol>li>label:after {
     content: "";
     display: block;
     position: absolute;
@@ -192,14 +195,16 @@ ol > li > label:after {
     width: 0.75rem;
     height: 0;
 }
-ol ol ol > li > label {
+
+ol ol ol>li>label {
     margin-left: 1rem;
 }
-ol ol ol > li > label:after {
+
+ol ol ol>li>label:after {
     margin: 0 0 0 0.3rem;
 }
 
-ol > li:last-child:before {
+ol>li:last-child:before {
     content: "";
     display: block;
     position: absolute;
@@ -226,18 +231,18 @@ ol > li:last-child:before {
     display: none;
 }
 
-#tree > li > label {
+#tree>li>label {
     background-color: #e4e4e4;
     padding: 0.2rem 0.5rem;
 }
 
-#tree > li > ol > li > label {
+#tree>li>ol>li>label {
     background-color: #e9e9e9;
     padding: 0.2rem 0.5rem;
     margin: 0 0 0 0.3rem;
 }
 
-#tree > li > ol > li > ol > li > label {
+#tree>li>ol>li>ol>li>label {
     background-color: #eee;
     padding: 0.2rem 0.5rem;
     margin: 1px 0 0.3rem;
@@ -245,11 +250,11 @@ ol > li:last-child:before {
 
 /*decoration*/
 ol,
-ol > li:last-child:before {
+ol>li:last-child:before {
     background: white;
 }
 
-ol > li {
+ol>li {
     background: transparent;
 }
 
@@ -260,16 +265,17 @@ ol:after {
     border-radius: 0.1rem;
 }
 
-ol > li > label {
+ol>li>label {
     border-radius: 0.25rem;
     color: black;
 }
 
-ol > li > label >a{
-  border-radius: 0.25rem;
-  color: black;
+ol>li>label>a {
+    border-radius: 0.25rem;
+    color: black;
 }
-ol > li > input ~ label:before {
+
+ol>li>input~label:before {
     content: "";
     display: inline-block;
     margin: 0 0.25rem 0 0;
@@ -281,7 +287,7 @@ ol > li > input ~ label:before {
     background-size: contain;
 }
 
-ol > li > input:checked ~ label:before {
+ol>li>input:checked~label:before {
     background-image: url("data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAD///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAAABwAAABcAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAXAAAABwNMcIsDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNklLcDZJS3A2SUtwNMcIsDbqSphs/w/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4LL7f+Cy+3/gsvt/4bP8P8DbqSpA3i0m4bP7v99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P99yOj/fcjo/33I6P+Gz+7/A3i0mwJ8uZeK0/D/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/gszr/4LM6/+CzOv/itPw/wJ8uZcCf76Tj9fy/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4fQ7f+H0O3/h9Dt/4/X8v8Cf76TAoLCj5Tb9P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+N1fD/jdXw/43V8P+U2/T/AoLCjwKFx4uZ4Pb/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/ktrz/5La8/+S2vP/meD2/wKFx4sCiMuHn+X5/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5jf9v+Y3/b/mN/2/5/l+f8CiMuHAorPg6Pp+/+d4/n/neP5/53j+f+d4/n/neP5/53j+f+j6fr/o+n6/6Pp+v+j6fr/o+n6/6Pp+v+m7Pv/AorPgwKN0oGo7f3/ouf7/6Ln+/+i5/v/ouf7/6Ln+/+r8P3/jNDt/4HF5/+Bxef/gcXn/4HF5/+Bxef/gcXn/wKN0oECj9Z9rvP//6vw/v+r8P7/q/D+/6vw/v+u8///j9Pv/4/T7/+r8P7/q/D+/6vw/v+r8P7/q/D+/67z//8Cj9Z9ApHZXQKR2XsCkdl7ApHZewKR2XsCkdl7ApHZewKR2Xv+/v3/+Pjz//Dw5v/p6dv//slB//S2Lv8Ckdl7ApHZXf///wH///8B////Af///wH///8B////Af///wECktsrApLbeQKS23kCktt5ApLbeQKS23kCktt5ApLbK////wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//w==");
 }
 
@@ -290,20 +296,21 @@ ol > li > input:checked ~ label:before {
 /*=========================================
 ===== product list Styles ======================
 ==========================================*/
-.productlist{
-    display: flex;  
+.productlist {
+    display: flex;
     background: #fff;
     border-radius: 5px;
     position: relative;
     width: 100%;
     overflow: hidden;
-    height:70px;
+    height: 70px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .productlist:hover .productlistimg h6 {
     transform: translatey(0);
 }
+
 .productlist .productlistimg {
     position: relative;
     overflow: hidden;
@@ -312,25 +319,27 @@ ol > li > input:checked ~ label:before {
     /* background-size: contain; */
     background-size: 70px 70px;
     /* background-position: center center; */
-    background-repeat: no-repeat;       
+    background-repeat: no-repeat;
 
 }
 
 .productlist .productlistcontent {
     padding: 13px;
     text-align: left;
-  
+
 }
+
 .productlist .productlistcontent h4 {
     font: bold 1rem/1.2 Arial;
     color: #000;
     margin-bottom: 13px;
-    
+
 }
+
 .productlist .productlistcontent h5 {
     color: #4f5357;
     font: bold 1rem/1.2 Arial;
-    
+
 }
 
 
@@ -349,9 +358,11 @@ ol > li > input:checked ~ label:before {
     padding: 0;
     background-color: #fff;
 }
+
 .card .card-header:hover {
     background-color: #f5f5f5;
 }
+
 .card .card-header .card-title {
     padding: 0.5rem 1rem;
     margin: 0;
@@ -362,12 +373,10 @@ ol > li > input:checked ~ label:before {
 ================= error message ============
 =================================================== */
 .invalid-feedback {
-  display: block;
-  width: 100%;
-  margin-top: .25rem;
-  font-size: .875rem;
-  color: #dc3545;
+    display: block;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: #dc3545;
 
 }
-
-

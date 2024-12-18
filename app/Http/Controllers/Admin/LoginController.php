@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\Controller;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\RateLimiter;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -28,17 +29,47 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $req)
+    public function login(LoginRequest $request)
     {
-
-        // return var_dump(auth()->guard('admin')->attempt(['userName' => $req->input('userName'), 'password' => $req->input('password')]));
-        if (auth()->guard('admin')->attempt(['userName' => $req->input('userName'), 'password' => $req->input('password')])) {
-            $user = auth()->user();
-
-            return redirect()->route('admin.dashboard');
-        } else {
-            return redirect()->back()->with('error', 'انت غير مسجل بقواعد البيانات لدينا');
+        // التحقق من محاولات تسجيل الدخول المتكررة
+        $key = 'login.' . $request->ip();
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+            return redirect()->back()
+                ->withInput($request->only('userName'))
+                ->with('error', "لقد تجاوزت الحد المسموح من المحاولات. يرجى المحاولة بعد {$seconds} ثانية.");
         }
+
+        if (auth()->guard('admin')->attempt([
+            'userName' => $request->input('userName'),
+            'password' => $request->input('password'),
+            'status' => 1 // التحقق من أن المستخدم نشط
+        ])) {
+            RateLimiter::clear($key);
+            
+            $user = auth()->guard('admin')->user();
+            
+            // تسجيل وقت آخر تسجيل دخول
+            $user->update([
+                'last_login_at' => Carbon::now(),
+                'last_login_ip' => $request->ip()
+            ]);
+
+            // تسجيل عملية تسجيل الدخول
+            activity()
+                ->performedOn($user)
+                ->log('تم تسجيل الدخول بنجاح');
+
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'تم تسجيل الدخول بنجاح');
+        }
+
+        // تسجيل محاولة فاشلة
+        RateLimiter::hit($key);
+        
+        return redirect()->back()
+            ->withInput($request->only('userName'))
+            ->with('error', 'بيانات الاعتماد غير صحيحة');
     }
 
     /**
@@ -48,9 +79,18 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-
-        session()->flush();
-        Auth::logout();
-        return redirect()->route('admin.auth.login');
+        $user = auth()->guard('admin')->user();
+        
+        // تسجيل عملية تسجيل الخروج
+        activity()
+            ->performedOn($user)
+            ->log('تم تسجيل الخروج');
+            
+        auth()->guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('admin.auth.login')
+            ->with('success', 'تم تسجيل الخروج بنجاح');
     }
 }

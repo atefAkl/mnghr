@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Admin;
+use App\Models\Branch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,5 +38,10 @@ class Store extends Model
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 }
