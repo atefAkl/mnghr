@@ -21,15 +21,13 @@
       <td>{{ @$reference_type[$receipt->reference_type] }}</td>
       <td>{{ $receipt->reception_date }}</td>
       <td>{{ @$receipt->admin->userName }}</td>
-      @if($receipt->status === 1)
-      <td><span class="badge bg-info">{{ $status[$receipt->status ]}}</span></td>
       <td>
         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="insert Receipt"
           href=""><i class="fa fa-square-plus text-success"></i></a>
         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"
           href=""><i class="fa fa-print text-dark"></i></a>
       </td>
-      @elseif($receipt->status === 0)
+    
       <td><span class="badge bg-warning">{{ $status[$receipt->status ]}}</span></td>
       <td>
         <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"

@@ -52,6 +52,7 @@
                         </div>
                     @endif
                     @yield('contents')
+                  
 
                 </div>
             </div>

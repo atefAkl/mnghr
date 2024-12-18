@@ -11,7 +11,7 @@ use App\Models\Store;
 use App\Models\Admin;
 use Exception;
 
-class StoreReceiptsController extends Controller
+class OutputReceiptsController extends Controller
 {
 
   private static $reference_type = [
@@ -25,8 +25,11 @@ class StoreReceiptsController extends Controller
     '8' => 'Credit transfer',
   ];
   private static $status = [
-    '0' => 'Pending',
-    '1' => 'Approved'
+    '0' => 'Archived',
+    '1'=>  'InProgress',
+    '2' => 'Approved'
+  
+
   ];
   private const INSERT_ENTRY = 1;
   private const OUTPUT_ENTRY = 2;
@@ -49,10 +52,68 @@ class StoreReceiptsController extends Controller
       'stores'           => $stores,
 
     ];
-    return view('admin.receipts.index', $vars);
+    return view('admin.receipts.output.home', $vars);
   }
 
+  public function inProgressReceipts()
+  {
+    $receipts = StoreReceipt::where('direction',self::OUTPUT_ENTRY)->get();
+    $stores   = Store::all();
+    $admins   = Admin::all();
+    $vars = [
+      'reference_type'   => self::$reference_type,
+      'direction_input'  => self::INSERT_ENTRY,
+      'direction_output' => self::OUTPUT_ENTRY,
+      'status'           => self::$status,
+      'admins'           => $admins,
+      'receipts'         => $receipts,
+      'stores'           => $stores,
 
+    ];
+    return view('admin.receipts.output.inProgressReceipts', $vars);
+  }
+  
+  public function approvedReceipts()
+  {
+    $receipts = StoreReceipt::where('direction',self::OUTPUT_ENTRY)->get();
+    $stores   = Store::all();
+    $admins   = Admin::all();
+    $vars = [
+      'reference_type'   => self::$reference_type,
+      'direction_input'  => self::INSERT_ENTRY,
+      'direction_output' => self::OUTPUT_ENTRY,
+      'status'           => self::$status,
+      'admins'           => $admins,
+      'receipts'         => $receipts,
+      'stores'           => $stores,
+
+    ];
+    return view('admin.receipts.output.approvedReceipts', $vars);
+  }
+  
+  public function archivedReceipts()
+  {
+    $receipts = StoreReceipt::where('direction',self::OUTPUT_ENTRY)->onlyTrashed()->get();
+    $stores   = Store::all();
+    $admins   = Admin::all();
+    $vars = [
+      'reference_type'   => self::$reference_type,
+      'direction_input'  => self::INSERT_ENTRY,
+      'direction_output' => self::OUTPUT_ENTRY,
+      'status'           => self::$status,
+      'admins'           => $admins,
+      'receipts'         => $receipts,
+      'stores'           => $stores,
+
+    ];
+    return view('admin.receipts.output.archivedReceipts', $vars);
+  }
+  
+  
+  public function filterReceipts($val1, $val2, $val3, $val4)
+  {
+    echo $val1, $val2, $val3, $val4;
+  }
   public function loadData($type)
   {
 
@@ -85,7 +146,7 @@ class StoreReceiptsController extends Controller
         'serial'                  => $request->serial,
         'brief'                   => $request->brief,
         'notes'                   => $request->notes,
-        'status'                  => $request->status !== null ? $request->status : 0,
+        'status'                  => $request->status !== null ? $request->status : 1,
         'admin_id'                => $request->admin_id,
         'store_id'                => $request->store_id,
         'direction'               => $request->direction,
@@ -163,10 +224,38 @@ class StoreReceiptsController extends Controller
     }
     try {
       $receipt->delete();
-      return redirect()->route('display-receipts-list')->with(['success' => 'receipt Removed Successfully']);
+      return redirect()->route('display-outputReceipts-list')->with(['success' => 'receipt Removed Successfully']);
     } catch (Exception $err) {
 
       return redirect()->back()->with(['error' => 'receipt can not be Removed due to: ' . $err]);
     }
   }
+
+  public function  restore( $id)
+  {
+    
+    try {
+      $receipt = StoreReceipt::withTrashed()->where('id' ,$id)->restore();
+      return redirect()->route('display-outputReceipts-list')->with(['success' => 'Receipt Restored Successfully']);
+    } catch (Exception $err) {
+
+      return redirect()->back()->with(['error' => 'Receipt can not be Restored due to: ' . $err]);
+    }
+  }
+  public function  forceDelete( $id)
+  {
+    $receipt = StoreReceipt::withTrashed()->find($id);
+    if (!$receipt) {
+      return redirect()->back()->withError('The receipt is not exist, may be deleted or you have insuffecient privilleges to delete it.');
+    }
+    try {
+      $receipt->forceDelete();
+      return redirect()->route('display-inputReceipts-list')->with(['success' => 'Receipt deleted Successfully']);
+    } catch (Exception $err) {
+
+      return redirect()->back()->with(['error' => 'Receipt can not be Removed due to: ' . $err]);
+    }
+  }
+
+
 }

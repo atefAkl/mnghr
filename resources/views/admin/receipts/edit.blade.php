@@ -50,88 +50,59 @@
 </style>
 
 <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Edit receipt Info</h1>
-<fieldset class="mt-4 p-0 pt-4 pb-3 bg-light light-shadow">
-  <legend class="bg-secondary text-light">General Information</legend>
-  <form action="{{ route('update-receipt-info') }}" method="POST">
-    <input type="hidden" name="id" value="{{ $receipt->id }}">
-    @csrf
-    <div class="row item-info-row">
-
-      <div class="col col-2 item-info-head">Reception Date:</div>
-      <div class="col col-4 item-info-data d-flex">
-        <input type="text" class="inline-input" name="reception_date" value="{{ $receipt->reception_date }}"
-          placeholder="" />
-        <input type="date" class="inline-input" name="reception_date" value="{{ $receipt->reception_date }}"
-          placeholder="" />
-      </div>
-      <div class="col col-2 item-info-head">Reference:</div>
-      <div class="col col-4 item-info-data">
-        <input type="text" class="inline-input" name="reference" value="{{ $receipt->reference }}" />
-      </div>
-    </div>
-
-    <div class="row item-info-row">
-      <div class="col col-2 item-info-head">Serial Number:</div>
-      <div class="col col-4 item-info-data">
-        <input type="text" class="inline-input" name="serial" value="{{ $receipt->serial }}" />
-      </div>
-      <div class="col col-2 item-info-head"> Reference Type:</div>
-      <div class="col col-4 item-info-data">
-        <select class="form-select sm" name="reference_type" id="reference_type">
+<div class="card card-body">
+<form action="{{ route('update-receipt-info') }}" method="POST">
+            <input type="hidden" name="id" value="{{ $receipt->id }}">
+            @csrf
+            <div class="input-group sm mb-2">
+              <label class="input-group-text" for="reference">Reference</label>
+              <input type="text"  name="reference" value="{{ $receipt->reference }}" />
+              <label class="input-group-text" for="reference_type"> Reference Type</label>
+              <select class="form-select sm" name="reference_type" id="reference_type">
           @foreach ($reference_type as $key => $value)
           <option value="{{ $key }}">{{ $value }}</option>
           @endforeach
         </select>
-      </div>
-    </div>
-
-    <div class="row item-info-row">
-      <div class="col col-2 item-info-head">Representative:</div>
-      <div class="col col-4 item-info-data">
-        <select class="form-select" name="admin_id" id="admin_id">
-          @foreach ($admins as $admin)
-          <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
-          @endforeach
-        </select>
-      </div>
-      <div class="col col-2 item-info-head">Store:</div>
-      <div class="col col-4 item-info-data">
-        <select class="form-select sm" name="store_id" id="store_id">
-
-          @foreach ($stores as $item)
-          <option value="{{ $item->id }}">{{ $item->name }}</option>
-          @endforeach
-        </select>
-      </div>
-    </div>
-    <div class="row item-info-row">
-      <div class="col col-2 item-info-head">Receipt Decription:</div>
-      <div class="col col-10 item-info-data">
-        <input type="text" class="inline-input" name="brief" value="{{ $receipt->brief }}"
-          placeholder="Describe your product" />
-      </div>
-    </div>
-    <div class="row item-info-row">
-      <div class="col col-2 item-info-head">Receipt Notes:</div>
-      <div class="col col-4 item-info-data">
-        <input type="text" class="inline-input" name="notes" value="{{ $receipt->notes }}"
-          placeholder="Describe your product" />
-      </div>
-      <div class="col col-2 item-info-head">Receipt Status:</div>
-      <div class="col col-4 item-info-data">
-        <select class="form-select sm" name="status" id="status">
+        <label class="input-group-text" for="status"> Receipt Status:</label>
+              <select class="form-select sm" name="status" id="status">
           @foreach ($status as $key => $value)
           <option hidden value="{{ $key }}">{{ $value }}</option>
           <option value="{{ $key }}">{{ $value }}</option>
           @endforeach
         </select>
-      </div>
-    </div>
-    <div class="input-group px-3 sm">
-      <button type="reset" class="form-control btn btn-outline-info my-2 py-0">Reset Form</button>
-      <button type="submit" class="form-control btn btn-outline-primary my-2 py-0">Update General
-        Information</button>
-    </div>
-  </form>
-</fieldset>
+            </div>
+            <div class="input-group sm mt-2">
+              <label class="input-group-text" for="admin_id">Representative</label>
+              <select class="form-select" name="admin_id" id="admin_id">
+                @foreach ($admins as $admin)
+                <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
+                @endforeach
+              </select>
+              <label class="input-group-text" for="store_id"> Store</label>
+              <select class="form-select sm" name="store_id" id="store_id">
+            
+                @foreach ($stores as $item)
+                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+              </select>
+          
+            </div>
+            <div class="input-group sm mt-2">
+              <label class="input-group-text" for="brief">Description</label>
+              <input type="text" class="form-control sm" name="brief" id="brief" value="{{ $receipt->brief }}">
+            </div>
+            <div class="input-group sm mt-2">
+              <label class="input-group-text" for="notes">Notes</label>
+              <input type="text" class="form-control" name="notes" id="notes" value="{{ $receipt->notes }}">
+            </div>
+            <div class="input-group sm mt-2">
+            <button type="reset" class="form-control btn btn-outline-info">Reset Form</button>
+            <button type="submit" class="form-control btn btn-outline-primary">Edit Receipt</button>
+            </div>
+          
+            </div>
+          </form>
+</div>
+
 @endsection
+
