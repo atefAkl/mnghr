@@ -1,19 +1,11 @@
 <?php
 
-<<<<<<< HEAD
-use App\Http\Controllers\Web\IndexController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\storesController;
+
 use App\Http\Controllers\Admin\InputReceiptsController;
 use App\Http\Controllers\Admin\OutputReceiptsController;
-use App\Http\Controllers\admin\AdminsController;
-use App\Http\Controllers\Admin\BranchesController;
-=======
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductsController;
->>>>>>> cce6ef18cbcdae5b8ee9bdb50ca8377b4c1f9608
 use App\Http\Controllers\Admin\ItemCategoriesController;
-use App\Http\Controllers\Admin\StoreReceiptsController;
+// use App\Http\Controllers\Admin\StoreReceiptsController;
 use App\Http\Controllers\Admin\StoreEntriesController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\RegisterController;
@@ -23,6 +15,7 @@ use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Web\IndexController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,14 +46,14 @@ Route::group(
         /* ========================================================================================================================================
         =========== Store Receipt Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
-        Route::get('/receipts/index',                     [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
-        Route::post('/receipts/store',                    [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
-        Route::get('receipts/edit/{id}',                  [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
-        Route::post('receipts/update',                    [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
-        Route::get('receipts/destroy/{id}',               [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
-        Route::get('receipts/load-data/{type}',           [StoreReceiptsController::class, 'loadData'])->name('load.data');
+        // Route::get('/receipts/index',                     [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
+        // Route::post('/receipts/store',                    [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
+        // Route::get('receipts/edit/{id}',                  [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
+        // Route::post('receipts/update',                    [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
+        // Route::get('receipts/destroy/{id}',               [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
+        // Route::get('receipts/load-data/{type}',           [StoreReceiptsController::class, 'loadData'])->name('load.data');
 
-        /* ========================================================================================================================================
+        /* ========================================================================================================================
         =========== Store Entries Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
         Route::get('/entries/index',                     	[StoreEntriesController::class, 'index'])->name('display-entries-list');
@@ -157,7 +150,6 @@ Route::group(
         /* ========================================================================================================================================
         =========== Stores Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
-<<<<<<< HEAD
     Route::get('stores/home',                           [storesController::class, 'home'])->name('stores-home');
     Route::get('stores/index',                          [storesController::class, 'index'])->name('display-stores-list');
     Route::post('stores/store',                         [storesController::class, 'store'])->name('save-store-info');
@@ -223,16 +215,14 @@ Route::group(
 
 
       
-  }
-=======
-        Route::get('stores/home',                           [storesController::class, 'home'])->name('stores-home');
-        Route::get('stores/index',                          [storesController::class, 'index'])->name('display-stores-list');
-        Route::post('stores/store',                         [storesController::class, 'store'])->name('save-store-info');
-        Route::post('stores/update',                        [storesController::class, 'update'])->name('update-store-general-info');
-        Route::post('stores/update/loc',                    [storesController::class, 'update_loc'])->name('update-store-location-info');
-        Route::post('stores/update/com',                    [storesController::class, 'update_com'])->name('update-store-communication-info');
-        Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
-        Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
+  
+        // Route::get('stores/home',                           [storesController::class, 'home'])->name('stores-home');
+        // Route::get('stores/index',                          [storesController::class, 'index'])->name('display-stores-list');
+        // Route::post('stores/store',                         [storesController::class, 'store'])->name('save-store-info');
+        // Route::post('stores/update',                        [storesController::class, 'update'])->name('update-store-general-info');
+        // Route::post('stores/update/loc',                    [storesController::class, 'update_loc'])->name('update-store-location-info');
+        // Route::post('stores/update/com',                    [storesController::class, 'update_com'])->name('update-store-communication-info');
+        // Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
+        // Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
     }
->>>>>>> cce6ef18cbcdae5b8ee9bdb50ca8377b4c1f9608
 );
