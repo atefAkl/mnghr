@@ -11,7 +11,7 @@ use App\Models\Store;
 use App\Models\Admin;
 use Exception;
 
-class InputReceiptsController extends Controller
+class StoreReceiptsController extends Controller
 {
 
   private static $reference_type = [
@@ -25,11 +25,8 @@ class InputReceiptsController extends Controller
     '8' => 'Credit transfer',
   ];
   private static $status = [
-    '0' => 'Archived',
-    '1' =>  'InProgress',
-    '2' => 'Approved'
-
-
+    '0' => 'Pending',
+    '1' => 'Approved'
   ];
   private const INSERT_ENTRY = 1;
   private const OUTPUT_ENTRY = 2;
@@ -37,34 +34,12 @@ class InputReceiptsController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index($dir, $tab)
+  public function index()
   {
-    $tabs = [1 => 'inProgressReceipts', 2 => 'approvedReceipts', 3 => 'archivedReceipts'];
-
     $receipts = StoreReceipt::all();
     $stores   = Store::all();
     $admins   = Admin::all();
     $vars = [
-      'tabs'              => $tabs,
-      'tab'               => $tab,
-      'reference_type'    => self::$reference_type,
-      'direction_input'   => self::INSERT_ENTRY,
-      'direction_output'  => self::OUTPUT_ENTRY,
-      'status'            => self::$status,
-      'admins'            => $admins,
-      'receipts'          => $receipts,
-      'stores'            => $stores,
-    ];
-    $file = 'admin.receipts.' . $dir . '.' . $tabs[$tab];
-    return view($file, $vars);
-  }
-
-  public function inProgressReceipts()
-  {
-    $receipts = StoreReceipt::where('direction', self::INSERT_ENTRY)->get();
-    $stores   = Store::all();
-    $admins   = Admin::all();
-    $vars = [
       'reference_type'   => self::$reference_type,
       'direction_input'  => self::INSERT_ENTRY,
       'direction_output' => self::OUTPUT_ENTRY,
@@ -74,43 +49,7 @@ class InputReceiptsController extends Controller
       'stores'           => $stores,
 
     ];
-    return view('admin.receipts.input.inProgressReceipts', $vars);
-  }
-
-  public function approvedReceipts()
-  {
-    $receipts = StoreReceipt::where('direction', self::INSERT_ENTRY)->get();;
-    $stores   = Store::all();
-    $admins   = Admin::all();
-    $vars = [
-      'reference_type'   => self::$reference_type,
-      'direction_input'  => self::INSERT_ENTRY,
-      'direction_output' => self::OUTPUT_ENTRY,
-      'status'           => self::$status,
-      'admins'           => $admins,
-      'receipts'         => $receipts,
-      'stores'           => $stores,
-
-    ];
-    return view('admin.receipts.input.approvedReceipts', $vars);
-  }
-
-  public function archivedReceipts()
-  {
-    $receipts = StoreReceipt::where('direction', self::INSERT_ENTRY)->onlyTrashed()->get();
-    $stores   = Store::all();
-    $admins   = Admin::all();
-    $vars = [
-      'reference_type'   => self::$reference_type,
-      'direction_input'  => self::INSERT_ENTRY,
-      'direction_output' => self::OUTPUT_ENTRY,
-      'status'           => self::$status,
-      'admins'           => $admins,
-      'receipts'         => $receipts,
-      'stores'           => $stores,
-
-    ];
-    return view('admin.receipts.input.archivedReceipts', $vars);
+    return view('admin.receipts.index', $vars);
   }
 
 
@@ -146,7 +85,7 @@ class InputReceiptsController extends Controller
         'serial'                  => $request->serial,
         'brief'                   => $request->brief,
         'notes'                   => $request->notes,
-        'status'                  => $request->status !== null ? $request->status : 1,
+        'status'                  => $request->status !== null ? $request->status : 0,
         'admin_id'                => $request->admin_id,
         'store_id'                => $request->store_id,
         'direction'               => $request->direction,
@@ -195,8 +134,10 @@ class InputReceiptsController extends Controller
 
     //return $request->product_serial;
     try {
-      $receipt->update([
+        $receipt->update([
+        'reception_date'            => $request->reception_date,
         'reference_type'          => $request->reference_type,
+        'serial'                  => $request->serial,
         'brief'                   => $request->brief,
         'notes'                   => $request->notes,
         'admin_id'                => $request->admin_id,
@@ -214,7 +155,7 @@ class InputReceiptsController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy($id)
+  public function destroy( $id)
   {
     $receipt = StoreReceipt::find($id);
     if (!$receipt) {
@@ -222,38 +163,10 @@ class InputReceiptsController extends Controller
     }
     try {
       $receipt->delete();
-      return redirect()->route('display-inputReceipts-list')->with(['success' => 'receipt Removed Successfully']);
+      return redirect()->route('display-receipts-list')->with(['success' => 'receipt Removed Successfully']);
     } catch (Exception $err) {
 
       return redirect()->back()->with(['error' => 'receipt can not be Removed due to: ' . $err]);
-    }
-  }
-
-
-  public function  restore($id)
-  {
-
-    try {
-      $receipt = StoreReceipt::withTrashed()->where('id', $id)->restore();
-      return redirect()->route('display-inputReceipts-list')->with(['success' => 'Receipt Restore Successfully']);
-    } catch (Exception $err) {
-
-      return redirect()->back()->with(['error' => 'Receipt can not be Removed due to: ' . $err]);
-    }
-  }
-
-  public function  forceDelete($id)
-  {
-    $receipt = StoreReceipt::withTrashed()->find($id);
-    if (!$receipt) {
-      return redirect()->back()->withError('The receipt is not exist, may be deleted or you have insuffecient privilleges to delete it.');
-    }
-    try {
-      $receipt->forceDelete();
-      return redirect()->route('display-inputReceipts-list')->with(['success' => 'Receipt deleted Successfully']);
-    } catch (Exception $err) {
-
-      return redirect()->back()->with(['error' => 'Receipt can not be Removed due to: ' . $err]);
     }
   }
 }

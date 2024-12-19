@@ -7,9 +7,7 @@
 @section('contents')
     <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
         <h1 class="h3 mb-0">Stores Management</h1>
-        <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#addNewStore">
-            <i class="fas fa-plus me-2"></i>Add New Store
-        </button>
+       
     </div>
 
     <!-- Quick Stats -->
@@ -85,66 +83,66 @@
             <div class="card-body">
                 <form action="/admin/stores/store" method="POST">
                     @csrf
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="parent_store">Parent Store</label>
-                                <select class="form-select" name="store_id" id="parent_store">
-                                    <option value="1">Root</option>
-                                    @foreach ($stores as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="branch">Branch</label>
-                                <select class="form-select" name="branch_id" id="branch">
+                    
+                            <div class="input-group sm mb-1">
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Enter the store's display name"><i class="fas fa-store"></i></span>
+                                <input type="text" name="name" class="form-control" placeholder="Store Name" required>
+                            
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Unique identifier code for the store"><i class="fas fa-code"></i></span>
+                                <input type="text" name="code" class="form-control" placeholder="Store Code" required>
+                            
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Select the branch this store belongs to"><i class="fas fa-building"></i></span>
+                                <select name="branch_id" class="form-control py-0">
+                                    <option value="" hidden>Select Branch</option>
                                     @foreach ($branches as $branch)
                                         <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="store_name">Store Name</label>
-                                <input type="text" class="form-control" name="name" id="store_name" required>
+                        
+                            <div class="input-group sm mb-1">
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Store's landline number"><i class="fas fa-phone"></i></span>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone">
+                            
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Store administrator"><i class="fas fa-user"></i></span>
+                                <input type="text" name="admin" class="form-control" placeholder="admin">
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label" for="store_code">Store Code</label>
-                                <input type="text" class="form-control" name="code" id="store_code" required>
+                        
+                            <div class="input-group sm mb-1">
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Full store address"><i class="fas fa-map-marker-alt"></i></span>
+                                <input type="text" name="address" class="form-control" placeholder="Address">
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label" for="brief">Description</label>
-                                <textarea class="form-control" name="brief" id="brief" rows="2"></textarea>
+                        
+                            <div class="input-group sm mb-1">
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Store's operational status"><i class="fas fa-plug"></i></span>
+                                <select name="status" class="form-control py-0">
+                                    <option value="" hidden>Activity</option>
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+
+                                <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                      title="Whether the store can be relocated"><i class="fas fa-location-pin-lock"></i></span>
+                                <select name="movable" class="form-control py-0">
+                                    <option value="" hidden>Movability</option>
+                                    <option value="true">Movable</option>
+                                    <option value="false">Fixed</option>
+                                </select>
+                            
+                                <button type="submit" class="input-group-text btn py-0 btn-primary" 
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Create new store">
+                                    <i class="fas fa-plus me-1"></i> Save Store
+                                </button>
                             </div>
+
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" name="status" type="checkbox" value="1" id="status">
-                                    <label class="form-check-label" for="status">Active</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" name="ismovable" type="checkbox" value="1" id="ismovable">
-                                    <label class="form-check-label" for="ismovable">Is Movable</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-end">
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#addNewStore">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Store</button>
                     </div>
                 </form>
             </div>
@@ -152,16 +150,20 @@
     </div>
 
     <!-- Stores List -->
-    <div class="card border-0 shadow-sm">
+    <div class="card mx-4 shadow-sm">
         <div class="card-header bg-light">
             <div class="row align-items-center">
                 <div class="col">
-                    <h5 class="card-title mb-0">Stores List</h5>
+                    <h5 class="card-title mb-0">Stores List &nbsp; &nbsp;
+                        <button class="btn btn-primary py-0" data-bs-toggle="collapse" data-bs-target="#addNewStore">
+                            <i class="fas fa-plus me-1"></i>Add New
+                        </button>
+                    </h5>
                 </div>
                 <div class="col-auto">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group sm">
                         <input type="text" class="form-control" id="searchInput" placeholder="Search stores...">
-                        <button class="btn btn-outline-secondary" type="button">
+                        <button class="input-group-text py-0 btn btn-outline-secondary" type="button">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
@@ -244,3 +246,15 @@ $(document).ready(function() {
 });
 </script>
 @endsection
+
+@push('scripts')
+<script>
+    // Initialize all tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
+</script>
+@endpush

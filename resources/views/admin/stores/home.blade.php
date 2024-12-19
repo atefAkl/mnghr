@@ -19,13 +19,13 @@
             </a>
         </div>
         <div class="col col-12 col-sm-6 col-lg-4">
-            <a class="fw-bold" href="/admin/receipts/input/home" class="link-item">
+            <a class="fw-bold" href="/admin/receipts/input/home/1" class="link-item">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="">Input Receipts</span>
             </a>
         </div>
         <div class="col col-12 col-sm-6 col-lg-4 mt-5">
-            <a class="fw-bold" href="/admin/receipts/output/home" class="link-item">
+            <a class="fw-bold" href="/admin/receipts/output/home/1" class="link-item">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="">Output Receipts</span>
             </a>

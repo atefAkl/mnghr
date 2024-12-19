@@ -73,13 +73,13 @@ legend {
     width: auto;
 }
 
-legend .title-approved{
-  left: 15.5rem;
+legend .title-approved {
+    left: 15.5rem;
 
 }
 
-legend .title-archived{
-  left: 28.4rem;
+legend .title-archived {
+    left: 28.4rem;
 
 }
 
@@ -342,6 +342,14 @@ ol>li>input:checked~label:before {
 
 }
 
+
+/* ===================================================
+================= Bootstrap Like Modifications ============
+=================================================== */
+.input-group.sm :where(.input-group-text, .form-control) {
+    height: 33px;
+    line-height: 33px;
+}
 
 /* ===================================================
 ================= Bootstrap Modifications ============
