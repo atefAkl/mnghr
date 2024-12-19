@@ -4,199 +4,172 @@
     <li class="breadcrumb-item active" aria-current="page">Edit Store</li>
 @endsection
 @section('contents')
-    <style>
-        .light-shadow {
-            box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1)
-        }
+    <div class="container-fluid px-4">
+        <h4 class="mt-4 mb-4">Edit Store Information</h4>
 
-        form .item-info-row {
-            margin: 0 1rem;
-            border-bottom: 1px solid #ddd;
-        }
+        <!-- General Information -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0"><i class="fas fa-info-circle me-2"></i>General Information</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('update-store-general-info') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $store->id }}">
 
-        form .item-info-row:first-of-type {
-            border-top: 1px solid #ddd;
-        }
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Enter the store's display name"><i class="fas fa-store"></i></span>
+                        <input type="text" name="store_name" class="form-control" value="{{ $store->name }}" 
+                               placeholder="Store Name">
+                        
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Unique identifier code for the store"><i class="fas fa-code"></i></span>
+                        <input type="text" name="store_code" class="form-control" value="{{ $store->code }}" 
+                               placeholder="Store Code">
+                    </div>
 
-        .item-info-head {
-            padding: 0.3rem;
-            font-weight: bold;
-            text-align: right;
-            background-color: #eee;
-        }
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Select the branch this store belongs to"><i class="fas fa-building"></i></span>
+                        <select name="branch" class="form-control py-0">
+                            @foreach ($branches as $branch)
+                                <option value="{{ $branch->id }}" {{ $store->branch_id == $branch->id ? 'selected' : '' }}>
+                                    {{ $branch->name }}
+                                </option>
+                            @endforeach
+                        </select>
 
-        .item-info-data {
-            padding: 0;
-            margin: 0;
-        }
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Parent store if this is a sub-store"><i class="fas fa-sitemap"></i></span>
+                        <select name="parent_store" class="form-control py-0">
+                            @foreach ($stores as $store_option)
+                                <option value="{{ $store_option->id }}" {{ $store->store_id == $store_option->id ? 'selected' : '' }}>
+                                    {{ $store_option->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-        .inline-input {
-            border: none;
-            outline: none;
-            padding: 0.3rem 1rem;
-            margin: 0;
-            width: 100%;
-            transition: all 0.3s ease-in-out
-        }
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Brief description of the store"><i class="fas fa-align-left"></i></span>
+                        <input type="text" name="store_brief" class="form-control" value="{{ $store->brief }}" 
+                               placeholder="Store Description">
+                    </div>
 
-        input[type=checkbox].inline-input {
-            width: 20px;
-        }
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Store's operational status"><i class="fas fa-plug"></i></span>
+                        <select name="status" class="form-control py-0">
+                            <option value="true" {{ $store->status ? 'selected' : '' }}>Active</option>
+                            <option value="false" {{ !$store->status ? 'selected' : '' }}>Inactive</option>
+                        </select>
 
-        .inline-input:focus {
-            box-shadow: 0 0 3px 1px #ccc inset
-        }
-    </style>
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Whether the store can be relocated"><i class="fas fa-location-pin-lock"></i></span>
+                        <select name="movable" class="form-control py-0">
+                            <option value="true" {{ $store->ismovable ? 'selected' : '' }}>Movable</option>
+                            <option value="false" {{ !$store->ismovable ? 'selected' : '' }}>Fixed</option>
+                        </select>
 
-    <h1 class="mt-3 pb-2" style="border-bottom: 2px solid #dedede">Edit Store Info</h1>
-    <fieldset class="mt-4 p-0 pt-4 pb-3 bg-light light-shadow">
-        <legend class="bg-secondary text-light">General Information</legend>
-        <form action="{{ route('update-store-general-info') }}" method="POST">
-            <input type="hidden" name="id" value="{{ $store->id }}">
-            @csrf
-            <div class="row item-info-row">
-                <div class="col col-2 item-info-head">branch:</div>
-                <div class="col col-4 item-info-data">
-                    <select class="inline-input" name="branch">
-                        @foreach ($branches as $branch)
-                            <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col col-2 item-info-head">Parent Store:</div>
-                <div class="col col-4 item-info-data">
-                    <select class="inline-input" name="parent_store">
+                        <button type="reset" class="input-group-text btn py-0 btn-outline-secondary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Reset form to original values">
+                            <i class="fas fa-undo me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="input-group-text btn py-0 btn-primary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Save general information changes">
+                            <i class="fas fa-save me-1"></i> Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-                        @foreach ($stores as $store_option)
-                            <option value="{{ $store_option->id }}">{{ $store_option->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+        <!-- Location Information -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0"><i class="fas fa-map-marker-alt me-2"></i>Location Information</h5>
             </div>
-            <div class="row item-info-row">
+            <div class="card-body">
+                <form action="{{ route('update-store-location-info') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $store->id }}">
+                    
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Full street address of the store"><i class="fas fa-map"></i></span>
+                        <input type="text" name="address" class="form-control" value="{{ $store->address }}" 
+                               placeholder="Store Address">
+                        
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="City where the store is located"><i class="fas fa-city"></i></span>
+                        <input type="text" name="city" class="form-control" value="{{ $store->city }}" 
+                               placeholder="City">
+                    </div>
 
-                <div class="col col-2 item-info-head">Store Name:</div>
-                <div class="col col-4 item-info-data">
-                    <input type="text" class="inline-input" name="store_name" value="{{ $store->name }}" />
-                </div>
-                <div class="col col-2 item-info-head">Store Code:</div>
-                <div class="col col-4 item-info-data">
-                    <input type="text" class="inline-input" name="store_code" value="{{ $store->code }}"
-                        placeholder="Provide a valid code" />
-                </div>
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Additional location details (landmarks, building name, etc)"><i class="fas fa-map-pin"></i></span>
+                        <input type="text" name="location_details" class="form-control" value="{{ $store->location_details }}" 
+                               placeholder="Location Details">
+                        
+                        <button type="submit" class="input-group-text btn py-0 btn-primary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Save location information changes">
+                            <i class="fas fa-save me-1"></i> Update Location
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="row item-info-row">
-                <div class="col col-2 item-info-head">Store Decription:</div>
-                <div class="col col-10 item-info-data">
-                    <input type="text" class="inline-input" name="store_brief" value="{{ $store->brief }}"
-                        placeholder="Describe your store" />
-                </div>
-            </div>
-            <div class="input-group px-3 sm">
-                <button type="reset" class="form-control btn btn-outline-info my-2 py-0">Reset Form</button>
-                <button type="submit" class="form-control btn btn-outline-primary my-2 py-0">Update General
-                    Information</button>
-            </div>
-        </form>
-    </fieldset>
-    <fieldset class="mt-4 p-0 pt-4 pb-3 bg-light light-shadow">
-        <legend class="bg-secondary text-light">Location</legend>
-        <form class="p-0 m-0" action="{{ route('update-store-location-info') }}" method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{ $store->id }}">
+        </div>
 
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">City:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="store_name" placeholder="City Name" />
-                </div>
+        <!-- Communication Information -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0"><i class="fas fa-phone me-2"></i>Communication Information</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('update-store-communication-info') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $store->id }}">
+                    
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Store's landline number"><i class="fas fa-phone"></i></span>
+                        <input type="text" name="phone" class="form-control" value="{{ $store->phone }}" 
+                               placeholder="Phone Number">
+                        
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Store's mobile number"><i class="fas fa-mobile"></i></span>
+                        <input type="text" name="mobile" class="form-control" value="{{ $store->mobile }}" 
+                               placeholder="Mobile Number">
+                    </div>
 
-                <div class="col col-3 item-info-head">Destinct:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="Destinct" placeholder="Destinct Name" />
-                </div>
+                    <div class="input-group sm mb-1">
+                        <span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="top" 
+                              title="Store's contact email address"><i class="fas fa-envelope"></i></span>
+                        <input type="email" name="email" class="form-control" value="{{ $store->email }}" 
+                               placeholder="Email Address">
+                        
+                        <button type="submit" class="input-group-text btn py-0 btn-primary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Save contact information changes">
+                            <i class="fas fa-save me-1"></i> Update Contact
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Detailed Address:</div>
-                <div class="col col-9 item-info-data">
-                    <input type="text" class="inline-input" name="store_code"
-                        placeholder="Street, Building, Floor, etc." />
-                </div>
-            </div>
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Postal Code:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="store_code" placeholder="0000" />
-                </div>
-                <div class="col col-3 item-info-head">Zip Code:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="store_code" placeholder="00000" />
-                </div>
-            </div>
-            <div class="input-group sm px-3">
-                <button type="reset" class="form-control btn btn-outline-info my-2 py-0">Reset Form</button>
-                <button type="submit" class="form-control btn btn-outline-primary my-2 py-0">Update Address</button>
-            </div>
-        </form>
-    </fieldset>
-    <fieldset class="mt-4 p-0 pt-4 pb-3 bg-light light-shadow">
-        <legend class="bg-secondary text-light">Adminstration and Communication Info</legend>
-        <form class="p-0 m-0" action="{{ route('update-store-communication-info') }}" method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{ $store->id }}">
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Admin:</div>
-                <div class="col col-3 item-info-data">
-                    <select class="inline-input" name="admin">
-                        @foreach ($admins as $admin)
-                            <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col col-3 item-info-head">Email:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="email" placeholder="City Name" />
-                </div>
-            </div>
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Mobile:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="mobile" placeholder="Destinct Name" />
-                </div>
+        </div>
+    </div>
 
-                <div class="col col-3 item-info-head">whatsapp:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="whatsapp"
-                        placeholder="Street, Building, Floor, etc." />
-                </div>
-            </div>
-            <div class="row item-info-row">
-                <div class="col col-3 item-info-head">Phone:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="phone" placeholder="0000" />
-                </div>
-                <div class="col col-3 item-info-head">Fax:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="fax" placeholder="00000" />
-                </div>
-            </div>
-            <div class="row item-info-row">
-                <div class="col col-3 text-center item-info-head">
-                    <input type="checkbox" class="inline-input" name="ismovable" value="" />
-                    Is Movable?
-                </div>
-                <div class="col col-3 text-center item-info-head">
-                    <input type="text" class="inline-input" name="phone" placeholder="0000" />
-                </div>
-                <div class="col col-3 item-info-head">Fax:</div>
-                <div class="col col-3 item-info-data">
-                    <input type="text" class="inline-input" name="fax" placeholder="00000" />
-                </div>
-            </div>
-            <div class="input-group sm px-3">
-                <button type="reset" class="form-control btn btn-outline-info my-2 py-0">Reset Form</button>
-                <button type="submit" class="form-control btn btn-outline-primary my-2 py-0">Update Address</button>
-            </div>
-        </form>
-    </fieldset>
+    @push('scripts')
+    <script>
+        // Initialize all tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+    </script>
+    @endpush
 @endsection
