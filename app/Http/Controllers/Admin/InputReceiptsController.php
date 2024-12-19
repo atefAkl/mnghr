@@ -25,11 +25,9 @@ class InputReceiptsController extends Controller
     '8' => 'Credit transfer',
   ];
   private static $status = [
-    '0' => 'Archived',
-    '1' =>  'InProgress',
-    '2' => 'Approved'
-
-
+    1 => '1',
+    2 => '2',
+    3 => '0'
   ];
   private const INSERT_ENTRY = 1;
   private const OUTPUT_ENTRY = 2;
@@ -41,12 +39,16 @@ class InputReceiptsController extends Controller
   {
     $tabs = [1 => 'inProgressReceipts', 2 => 'approvedReceipts', 3 => 'archivedReceipts'];
 
-    $receipts = StoreReceipt::all();
+    $receipts = StoreReceipt::where(['status' => self::$status[$tab], 'direction' => $dir == 'input' ? 1 : 2])
+      ->orderBy('serial', 'desc')
+      ->paginate(10);
+
     $stores   = Store::all();
     $admins   = Admin::all();
     $vars = [
       'tabs'              => $tabs,
       'tab'               => $tab,
+      'dir'               => $dir,
       'reference_type'    => self::$reference_type,
       'direction_input'   => self::INSERT_ENTRY,
       'direction_output'  => self::OUTPUT_ENTRY,
@@ -55,7 +57,7 @@ class InputReceiptsController extends Controller
       'receipts'          => $receipts,
       'stores'            => $stores,
     ];
-    $file = 'admin.receipts.' . $dir . '.' . $tabs[$tab];
+    $file = 'admin.receipts.' . $tabs[$tab];
     return view($file, $vars);
   }
 

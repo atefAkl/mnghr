@@ -135,13 +135,13 @@
         <div class="col col-12">
             <fieldset class="mt-4 mx-0 mb-0">
                 <div class="tabs-container d-flex gap-3">
-                    <a href="{{ route('display-inputReceipts-list', ['input', 1]) }}">
+                    <a href="{{ route('display-inputReceipts-list', [$dir, 1]) }}">
                         <legend class="{{ $tab === '1' ? 'active' : '' }}"> InProgress Receipts</legend>
                     </a>
-                    <a href="{{ route('display-inputReceipts-list', ['input', 2]) }}">
+                    <a href="{{ route('display-inputReceipts-list', [$dir, 2]) }}">
                         <legend class="{{ $tab === '2' ? 'active' : '' }}"> Approved Receipts</legend>
                     </a>
-                    <a href="{{ route('display-inputReceipts-list', ['input', 3]) }}">
+                    <a href="{{ route('display-inputReceipts-list', [$dir, 3]) }}">
                         <legend class="{{ $tab === '3' ? 'active' : '' }}"> Archived Receipts</legend>
                     </a>
                 </div>
@@ -182,8 +182,10 @@
             </fieldset>
         </div>
     </div>
-
-    <div class="row d-flex justify-content-end mt-2">
+    <div class="mt-3" id="links">
+        {{ $receipts->links() }}
+    </div>
+    {{-- <div class="row d-flex justify-content-end mt-2">
         <div class="col col-4">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
@@ -207,7 +209,7 @@
         </div>
 
 
-    </div>
+    </div> --}}
 
 
     <!-- <script>

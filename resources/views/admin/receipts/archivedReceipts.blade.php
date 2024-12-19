@@ -1,4 +1,4 @@
-@extends('admin.receipts.input.home')
+@extends('admin.receipts.home')
 @section('table')
     <table class="table table-striped table-bordered mt-1">
         <thead>
