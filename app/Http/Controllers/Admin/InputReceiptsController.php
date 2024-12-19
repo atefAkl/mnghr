@@ -52,6 +52,23 @@ class InputReceiptsController extends Controller
       'stores'           => $stores,
 
     ];
+    return view('admin.receipts.index', $vars);
+  }
+  public function home()
+  {
+    $receipts = StoreReceipt::all();
+    $stores   = Store::all();
+    $admins   = Admin::all();
+    $vars = [
+      'reference_type'   => self::$reference_type,
+      'direction_input'  => self::INSERT_ENTRY,
+      'direction_output' => self::OUTPUT_ENTRY,
+      'status'           => self::$status,
+      'admins'           => $admins,
+      'receipts'         => $receipts,
+      'stores'           => $stores,
+
+    ];
     return view('admin.receipts.input.home', $vars);
   }
 
