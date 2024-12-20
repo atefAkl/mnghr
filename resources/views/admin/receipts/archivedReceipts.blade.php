@@ -22,6 +22,7 @@
                         <td>{{ $receipt->serial }}</td>
                         <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                         <td>{{ $receipt->reception_date }}</td>
+                        <td>{{ $receipt->direction }}</td>
                         <td>{{ @$receipt->admin->userName }}</td>
                         <td>
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
