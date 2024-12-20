@@ -14,14 +14,15 @@
         </thead>
         <tbody>
             @php $i = 0 @endphp
-            @if (count($receipts))
-                @foreach ($receipts as $receipt)
+            @if (count($archivedReceipts))
+                @foreach ($archivedReceipts as $receipt)
                     @php $i++ @endphp
                     <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $receipt->serial }}</td>
                         <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                         <td>{{ $receipt->reception_date }}</td>
+<<<<<<< HEAD:resources/views/admin/receipts/archived.blade.php
                         <td>
                                 @if ($receipt->direction === 1)
                                     <span class="badge bg-success">Input</span>
@@ -29,6 +30,9 @@
                                     <span class="badge bg-danger">Output</span>
                                 @endif
                             </td>
+=======
+                        <td>{{ $receipt->direction }}</td>
+>>>>>>> 1158e4b7ea1a33b808b1e196107d5672072ff17f:resources/views/admin/receipts/archivedReceipts.blade.php
                         <td>{{ @$receipt->admin->userName }}</td>
                         <td>
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"

@@ -31,11 +31,28 @@
 <h1 class="mt-3 pb-2 " style="border-bottom: 2px solid #dedede">All {{$dir }} Receipts
   <a class="py-0 ms-3 btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#addreceiptForm" aria-expanded="false"
     aria-controls="addreceiptForm"><i data-bs-toggle="tooltip" title="Add New Receipt" class="fa fa-plus"></i> Add
+<<<<<<< HEAD
     New</a>
     <a href="/admin/receipts/display/{{$dir === 'Input' ? 'Output' : 'Input'}}/{{$tab}}" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Output">
       Switch to {{$dir === 'Input' ? 'Output' : 'Input'}}
     </a>
  
+=======
+    New Receipt</a>
+  @if($dir=='input')
+  <div class="input-group  justify-content-end" style="margin-top: -1.6rem;">
+    <a href="/admin/receipts/display/output/2" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Output">
+      Switch To Output
+    </a>
+  </div>
+  @else
+  <div class="input-group  justify-content-end " style="margin-top: -1.6rem;">
+    <a href="/admin/receipts/display/input/1" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Input">
+      Switch To Input
+    </a>
+  </div>
+  @endif
+>>>>>>> 1158e4b7ea1a33b808b1e196107d5672072ff17f
 </h1>
 
 <div class="row ">
