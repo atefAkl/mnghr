@@ -3,7 +3,6 @@
     <table class="table table-striped table-bordered mt-1">
         <thead>
             <tr>
-<<<<<<< HEAD:resources/views/admin/receipts/approved.blade.php
                 <th><i class="fa fa-list"></i></th>
                 <th><i class="fa fa-barcode"></i> Serial Number</th>
                 <th><i class="fa fa-tags"></i> Reference Type</th>
@@ -11,15 +10,6 @@
                 <th><i class="fa fa-arrow-right"></i> Dir</th>
                 <th><i class="fa fa-user"></i> Representative</th>
                 <th><i class="fa fa-cogs"></i> Control</th>
-=======
-               <th> # <i  class="fa fa-sort px-2"></i></th>
-                <th> Serial Number  <i  class="fa fa-sort px-4"></i></th>
-                <th> Reference Type <i  class="fa fa-sort px-4"></i></th>
-                <th> Date <i  class="fa fa-sort px-4"></i></th>
-                <th> Dir <i  class="fa fa-sort px-4"></i></th>
-                <th> Representative <i  class="fa fa-sort px-4"></i></th>
-                <th> Control <i  class="fa fa-sort px-4"></i></th>
->>>>>>> 1158e4b7ea1a33b808b1e196107d5672072ff17f:resources/views/admin/receipts/approvedReceipts.blade.php
             </tr>
         </thead>
         <tbody>
@@ -34,7 +24,6 @@
                             <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                             
                             <td>{{ $receipt->reception_date }}</td>
-<<<<<<< HEAD:resources/views/admin/receipts/approved.blade.php
                             <td>
                                 @if ($receipt->direction === 1)
                                     <span class="badge bg-success">Input</span>
@@ -42,9 +31,7 @@
                                     <span class="badge bg-danger">Output</span>
                                 @endif
                             </td>
-=======
                             <td>{{ $receipt->direction }}</td>
->>>>>>> 1158e4b7ea1a33b808b1e196107d5672072ff17f:resources/views/admin/receipts/approvedReceipts.blade.php
                             <td>{{ @$receipt->admin->userName }}</td>
                             <td>
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
