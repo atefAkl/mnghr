@@ -224,52 +224,6 @@ INSERT INTO `items_categories` (`id`, `cat_name`, `parent_id`, `cat_brief`, `sta
 (21, 'Computers', 1, 'Computers', 1, 13, '2024-12-03 19:42:04', '2024-12-03 19:42:04', NULL),
 (22, 'Desktop', 21, 'Computers', 1, 13, '2024-12-03 19:42:34', '2024-12-03 19:42:34', NULL),
 (23, 'Workstations', 22, 'Workstations', 1, 13, '2024-12-03 19:45:12', '2024-12-03 19:45:12', NULL),
-(46, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 17:57:12', '2024-12-06 17:57:12', NULL),
-(47, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:08:34', '2024-12-06 18:08:34', NULL),
-(48, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:08:42', '2024-12-06 18:08:42', NULL),
-(49, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:08:48', '2024-12-06 18:08:48', NULL),
-(50, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:08:53', '2024-12-06 18:08:53', NULL),
-(51, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:08:53', '2024-12-06 18:08:53', NULL),
-(52, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:41', '2024-12-06 18:09:41', NULL),
-(53, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:41', '2024-12-06 18:09:41', NULL),
-(54, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:43', '2024-12-06 18:09:43', NULL),
-(55, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:44', '2024-12-06 18:09:44', NULL),
-(56, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:54', '2024-12-06 18:09:54', NULL),
-(57, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:57', '2024-12-06 18:09:57', NULL),
-(58, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:59', '2024-12-06 18:09:59', NULL),
-(59, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:59', '2024-12-06 18:09:59', NULL),
-(60, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:59', '2024-12-06 18:09:59', NULL),
-(61, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:59', '2024-12-06 18:09:59', NULL),
-(62, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:09:59', '2024-12-06 18:09:59', NULL),
-(63, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:03', '2024-12-06 18:10:03', NULL),
-(64, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:27', '2024-12-06 18:10:27', NULL),
-(65, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:27', '2024-12-06 18:10:27', NULL),
-(66, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:27', '2024-12-06 18:10:27', NULL),
-(67, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 0, 13, '2024-12-06 18:10:54', '2024-12-06 18:10:54', NULL),
-(68, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 0, 13, '2024-12-06 18:10:54', '2024-12-06 18:10:54', NULL),
-(69, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:57', '2024-12-06 18:10:57', NULL),
-(70, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:57', '2024-12-06 18:10:57', NULL),
-(71, 'Atef Akl', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-06 18:10:58', '2024-12-06 18:10:58', NULL),
-(72, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:20:56', '2024-12-06 18:20:56', NULL),
-(73, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:21:24', '2024-12-06 18:21:24', NULL),
-(74, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:21:24', '2024-12-06 18:21:24', NULL),
-(75, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:21:29', '2024-12-06 18:21:29', NULL),
-(76, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:27:58', '2024-12-06 18:27:58', NULL),
-(77, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:28:02', '2024-12-06 18:28:02', NULL),
-(78, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:36:01', '2024-12-06 18:36:01', NULL),
-(79, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:36:10', '2024-12-06 18:36:10', NULL),
-(80, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:36:56', '2024-12-06 18:36:56', NULL),
-(81, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:37:12', '2024-12-06 18:37:12', NULL),
-(82, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:48:46', '2024-12-06 18:48:46', NULL),
-(83, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:49:25', '2024-12-06 18:49:25', NULL),
-(84, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:50:25', '2024-12-06 18:50:25', NULL),
-(85, 'yosarziad', 12, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:51:31', '2024-12-06 18:51:31', NULL),
-(86, 'yosarziad', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 18:58:27', '2024-12-06 18:58:27', NULL),
-(87, 'yosarziad', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 19:00:02', '2024-12-06 19:00:02', NULL),
-(88, 'yosarziad', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 19:01:38', '2024-12-06 19:01:38', NULL),
-(89, 'yosarziad', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 19:02:56', '2024-12-06 19:02:56', NULL),
-(90, 'yosarziad', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-06 19:04:05', '2024-12-06 19:04:05', NULL),
-(91, 'meraym', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-07 17:41:57', '2024-12-07 17:41:57', NULL),
 (92, 'meraym', 12, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-07 17:41:57', '2024-12-07 17:41:57', NULL),
 (93, 'meraym', 1, 'Lorem Ipsum is simply dummy text of the printinLorem Ipsum is simply dummy text of the printin', 1, 13, '2024-12-07 17:45:32', '2024-12-07 17:45:32', NULL),
 (94, 'yosarziad0000', 1, 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', 1, 13, '2024-12-07 18:14:54', '2024-12-07 18:14:54', NULL),
@@ -463,6 +417,29 @@ INSERT INTO `units` (`id`, `name`, `brief`, `short_name`, `status`, `created_by`
 -- Constraints for dumped tables
 --
 
+
+--
+-- Table structure for table `store_entries`
+--
+
+DROP TABLE IF EXISTS `store_entries`;
+CREATE TABLE IF NOT EXISTS store_entries (
+    id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    item_id BIGINT UNSIGNED,
+    store_id BIGINT UNSIGNED,
+    receipt_id BIGINT UNSIGNED,
+    ref_type_id INT,
+    unit_id BIGINT UNSIGNED,
+    inputs DECIMAL(10, 2),
+    outputs DECIMAL(10, 2),
+    notes VARCHAR(255),
+    status VARCHAR(50), 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    created_by BIGINT UNSIGNED,
+    updated_by BIGINT UNSIGNED,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Constraints for table `items`
 --
@@ -472,6 +449,9 @@ ALTER TABLE `items`
   ADD CONSTRAINT `items_ibfk_3` FOREIGN KEY (`updated_by`) REFERENCES `admins` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `items_ibfk_4` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

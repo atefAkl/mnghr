@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 @section('contents')
-    <h2>Settings</h2>
+<h1 class="my-3 pb-2 " style="border-bottom: 2px solid #dedede">
+    <i class="fa fa-cogs "></i> Settings
+</h2>
     <style>
         .input-group.sm label.input-group-text,
         .input-group.sm input.form-control,
@@ -9,16 +11,16 @@
         .input-group.sm .input-group-text,
         .input-group.sm button.form-control {
             padding: 0 0.5rem;
-            height: 28px;
+            height: 33px;
         }
     </style>
     <div class="input-group">
-        <button class="py-0 btn btn-primary">Branches
+        <button class="py-0 btn btn-primary"> <i class="fa fa-code-branch"></i> Branches
             <span class="btn text-light btn-sm" data-bs-toggle="collapse" data-bs-target="#addNewBranch"><i
                     data-bs-toggle="tooltip" data-bs-title="Add New Branch" class="fa fa-plus-square"></i></span>
         </button>
-        <button class="py-0 btn btn-outline-secondary">Address</button>
-        <button class="py-0 btn btn-outline-secondary">Registery</button>
+        <button class="py-0 btn btn-outline-secondary"><i class="fa fa-address-card"></i> Address</button>
+        <button class="py-0 btn btn-outline-secondary"><i class="fa fa-file"></i> Registery Docs</button>
     </div>
     <div id="body">
         <div class="collapse" id="addNewBranch">
@@ -84,11 +86,11 @@
         <table class="table mt-3">
             <thead>
                 <tr class="bg-primary">
-                    <th>The Code</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Main</th>
-                    <th>Options</th>
+                    <th><i class="fa fa-barcode"></i> The Code</th>
+                    <th><i class="fa fa-tag"></i> Name</th>
+                    <th><i class="fa fa-map-marker-alt"></i> Address</th>
+                    <th><i class="fa fa-phone"></i> Phone</th>
+                    <th><i class="fa fa-cog"></i> Control</th>
                 </tr>
             </thead>
             <tbody class="table-hover">
@@ -98,7 +100,7 @@
                             <td>{{ $item->branch_code }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->address }}</td>
-                            <td>{{ $item->ismain === 1 ? 'Yes' : 'No' }}</td>
+                            <td>{{ $item->phone }}</td>
                             <td>
                                 <button data-item="{{ $item }}" class="btn btn-sm edit-form-trigger"
                                     data-bs-toggle="collapse" data-bs-target="#editBranchInfo">

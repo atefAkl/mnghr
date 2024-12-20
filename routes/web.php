@@ -1,20 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Admin\InputReceiptsController;
-use App\Http\Controllers\Admin\OutputReceiptsController;
 use App\Http\Controllers\Admin\ItemCategoriesController;
 use App\Http\Controllers\Admin\StoreReceiptsController;
+use App\Http\Controllers\Admin\PasswordResetController;
 use App\Http\Controllers\Admin\StoreEntriesController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\storesController;
 use App\Http\Controllers\admin\AdminsController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\PasswordResetController;
 use App\Http\Controllers\Web\IndexController;
 use App\Http\Controllers\ProductsController;
 
@@ -164,26 +162,14 @@ Route::group(
         /* ========================================================================================================================================
       =========== Store Receipt Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-        Route::get('/receipts/display/{direction}/{tab}',                [InputReceiptsController::class, 'index'])->name('display-inputReceipts-list');
-        Route::get('/receipts/input/inProgressReceipts  ',      [InputReceiptsController::class, 'inProgressReceipts'])->name('display-input-inProgressReceipts');
-        Route::get('/receipts/input/approvedReceipts  ',        [InputReceiptsController::class, 'approvedReceipts'])->name('display-input-approvedReceipts');
-        Route::get('/receipts/input/archivedReceipts  ',        [InputReceiptsController::class, 'archivedReceipts'])->name('display-input-archivedReceipts');
-        Route::get('receipts/input/restore/{id}',               [InputReceiptsController::class, 'restore'])->name('restore-input-receipt-info');
-        Route::get('receipts/input/forceDelete/{id}',           [InputReceiptsController::class, 'forceDelete'])->name('forceDelete-input-receipt-info');
-        Route::get('/receipts/output/home',                     [OutputReceiptsController::class, 'index'])->name('display-outputReceipts-list');
-        Route::get('/receipts/output/inProgressReceipts  ',     [OutputReceiptsController::class, 'inProgressReceipts'])->name('receipts.output.in-progress');
-        Route::get('/receipts/output/approvedReceipts  ',       [OutputReceiptsController::class, 'approvedReceipts'])->name('receipts.output.approved');
-        Route::get('/receipts/output/archivedReceipts  ',       [OutputReceiptsController::class, 'archivedReceipts'])->name('receipts.output.archived');
-        Route::get('receipts/output/restore/{id}',              [OutputReceiptsController::class, 'restore'])->name('restore-output-receipt-info');
-        Route::get('receipts/output/forceDelete/{id}',          [OutputReceiptsController::class, 'forceDelete'])->name('forceDelete-output-receipt-info');
-        Route::get('receipts/edit/{id}',                        [InputReceiptsController::class, 'edit'])->name('edit-receipt-info');
-        Route::post('receipts/update',                          [InputReceiptsController::class, 'update'])->name('update-receipt-info');
-        Route::post('/receipts/store',                          [InputReceiptsController::class, 'store'])->name('save-receipt-info');
-        Route::get('receipts/destroy/{id}',                     [InputReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
-
-
-        // Route::get('receipts/filter/{val1}/{val2}/{val3}/{val4}',           [InputReceiptsController::class, 'loadData'])->name('load.data');
-
+        Route::get('/receipts/display/{direction}/{tab}',               [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
+        Route::get('/receipts/index',                           [StoreReceiptsController::class, 'home'])->name('display-recepit-all');
+        Route::get('receipts/restore/{id}',                     [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
+        Route::get('receipts/forceDelete/{id}',                 [StoreReceiptsController::class, 'forceDelete'])->name('forceDelete-receipt-info');
+        Route::get('receipts/edit/{id}',                        [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
+        Route::post('receipts/update',                          [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
+        Route::post('/receipts/store',                          [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
+        Route::get('receipts/destroy/{id}',                     [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
 
         /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
@@ -210,6 +196,15 @@ Route::group(
       =========== Company Branches Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
         Route::get('/branches/home',                        [BranchesController::class, 'index'])->name('desplay-branches');
+        Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
+        Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
+        Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
+        
+        
+        /* ========================================================================================================================================
+      =========== Company Dashboard Settings Collection ===========================================================================================================
+      ======================================================================================================================================== */
+        Route::get('/dashboard/settings/home',                        [SettingsController::class, 'index'])->name('desplay-branches');
         Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
         Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
         Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
