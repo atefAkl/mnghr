@@ -164,7 +164,7 @@ Route::group(
         /* ========================================================================================================================================
       =========== Store Receipt Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
-        Route::get('/receipts/{direction}/{tab}',                [InputReceiptsController::class, 'index'])->name('display-inputReceipts-list');
+        Route::get('/receipts/display/{direction}/{tab}',                [InputReceiptsController::class, 'index'])->name('display-inputReceipts-list');
         Route::get('/receipts/input/inProgressReceipts  ',      [InputReceiptsController::class, 'inProgressReceipts'])->name('display-input-inProgressReceipts');
         Route::get('/receipts/input/approvedReceipts  ',        [InputReceiptsController::class, 'approvedReceipts'])->name('display-input-approvedReceipts');
         Route::get('/receipts/input/archivedReceipts  ',        [InputReceiptsController::class, 'archivedReceipts'])->name('display-input-archivedReceipts');
