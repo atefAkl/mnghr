@@ -16,7 +16,7 @@
             @php $i = 0 @endphp
             @if (count($receipts))
                 @foreach ($receipts as $receipt)
-                    @if ($receipt->status === 2)
+                    @if ($receipt->status === 2 && $receipt->direction === 1?$receipt->direction === 1:$receipt->direction === 2)
                         @php $i++ @endphp
                         <tr>
                             <td>{{ $i }}</td>

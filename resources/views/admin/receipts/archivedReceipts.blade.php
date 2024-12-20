@@ -14,8 +14,8 @@
         </thead>
         <tbody>
             @php $i = 0 @endphp
-            @if (count($receipts))
-                @foreach ($receipts as $receipt)
+            @if (count($archivedReceipts))
+                @foreach ($archivedReceipts as $receipt)
                     @php $i++ @endphp
                     <tr>
                         <td>{{ $i }}</td>

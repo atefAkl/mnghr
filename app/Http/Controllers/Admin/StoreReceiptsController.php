@@ -65,6 +65,10 @@ class StoreReceiptsController extends Controller
     $receipts = StoreReceipt::where(['status' => self::$status[$tab], 'direction' => $dir == 'input' ? 1 : 2])
       ->orderBy('serial', 'desc')
       ->paginate(10);
+    $archivedReceipts = StoreReceipt::where([ 'direction' => $dir == 'input' ? 1 : 2])->onlyTrashed()
+    ->orderBy('serial', 'desc')
+    ->paginate(10);
+
 
     $stores   = Store::all();
     $admins   = Admin::all();
@@ -78,6 +82,7 @@ class StoreReceiptsController extends Controller
       'status'            => self::$status,
       'admins'            => $admins,
       'receipts'          => $receipts,
+      'archivedReceipts'  => $archivedReceipts,
       'stores'            => $stores,
     ];
     $file = 'admin.receipts.' . $tabs[$tab];
