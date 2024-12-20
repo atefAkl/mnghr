@@ -3,13 +3,13 @@
     <table class="table table-striped table-bordered mt-1">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Serial Number</th>
-                <th>Reference Type</th>
-                <th>Date</th>
-                <th>Dir</th>
-                <th>Representative</th>
-                <th>Control</th>
+                <th> # <i  class="fa fa-sort px-2"></i></th>
+                <th> Serial Number  <i  class="fa fa-sort px-4"></i></th>
+                <th> Reference Type <i  class="fa fa-sort px-4"></i></th>
+                <th> Date <i  class="fa fa-sort px-4"></i></th>
+                <th> Dir <i  class="fa fa-sort px-4"></i></th>
+                <th> Representative <i  class="fa fa-sort px-4"></i></th>
+                <th> Control <i  class="fa fa-sort px-4"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
                 @foreach ($receipts as $i => $receipt)
                     @if ($receipt->status !== 1)
                         @continue
-                    @elseif ($receipt->status === 1 && $receipt->direction === 1)
+                    @elseif ($receipt->status === 1 && $receipt->direction === 1?$receipt->direction === 1:$receipt->direction === 2)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $receipt->serial }}</td>

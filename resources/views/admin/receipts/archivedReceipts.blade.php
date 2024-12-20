@@ -3,12 +3,13 @@
     <table class="table table-striped table-bordered mt-1">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Serial Number</th>
-                <th>Reference Type</th>
-                <th>Date</th>
-                <th>Representative</th>
-                <th>Control</th>
+               <th> # <i  class="fa fa-sort px-2"></i></th>
+                <th> Serial Number  <i  class="fa fa-sort px-4"></i></th>
+                <th> Reference Type <i  class="fa fa-sort px-4"></i></th>
+                <th> Date <i  class="fa fa-sort px-4"></i></th>
+                <th> Dir <i  class="fa fa-sort px-4"></i></th>
+                <th> Representative <i  class="fa fa-sort px-4"></i></th>
+                <th> Control <i  class="fa fa-sort px-4"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +26,7 @@
                         <td>
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
                                 onclick="if (!confirm('You are going to Restore this receipt, are you sure?'))return false"
-                                href="{{ route('restore-input-receipt-info', $receipt->id) }}"><i
+                                href="{{ route('restore-receipt-info', [$receipt->id]) }}"><i
                                     class="fa fa-undo text-warning"></i></a>
 
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt" href=""><i
@@ -36,13 +37,18 @@
 
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="hard delete Receipt"
                                 onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
-                                href="{{ route('forceDelete-input-receipt-info', $receipt->id) }}"><i
+                                href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
                                     class="fa fa-trash-alt text-danger"></i></a>
                         </td>
                         </td>
                     </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="7">No Receipts has been not added Receipt!!. </td>
+                </tr>
             @endif
+      
         </tbody>
     </table>
 @endsection
