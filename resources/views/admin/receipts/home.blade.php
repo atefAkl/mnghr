@@ -35,13 +35,13 @@
   @if($dir=='input')
   <div class="input-group  justify-content-end" style="margin-top: -1.6rem;">
     <a href="/admin/receipts/display/output/2" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Output">
-      Switch Output
+      Switch To Output
     </a>
   </div>
   @else
   <div class="input-group  justify-content-end " style="margin-top: -1.6rem;">
     <a href="/admin/receipts/display/input/1" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Input">
-      Switch Input
+      Switch To Input
     </a>
   </div>
   @endif
