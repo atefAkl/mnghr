@@ -29,6 +29,11 @@
 </head>
 
 <body>
+    @if(auth()->check())
+        <p>Welcome, {{ auth()->user()->name }}!</p>
+    @else
+        <p>Please log in.</p>
+    @endif
     <div class="admin-wrapper">
         @include('inc.sidebar')
         <div id="content">
