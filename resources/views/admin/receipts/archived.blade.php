@@ -1,5 +1,6 @@
 @extends('admin.receipts.home')
 @section('table')
+
     <table class="table table-striped table-bordered mt-1">
         <thead>
             <tr>
@@ -13,9 +14,10 @@
             </tr>
         </thead>
         <tbody>
+            {{$archived}}
             @php $i = 0 @endphp
-            @if (count($archivedReceipts))
-                @foreach ($archivedReceipts as $receipt)
+            @if (count($archived))
+                @foreach ($archived as $receipt)
                     @php $i++ @endphp
                     <tr>
                         <td>{{ $i }}</td>
@@ -52,13 +54,13 @@
                 @endforeach
                 @else
                 <tr>
-                    <td colspan="7">No Receipts has been not added Receipt!!. </td>
+                    <td colspan="7">No Receipts has been archived till now. </td>
                 </tr>
             @endif
       
         </tbody>
     </table>
     <div class="mt-3" id="links">
-        {{ $receipts->links() }}
+        {{ $archived->links() }}
     </div>
 @endsection

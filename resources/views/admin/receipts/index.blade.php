@@ -99,8 +99,8 @@
         </a>
       </legend>
       <div class="input-group">
-        <button class="py-0 pt-1 pb-1 ms-4 btn btn-primary active" data-type="{{ $direction_input }}">Input</button>
-        <button class="py-0 pt-1 pb-1 btn btn-outline-secondary" data-type="{{ $direction_output }}">Output</button>
+        <button class="py-0 ms-4 btn btn-outline-primary" data-type="{{ $direction_input }}"><a href="{{route('display-receipts-list', ['Input', 1])}}">Inputs</a></button>
+        <button class="py-0 btn btn-outline-primary" data-type="{{ $direction_output }}"><a href="{{route('display-receipts-list', ['Output', 1])}}">Outputs</a></button>
       </div>
       <div id="data-container">
         <table class="table table-striped table-bordered mt-3">
@@ -120,7 +120,7 @@
             @if (count($receipts))
               @foreach ($receipts as $receipt)
                 @php $i++ @endphp
-                @if($receipt->direction === $direction_input)
+                
                   <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $receipt->serial }}</td>
@@ -149,7 +149,7 @@
                       </td>
                     @endif
                   </tr>
-                @endif
+                
               @endforeach
             @else
               <tr>
@@ -158,6 +158,9 @@
             @endif
           </tbody>
         </table>
+        <div class="mt-3">
+          {{$receipts->links()}}
+        </div>
       </div>
     </fieldset>
   </div>

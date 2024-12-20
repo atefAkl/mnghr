@@ -46,9 +46,9 @@ class LoginController extends Controller
             'status' => 1 // التحقق من أن المستخدم نشط
         ])) {
             RateLimiter::clear($key);
-            
+
             $user = auth()->guard('admin')->user();
-            
+
             // تسجيل وقت آخر تسجيل دخول
             $user->update([
                 'last_login_at' => Carbon::now(),
@@ -66,7 +66,7 @@ class LoginController extends Controller
 
         // تسجيل محاولة فاشلة
         RateLimiter::hit($key);
-        
+
         return redirect()->back()
             ->withInput($request->only('userName'))
             ->with('error', 'بيانات الاعتماد غير صحيحة');
@@ -80,17 +80,17 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $user = auth()->guard('admin')->user();
-        
+
         // تسجيل عملية تسجيل الخروج
         activity()
             ->performedOn($user)
             ->log('تم تسجيل الخروج');
-            
+
         auth()->guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
-        return redirect()->route('admin.auth.login')
+
+        return redirect()->route('admin.login')
             ->with('success', 'تم تسجيل الخروج بنجاح');
     }
 }

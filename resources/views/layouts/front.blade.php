@@ -85,8 +85,12 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="d-flex ms-lg-4"><a class="btn btn-secondary-outline" href="#!">Sign In</a><a
-                            class="btn btn-warning ms-3" href="#!">Sign Up</a></div>
+                    
+                    <div class="d-flex ms-lg-4">
+                        <a class="btn btn-secondary-outline" href="#!">Sign In</a>
+                        <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
+                        <a class="btn btn-warning ms-3" href="{{ route('logout') }}">تسجيل الخروج</a>
+                    </div>
                 </div>
             </div>
         </nav>
