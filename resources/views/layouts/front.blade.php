@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/admin/dashboard/home">
+                            <a class="nav-link" aria-current="page" href="{{route('admin.auth.login')}}">
                                 Go to ERP
                             </a>
                         </li>
@@ -85,15 +85,15 @@
                             </a>
                         </li>
                     </ul>
-                    @if(auth()->guard('admin')->check())
-                        <p>Welcome, {{ auth()->guard('admin')->user()->name }}!</p>
-                    @else
-                        <p>Please log in.</p>
-                    @endif
                     <div class="d-flex ms-lg-4">
-                        <a class="btn btn-secondary-outline" href="#!">Sign In</a>
-                        <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
+                    @if(auth()->guard('admin')->check())
+                        <p>Welcome, {{ auth()->guard('admin')->user()->userName }}!</p>
                         <a class="btn btn-warning ms-3" href="{{ route('logout') }}">تسجيل الخروج</a>
+                    @else
+                        
+                    <a class="btn btn-secondary-outline" href="#!">Sign In</a>
+                    <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
+                    @endif
                     </div>
                 </div>
             </div>

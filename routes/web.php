@@ -40,7 +40,7 @@ Route::group(
     Route::get('dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
     Route::get('operations/log',            [HomeController::class, 'log'])->name('operations.log');
     Route::get('dashboard/home',            [HomeController::class, 'index'])->name('home.index');
-    Route::get('logout',                    [LoginController::class, 'logout'])->name('logout');
+
 
 
 
@@ -108,7 +108,7 @@ Route::group(
     Route::post('/reset-password',                              [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
     Route::get('logout',                                            [LoginController::class, 'logout'])->name('logout');
-    Route::get('/auth/login',                                       [LoginController::class, 'index'])->name('login');
+    Route::get('/auth/login',                                       [LoginController::class, 'index'])->name('admin.auth.login');
     Route::post('login',                                            [LoginController::class, 'login'])->name('admin.login');
   }
 );
