@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{route('admin.auth.login')}}">
+                            <a class="nav-link" aria-current="page" href="{{route('admin.dashboard')}}">
                                 Go to ERP
                             </a>
                         </li>

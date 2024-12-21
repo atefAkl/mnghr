@@ -153,7 +153,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/dashboard/settings" class="rounded {{ Request::is('admin/dashboard/settings') ? 'active' : '' }}">
+                        <a href="/admin/dashboard/settings" class="rounded {{ Request::is('dashboard-settings-home') ? 'active' : '' }}">
                             <i class="fas fa-cog"></i> &nbsp; Settings
                         </a>
                     </li>

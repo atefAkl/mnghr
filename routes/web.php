@@ -53,10 +53,10 @@ Route::group(
     Route::post('entries/update',                        [StoreEntriesController::class, 'update'])->name('update-entry-info');
     Route::get('entries/destroy/{id}',                   [StoreEntriesController::class, 'destroy'])->name('destroy-entry-info');
     Route::get('entries/input/create/{id}',              [StoreEntriesController::class, 'createInsert'])->name('add-store-input-entry');
-    Route::get('entries/input/destroy/{id}',              [StoreEntriesController::class, 'destroy'])->name('destroy-store-input-entry');
-    Route::post('entries/input/store',                    [StoreEntriesController::class, 'storeInsert'])->name('save-store-inputs-entry');
-    Route::post('entries/input/update',                    [StoreEntriesController::class, 'updateInsert'])->name('update-store-inputs-entry');
-    Route::post('entries/get/products/like',              [StoreEntriesController::class, 'getProductsLike'])->name('get-products-like-query');
+    Route::get('entries/input/destroy/{id}',             [StoreEntriesController::class, 'destroy'])->name('destroy-store-input-entry');
+    Route::post('entries/input/store',                   [StoreEntriesController::class, 'storeInsert'])->name('save-store-inputs-entry');
+    Route::post('entries/input/update',                  [StoreEntriesController::class, 'updateInsert'])->name('update-store-inputs-entry');
+    Route::post('entries/get/products/like',             [StoreEntriesController::class, 'getProductsLike'])->name('get-products-like-query');
 
     /* ========================================================================================================================================
         =========== Items Routes Collection ===========================================================================================================
@@ -98,18 +98,18 @@ Route::group(
   function () {
 
     // Registration Routes
-    Route::get('/register',                                  [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register',                                  [RegisterController::class, 'register'])->name('register.submit');
+    Route::get('/register',                               [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register',                              [RegisterController::class, 'register'])->name('register.submit');
 
     // Password Reset Routes
-    Route::get('/forgot-password',                              [PasswordResetController::class, 'showForgotForm'])->name('password.request');
-    Route::post('/forgot-password',                              [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-    Route::get('/reset-password/{token}',                          [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/reset-password',                              [PasswordResetController::class, 'resetPassword'])->name('password.update');
+    Route::get('/forgot-password',                        [PasswordResetController::class, 'showForgotForm'])->name('password.request');
+    Route::post('/forgot-password',                       [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password/{token}',                 [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password',                        [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
-    Route::get('logout',                                            [LoginController::class, 'logout'])->name('logout');
-    Route::get('/auth/login',                                       [LoginController::class, 'index'])->name('admin.auth.login');
-    Route::post('login',                                            [LoginController::class, 'login'])->name('admin.login');
+    Route::get('logout',                                  [LoginController::class, 'logout'])->name('logout');
+    Route::get('/auth/login',                             [LoginController::class, 'index'])->name('admin.auth.login');
+    Route::post('login',                                  [LoginController::class, 'login'])->name('admin.login');
   }
 );
 
@@ -153,7 +153,7 @@ Route::group(
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
-    Route::get('receipts/load-data/{type}',           [StoreReceiptsController::class, 'loadData'])->name('load.data');
+    Route::get('receipts/load-data/{type}',                 [StoreReceiptsController::class, 'loadData'])->name('load.data');
     Route::get('/receipts/display/{direction}/{tab}',       [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
     Route::get('/receipts/index',                           [StoreReceiptsController::class, 'home'])->name('display-recepit-all');
     Route::get('receipts/restore/{id}',                     [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
@@ -196,10 +196,10 @@ Route::group(
     /* ========================================================================================================================================
       =========== Company Dashboard Settings Collection ===========================================================================================================
       ======================================================================================================================================== */
-    Route::get('/dashboard/settings/home',                        [SettingsController::class, 'index'])->name('desplay-branches');
-    Route::post('/branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
-    Route::post('/branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
-    Route::get('/branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
+    Route::get('dashboard/settings/home',              [SettingsController::class, 'index'])->name('dashboard-settings-home');
+    Route::post('branches/store',                      [BranchesController::class, 'store'])->name('store-new-branches');
+    Route::post('branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
+    Route::get('branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
 
 
 
