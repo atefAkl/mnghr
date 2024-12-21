@@ -86,11 +86,11 @@
                            placeholder="Confirm Password" required>
                 </div>
                 
-                <button type="submit" class="btn btn-register">Create Account</button>
+                <button type="submit" class="btn btn-primary form-control">Create Account</button>
                 
                 <div class="links-section">
                     <span class="d-block text-muted">Already have an account?</span>
-                    <a href="{{ route('login') }}">Sign in here</a>
+                    <a href="{{ route('admin.auth.login') }}">Sign in here</a>
                 </div>
             </form>
         </div>

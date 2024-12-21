@@ -18,7 +18,8 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
+
+        $validated = $request->validate([
             'userName' => 'required|string|min:3|max:50|unique:admins',
             'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:8|confirmed',
@@ -26,16 +27,19 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:50'
         ]);
 
+
         DB::beginTransaction();
         try {
             // Create admin user
             $admin = Admin::create([
+                'name' => ucfirst($request->first_name) . ' ' . ucfirst($request->last_name),
                 'userName' => $request->userName,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($validated['password']),
                 'status' => 1, // Active by default
                 'created_at' => now()
             ]);
+
 
             // Create admin profile
             AdminProfile::create([
@@ -49,11 +53,10 @@ class RegisterController extends Controller
 
             return redirect()->route('admin.auth.login')
                 ->with('success', 'Registration successful! Please login.');
-
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withInput()
-                ->withErrors(['error' => 'An error occurred during registration. Please try again.']);
+                ->withErrors(['error' => 'An error occurred during registration. Please try again Later.' . $e->getMessage()]);
         }
     }
 }
