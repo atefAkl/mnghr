@@ -97,9 +97,16 @@ class StoreEntriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function createOutput(string $id)
     {
         //
+        $receipt = StoreReceipt::find($id);
+        $units = Unit::all();
+        $vars = [
+            'receipt' => $receipt,
+            'units' => $units,
+        ];
+        return view('admin.stores.entries.outputs.create', $vars);
     }
 
     /**
@@ -135,6 +142,5 @@ class StoreEntriesController extends Controller
         } catch (Exception $err) {
             return redirect()->back()->with(['error' => 'Entry can not be Removed due to: ' . $err]);
         }
-
     }
 }

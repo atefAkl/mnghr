@@ -42,9 +42,11 @@
 
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
                                     href=""><i class="fa fa-eye text-primary"></i></a>
-
+                                @php
+                                    $addEntry = $receipt->direction === 1? 'add-store-input-entry': 'add-store-output-entry'
+                                @endphp
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Add Entries"
-                                    href="{{ route('add-store-input-entry', [$receipt->id]) }}"><i
+                                    href="{{ route($addEntry, [$receipt->id]) }}"><i
                                         class="fa fa-square-plus text-success"></i></a>
 
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"

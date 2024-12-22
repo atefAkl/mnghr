@@ -16,16 +16,6 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
-  private static $reference_type = [
-    '1' => 'Purchases',
-    '2' => 'Sales inverse',
-    '3' => 'Purchases inverse',
-    '4' => 'Transfer',
-    '5' => 'Sales',
-    '6' => 'Project supplies',
-    '7' => 'Administration supplies',
-    '8' => 'Credit transfer',
-  ];
 
   /**
    * حالة الإيصالات.
@@ -95,7 +85,7 @@ class StoreReceiptsController extends Controller
     $stores   = Store::all();
     $admins   = Admin::all();
     $vars = [
-      'reference_type'   => self::$reference_type,
+      'reference_type'   => StoreReceipt::getReferenceTypes(),
       'direction_input'  => self::INSERT_ENTRY,
       'direction_output' => self::OUTPUT_ENTRY,
       'status'           => self::$receiptStatus,
@@ -137,7 +127,7 @@ class StoreReceiptsController extends Controller
       'tabs'              => self::$tabs,
       'tab'               => $tab,
       'dir'               => $dir,
-      'reference_type'    => self::$reference_type,
+      'reference_type'    => StoreReceipt::getReferenceTypes(),
       'direction_input'   => self::INSERT_ENTRY,
       'direction_output'  => self::OUTPUT_ENTRY,
       'status'            => self::$status,
@@ -174,7 +164,7 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء التخزين.
    */
-  public function store(StoreReceiptRequest $request): RedirectResponse
+  public function store(StoreReceiptRequest $request)
   {
 
     try {
@@ -193,7 +183,7 @@ class StoreReceiptsController extends Controller
       ]);
       return redirect()->back()->withSuccess('Saves Successfully');
     } catch (Exception $err) {
-      return redirect()->back()->withError('Failed to save, due to: ' . $err);
+      return redirect()->back()->withInput()->withError('Failed to save, due to: ' . $err);
     }
   }
 
@@ -225,7 +215,7 @@ class StoreReceiptsController extends Controller
     $stores   = Store::all();
     $admins   = Admin::all();
     $vars = [
-      'reference_type'   => self::$reference_type,
+      'reference_type'   => StoreReceipt::getReferenceTypes(),
       'status'           => self::$status,
       'admins'           => $admins,
       'receipt'          => $receipt,

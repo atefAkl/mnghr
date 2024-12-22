@@ -61,51 +61,51 @@
               <label class="input-group-text" for="reception_date">Reception Date</label>
               <input type="date" class="form-control sm " name="reception_date" id="reception_date">
               <label class="input-group-text" for="reference">Reference</label>
-              <input type="number" class="form-control sm" name="reference" id="reference">
+              <input type="number" class="form-control sm" name="reference" id="reference" value="{{ old('reference') }}">
               <label class="input-group-text" for="reference_type"> Reference Type</label>
               <select class="form-select sm" name="reference_type" id="reference_type">
                 <option value=""></option>
                 @foreach ($reference_type as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" {{ old('reference_type') == $key ? 'selected' : '' }}>{{ $value }}</option>
                 @endforeach
               </select>
             </div>
             <div class="input-group sm mt-2">
               <label class="input-group-text" for="serial">Serial Number</label>
-              <input type="text" class="form-control sm" name="serial" id="serial">
+              <input type="text" class="form-control sm" name="serial" id="serial" value="{{ old('serial') }}">
               <label class="input-group-text" for="admin_id">Representative</label>
               <select class="form-select" name="admin_id" id="admin_id">
                 <option value="1"></option>
                 @foreach ($admins as $admin)
-                <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
+                <option value="{{ $admin->id }}" {{ old('admin_id') == $admin->id ? 'selected' : '' }}>{{ $admin->userName }}</option>
                 @endforeach
               </select>
               <label class="input-group-text" for="store_id"> Store</label>
               <select class="form-select sm" name="store_id" id="store_id">
                 <option value="1"></option>
                 @foreach ($stores as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                <option value="{{ $item->id }}" {{ old('store_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                 @endforeach
               </select>
             </div>
             <div class="input-group sm mt-2">
               <label class="input-group-text" for="brief">Description</label>
-              <input type="text" class="form-control sm" name="brief" id="brief">
+              <input type="text" class="form-control sm" name="brief" id="brief" value="{{ old('brief') }}">
             </div>
             <div class="input-group sm mt-2">
               <label class="input-group-text" for="notes">Notes</label>
-              <input type="text" class="form-control" name="notes" id="notes">
+              <input type="text" class="form-control" name="notes" id="notes" value="{{ old('notes') }}">
             </div>
             <div class="input-group sm mt-2">
               <label class="input-group-text">Receipt [direction] Type:</label>
               <div class="input-group-text">
                 <input class="form-check-input sm mt-0" name="direction" type="radio"
-                  value="{{ $direction_input }}" id="input">
+                  value="{{ $direction_input }}" id="input" {{ old('direction') == $direction_input ? 'checked' : '' }}>
               </div>
               <label for="input" class="input-group-text text-start">Input</label>
               <div class="input-group-text">
                 <input class="form-check-input mt-0 sm" name="direction" type="radio"
-                  value="{{ $direction_output }}" id="output">
+                  value="{{ $direction_output }}" id="output" {{ old('direction') == $direction_output ? 'checked' : '' }}>
               </div>
               <label for="output" class="input-group-text text-start">Output</label>
               <button type="submit" class="form-control btn btn-outline-primary">Save Receipt</button>

@@ -11,6 +11,17 @@ class StoreReceipt extends Model
     use SoftDeletes;
     public $timestamps = true;
 
+    private static $reference_type = [
+        '1' => 'Purchases',
+        '2' => 'Sales inverse',
+        '3' => 'Purchases inverse',
+        '4' => 'Transfer',
+        '5' => 'Sales',
+        '6' => 'Project supplies',
+        '7' => 'Administration supplies',
+        '8' => 'Credit transfer',
+    ];
+
     protected $table = 'store_receipts';
 
     protected $fillable = [
@@ -29,12 +40,27 @@ class StoreReceipt extends Model
         'updated_by',
         'updated_at'
     ];
-  
+
+    public static function getReferenceTypes()
+    {
+        return self::$reference_type;
+    }
+
     protected $dates = ['deleted_at'];
 
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+    public function getTypeName($type)
+    {
+        return self::$reference_type[$type];
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'store_id', 'id');
     }
 
     public function entries()
