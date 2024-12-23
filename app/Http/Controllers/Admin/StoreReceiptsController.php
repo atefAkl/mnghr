@@ -171,6 +171,7 @@ class StoreReceiptsController extends Controller
       StoreReceipt::create([
         'reception_date'          => $request->reception_date,
         'reference_type'          => $request->reference_type,
+        'reference'               => $request->reference,
         'serial'                  => $request->serial,
         'brief'                   => $request->brief,
         'notes'                   => $request->notes,
@@ -215,7 +216,7 @@ class StoreReceiptsController extends Controller
     $stores   = Store::all();
     $admins   = Admin::all();
     $vars = [
-      'reference_type'   => StoreReceipt::getReferenceTypes(),
+      'reference_types'   => StoreReceipt::getReferenceTypes(),
       'status'           => self::$status,
       'admins'           => $admins,
       'receipt'          => $receipt,
@@ -238,17 +239,15 @@ class StoreReceiptsController extends Controller
   {
     $receipt = StoreReceipt::find($request->id);
 
-    //return $request->product_serial;
+    $receipt->updated_by = currentUserId();
     try {
       $receipt->update([
         'reference_type'          => $request->reference_type,
+        'reference'               => $request->reference,
         'brief'                   => $request->brief,
         'notes'                   => $request->notes,
         'admin_id'                => $request->admin_id,
-        'store_id'                => $request->store_id,
-        'status'                  => $request->status,
-        'updated_by'              => currentUserId(),
-
+        'store_id'                => $request->store_id
       ]);
       return redirect()->back()->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
