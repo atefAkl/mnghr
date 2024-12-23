@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreReceiptRequest;
+use App\Http\Requests\UpdateRececiptRequest;
 use App\Models\StoreReceipt;
 use App\Models\Store;
 use App\Models\Admin;
@@ -235,20 +236,13 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء التحديث.
    */
-  public function update(Request $request)
+public function update(UpdateRececiptRequest $request)
   {
     $receipt = StoreReceipt::find($request->id);
 
     $receipt->updated_by = currentUserId();
     try {
-      $receipt->update([
-        'reference_type'          => $request->reference_type,
-        'reference'               => $request->reference,
-        'brief'                   => $request->brief,
-        'notes'                   => $request->notes,
-        'admin_id'                => $request->admin_id,
-        'store_id'                => $request->store_id
-      ]);
+      $receipt->update();
       return redirect()->back()->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
