@@ -26,14 +26,14 @@
             <div class="col col-4">{{ $receipt->admin->userName }}</div>
             <div class="col col-2 text-end fw-bold">Direction:</div>
             <div class="col col-4">
-                    @if ($receipt->direction === 1)
-                        <span class="badge bg-success py-1 text-light">Input</span>
-                    @else
-                        <span class="badge bg-danger py-1 text-light">Output</span>
-                    @endif
+                @if ($receipt->direction === 1)
+                    <span class="badge bg-success py-1 text-light">Input</span>
+                @else
+                    <span class="badge bg-danger py-1 text-light">Output</span>
+                @endif
             </div>
             <div class="col col-2 text-end fw-bold">Description:</div>
-            
+
             <div class="col col-10">{{ $receipt->brief }}</div>
             <div class="col col-2 text-end fw-bold">Notes: </div>
             <div class="col col-10">{{ $receipt->notes }}</div>
@@ -92,12 +92,11 @@
                                         <button type="button" class="btn btn-sm py-1 btn-outline-secondary" title="Copy">
                                             <i class="fas fa-copy"></i>
                                         </button>
-                                        <a href="{{route('destroy-store-input-entry', $entry->id)}}" 
-                                           class="btn btn-sm py-1 btn-outline-secondary delete-entry"
-                                           data-entry-id="{{ $entry->id }}"
-                                           data-product-name="{{ $entry->item->name }}"
-                                           onclick="return confirmDelete(this)"
-                                           title="Delete">
+                                        <a href="{{ route('destroy-store-input-entry', $entry->id) }}"
+                                            class="btn btn-sm py-1 btn-outline-secondary delete-entry"
+                                            data-entry-id="{{ $entry->id }}"
+                                            data-product-name="{{ $entry->item->name }}"
+                                            onclick="return confirmDelete(this)" title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
@@ -120,22 +119,14 @@
                     <tr>
                         <td>{{ ++$counter }}</td>
                         <td>
-                            <input type="text" 
-                                   list="barcodes-list" 
-                                   id="barcode_search" 
-                                   class="form-control form-control-sm"
-                                   style="width: 150px"
-                                   placeholder="Product Barcode">
+                            <input type="text" list="barcodes-list" id="barcode_search"
+                                class="form-control form-control-sm" style="width: 150px" placeholder="Product Barcode">
                             <datalist id="barcodes-list"></datalist>
                         </td>
 
                         <td>
-                            <input type="text" 
-                                   list="products-list" 
-                                   id="product_search" 
-                                   class="form-control form-control-sm"
-                                   style="min-width: 220px"
-                                   placeholder="Product Name">
+                            <input type="text" list="products-list" id="product_search"
+                                class="form-control form-control-sm" style="min-width: 220px" placeholder="Product Name">
                             <datalist id="products-list"></datalist>
                             <input type="hidden" name="product" id="product_id" required>
                         </td>
@@ -175,13 +166,13 @@
 
         <div class="input-group pt-2 px-3 justify-content-end">
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Bach to Store">
-                 Back To Store
+                Back To Store
             </button>
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Back to Receipts">
-                 Back To Receipts
+                <a href="{{ route('display-receipts-list', ['Output', 1]) }}">Back To Receipts</a>
             </button>
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Approve Receipt">
-                 Approve Receipt
+                Approve Receipt
             </button>
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Print Receipt">
                 Print Receipt
@@ -200,8 +191,8 @@
             // دالة البحث المشتركة
             function searchProducts(searchText, searchType) {
                 clearTimeout(searchTimeout);
-                
-                
+
+
 
                 searchTimeout = setTimeout(function() {
                     $.ajax({
@@ -210,27 +201,31 @@
                         data: {
                             _token: "{{ csrf_token() }}",
                             searchText,
-                            
+
                         },
                         success: function(response) {
                             console.log('Search Response:', response);
-                            
+
                             const barcodesList = $('#barcodes-list');
                             const productsList = $('#products-list');
-                            
+
                             // تنظيف القوائم
-                            if(searchType === 'barcode') {
+                            if (searchType === 'barcode') {
                                 barcodesList.empty();
                             } else {
                                 productsList.empty();
                             }
-                            
-                            if(response.length > 0) {
+
+                            if (response.length > 0) {
                                 response.forEach(function(item) {
-                                    if(searchType === 'barcode') {
-                                        barcodesList.append(`<option value="${item.barcode}" data-id="${item.id}" data-name="${item.name}">`);
+                                    if (searchType === 'barcode') {
+                                        barcodesList.append(
+                                            `<option value="${item.barcode}" data-id="${item.id}" data-name="${item.name}">`
+                                            );
                                     } else {
-                                        productsList.append(`<option value="${item.name}" data-id="${item.id}" data-barcode="${item.barcode}">`);
+                                        productsList.append(
+                                            `<option value="${item.name}" data-id="${item.id}" data-barcode="${item.barcode}">`
+                                            );
                                     }
                                 });
                             }
@@ -256,11 +251,11 @@
             $('#barcode_search').on('change', function() {
                 const selectedBarcode = $(this).val();
                 const option = $(`#barcodes-list option[value="${selectedBarcode}"]`);
-                
-                if(option.length) {
+
+                if (option.length) {
                     const productId = option.data('id');
                     const productName = option.data('name');
-                    
+
                     $('#product_id').val(productId);
                     $('#product_search').val(productName);
                 }
@@ -270,11 +265,11 @@
             $('#product_search').on('change', function() {
                 const selectedName = $(this).val();
                 const option = $(`#products-list option[value="${selectedName}"]`);
-                
-                if(option.length) {
+
+                if (option.length) {
                     const productId = option.data('id');
                     const barcode = option.data('barcode');
-                    
+
                     $('#product_id').val(productId);
                     $('#barcode_search').val(barcode);
                 }
@@ -285,8 +280,8 @@
                 const productId = $('#product_id').val();
                 const unit = $('#unit').val();
                 const quantity = $('input[name="quantity"]').val();
-                
-                if(!productId || !unit || !quantity || quantity <= 0) {
+
+                if (!productId || !unit || !quantity || quantity <= 0) {
                     e.preventDefault();
                     alert('Please fill in all required fields.');
                 }

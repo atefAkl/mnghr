@@ -53,9 +53,9 @@ class StoreReceipt extends Model
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
 
-    public function getTypeName($type)
+    public function getTypeName()
     {
-        return self::$reference_type[$type];
+        return self::$reference_type[$this->reference_type];
     }
 
     public function store()
