@@ -83,8 +83,10 @@ class StoreReceiptsController extends Controller
   public function home(): View
   {
     $receipts = StoreReceipt::where([])->orderBy('serial', 'desc')->paginate(10);
+
     $stores   = Store::all();
     $admins   = Admin::all();
+
     $vars = [
       'reference_type'   => StoreReceipt::getReferenceTypes(),
       'direction_input'  => self::INSERT_ENTRY,
@@ -120,7 +122,6 @@ class StoreReceiptsController extends Controller
     $archived = StoreReceipt::where(['direction' => $dir == 'Input' ? 1 : 2])->onlyTrashed()
       ->orderBy('serial', 'desc')
       ->paginate(10);
-
 
     $stores   = Store::all();
     $admins   = Admin::all();
@@ -236,14 +237,15 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء التحديث.
    */
-public function update(UpdateRececiptRequest $request){
-  
+  public function update(UpdateRececiptRequest $request)
+  {
+
     try {
-            $receipt = StoreReceipt::find($request->id); 
-            $validated = $request->validated();
-            $receipt->updated_by = currentUserId(); 
-            $receipt->update($validated); 
-          
+      $receipt = StoreReceipt::find($request->id);
+      $validated = $request->validated();
+      $receipt->updated_by = currentUserId();
+      $receipt->update($validated);
+
       return redirect()->back()->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
@@ -264,7 +266,7 @@ public function update(UpdateRececiptRequest $request){
   {
     $receipt = StoreReceipt::find($id);
     $receipt->status = 0;
-  
+
     if (!$receipt) {
       return redirect()->back()->withError('The receipt is not exist, may be deleted or you have insuffecient privilleges to delete it.');
     }
@@ -272,11 +274,32 @@ public function update(UpdateRececiptRequest $request){
       $receipt->update();
       $receipt->delete();
 
-    
+
       return redirect()->back()->with('success', 'receipt Removed Successfully');
     } catch (Exception $err) {
 
       return redirect()->back()->with(['error' => 'receipt can not be Removed due to: ' . $err]);
+    }
+  }
+
+  public function approveReceipt($id)
+  {
+    // العثور على الإيصال باستخدام المعرف
+    $receipt = StoreReceipt::find($id);
+
+    // التحقق مما إذا كان الإيصال موجودًا
+    if (!$receipt) {
+      return redirect()->back()->with('error', 'Receipt not found.');
+    }
+    try {
+      // تحديث حالة الإيصال إلى 2
+      $receipt->status = 2;
+      $receipt->updated_by = currentUserId(); // إذا كنت تحتاج إلى تتبع من قام بالتحديث
+      $receipt->update();
+
+      return redirect()->back()->with('success', 'Receipt approved successfully.');
+    } catch (Exception $e) {
+      return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
     }
   }
 
