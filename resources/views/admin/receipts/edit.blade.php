@@ -18,20 +18,22 @@
           <input type="text" class="form-control " name="reference" value="{{ old('reference', $receipt)}}" />
           <label class="input-group-text text-muted" for="reference_type"><i class="fa fa-tags  px-2"></i> Reference Type</label>
           <select class="form-select  " name="reference_type" id="reference_type">
-            @foreach ($reference_types as $key => $value)
-            <option value="{{ $key }}" {{$receipt->reference_type ==  $key ? 'selected' : ''}}>{{ old('value',$value) }}</option>
-            @endforeach
+          @foreach ($reference_types as $key => $value)
+          <option  hidden>{{$receipt->getTypeName()}}</option>
+          <option value="{{ $key }}" @if(old('reference_type') == $value) selected @endif>{{ $value }}</option>
+                @endforeach
           </select>
           <label class="input-group-text  text-muted" for="admin_id"><i class="fa fa-user  px-2"></i>Representative</label>
           <select class="form-select  " name="admin_id" id="admin_id">
             @foreach ($admins as $admin)
-            <option value="{{ $admin->id }}" {{$receipt->admin_id == $admin->id ? 'selected' : ''}}>{{ old('userName', $admin)}}</option>
+            <option  hidden>{{$receipt->admin->userName}}</option>
+            <option value="{{ $admin->id }}" @if(old('admin_id') == $admin->id) selected @endif>{{ $admin->userName }}</option>
             @endforeach
           </select>
         </div>
         <div class="input-group  mt-2">
           <label class="input-group-text text-muted" for="brief"><i class="fa fa-file-alt  px-2"></i>Description</label>
-          <input type="text" class="form-control " name="brief" id="brief" value="{{ old('brief',$receipt )}}">
+          <input type="text" class="form-control " name="brief" id="brief" value="{{ old('brief',$receipt)}}">
         </div>
         <div class="input-group  mt-2">
           <label class="input-group-text text-muted" for="notes"><i class="fa fa-sticky-note  px-2"></i>Notes</label>

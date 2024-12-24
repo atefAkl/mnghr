@@ -18,7 +18,7 @@
                 @foreach ($receipts as $i => $receipt)
                     @if ($receipt->status !== 1)
                         @continue
-                    @elseif ($receipt->status === 1 && $receipt->direction === 1 ? $receipt->direction === 1 : $receipt->direction === 2)
+                    @elseif ($receipt->status == 1 && $receipt->direction == 1 ? $receipt->direction == 1 : $receipt->direction == 2)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $receipt->serial }}</td>

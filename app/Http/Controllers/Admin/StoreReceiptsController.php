@@ -238,17 +238,39 @@ class StoreReceiptsController extends Controller
    */
 public function update(UpdateRececiptRequest $request)
   {
-    $receipt = StoreReceipt::find($request->id);
-
-    $receipt->updated_by = currentUserId();
+        $validated = $request->validated();
+        return   $validated ;
     try {
-      $receipt->update();
+      $receipt = StoreReceipt::find($request->id); 
+
+        $receipt->updated_by = currentUserId();
+        $receipt->update($validated);
       return redirect()->back()->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
     }
   }
+// public function update(Request $request)
+// {
+//   $receipt = StoreReceipt::find($request->id);
 
+//   //return $request->product_serial;
+//   try {
+//     $receipt->update([
+//       'reference_type'          => $request->reference_type,
+//       'reference'               => $request->reference,
+//       'brief'                   => $request->brief,
+//       'notes'                   => $request->notes,
+//       'admin_id'                => $request->admin_id,
+//       'store_id'                => $request->store_id,
+//       'updated_by'              => currentUserId(),
+
+//     ]);
+//     return redirect()->back()->with('success', 'Receipt updated successfully');
+//   } catch (Exception $e) {
+//     return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
+//   }
+// }
   /**
    * إزالة مورد محدد من قاعدة البيانات.
    *
