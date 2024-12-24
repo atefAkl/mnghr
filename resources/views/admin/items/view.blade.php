@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 @section('header-links')
 <li class="breadcrumb-item"><a href="/admin/items/home">Home</a></li>
-<li class="breadcrumb-item"><a href="/admin/items/index">index</a></li>
+<li class="breadcrumb-item"><a href="/admin/items/index">items</a></li>
 <li class="breadcrumb-item active" aria-current="page">View</li>
 @endsection
 @section('contents')
 <div class="row">
 
   <div class="col col-8">
-    <fieldset class="mt-4 ms-0 mb-0">
+    <fieldset class="mt-4 ms-0 mb-0  shadow-sm">
       <legend>Product Details &nbsp; &nbsp;
 
       </legend>

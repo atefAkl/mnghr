@@ -102,59 +102,148 @@
         <button class="py-0 ms-4 btn btn-outline-primary" data-type="{{ $direction_input }}"><a href="{{route('display-receipts-list', ['Input', 1])}}">Inputs</a></button>
         <button class="py-0 btn btn-outline-primary" data-type="{{ $direction_output }}"><a href="{{route('display-receipts-list', ['Output', 1])}}">Outputs</a></button>
       </div>
+      <div class="row d-flex justify-content-end mt-2">
+        <form class="col col-8 sm">
+          @csrf
+          <div class="input-group sm mb-2">
+            <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
+              <option value="">Reference Type</option>
+              @foreach ($reference_type as $key => $value)
+              <option value="{{ $key }}">{{ $value }}</option>
+              @endforeach
+            </select>
+            <select class="form-select form-control sm py-0" name="admin_id" id="admin_id">
+              <option hidden>Representative</option>
+              @foreach ($admins as $admin)
+              <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
+              @endforeach
+            </select>
+            <select class="form-select form-control sm py-0" name="direction" id="direction" placeholder="Serial Number">
+              <option class="">Direction</option>
+            </select>
+            <select class="form-select form-control sm py-0" name="status" id="status">
+              <option>Status</option>
+            </select>
+            <button type="reset" class="input-group-text btn py-0 btn-outline-secondary"
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Filter">
+              <i class="fas fa-filter me-1"></i> Filter
+            </button>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="row d-flex justify-content-end ">
+        <form class="col col-8">
+          @csrf
+          <div class="input-group sm mb-2">
+
+            <input type="text" class="form-control" name="serial" id="serial"
+              placeholder="Serial Number">
+
+            <input type="text" class="form-control" name="beforeDate" id="reception_date"
+              placeholder="Before Date">
+
+            <input type="number" class="form-control" name="afterDate" id="reception_date"
+              placeholder="After Date">
+            <button type="reset" class="input-group-text btn py-0 btn-outline-primary"
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Search">
+              <i class="fas fa-search me-1"></i> Search
+            </button>
+
+          </div>
+        </form>
+      </div>
       <div id="data-container">
-        <table class="table table-striped table-bordered mt-3">
+        <table class="table table-striped table-bordered mt-2">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Serial Number</th>
-              <th>Reference Type</th>
-              <th>Date</th>
-              <th>Representative</th>
-              <th>Status</th>
-              <th>Control</th>
+              <th><i class="fa fa-list"></i></th>
+              <th><i class="fa fa-barcode"></i> Serial Number</th>
+              <th><i class="fa fa-tags"></i> Reference Type</th>
+              <th><i class="fa fa-calendar"></i> Date</th>
+              <th><i class="fa fa-arrow-right"></i> Dir</th>
+              <th><i class="fa fa-user"></i> Representative</th>
+              <th><i class="fa fa-check-circle"></i>Status</th>
+              <th><i class="fa fa-cogs"></i> Control</th>
             </tr>
           </thead>
           <tbody>
             @php $i = 0 @endphp
             @if (count($receipts))
-              @foreach ($receipts as $receipt)
-                @php $i++ @endphp
-                
-                  <tr>
-                    <td>{{ $i }}</td>
-                    <td>{{ $receipt->serial }}</td>
-                    <td>{{ @$reference_type[$receipt->reference_type] }}</td>
-                    <td>{{ $receipt->reception_date }}</td>
-                    <td>{{ @$receipt->admin->userName }}</td>
-                    @if($receipt->status === 1)
-                      <td><span class="badge bg-info">{{ $status[$receipt->status] }}</span></td>
-                      <td>
-                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="insert Receipt" href="{{ route('add-store-input-entry', [$receipt->id]) }}">
-                          <i class="fa fa-square-plus text-success"></i>
-                        </a>
-                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt" href="">
-                          <i class="fa fa-print text-dark"></i>
-                        </a>
-                      </td>
-                    @elseif($receipt->status === 0)
-                      <td><span class="badge bg-warning">{{ $status[$receipt->status] }}</span></td>
-                      <td>
-                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt" href="{{ route('edit-receipt-info', $receipt->id) }}">
-                          <i class="fa fa-edit text-primary"></i>
-                        </a>
-                        <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="delete Receipt" onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false" href="{{ route('destroy-receipt-info', $receipt->id) }}">
-                          <i class="fa fa-trash text-danger"></i>
-                        </a>
-                      </td>
-                    @endif
-                  </tr>
-                
-              @endforeach
+            @foreach ($receipts as $receipt)
+            @php $i++ @endphp
+
+            <tr>
+              <td>{{ $i }}</td>
+              <td><a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
+              href="">{{ $receipt->serial }}</a></td>
+              <td data-bs-toggle="tooltip" title=" {{ $receipt->serial }}">{{ @$reference_type[$receipt->reference_type] }}</td>
+              <td>{{ $receipt->reception_date }}</td>
+              <td>
+                @if ($receipt->direction === 1)
+                <span class="badge bg-success">Input</span>
+                @else
+                <span class="badge bg-danger">Output</span>
+                @endif
+              </td>
+              <td data-bs-toggle="tooltip" title=" {{ $receipt->admin->profile->possition }}">{{ $receipt->admin->userName }}</td>
+              <td>
+                @if($receipt->status === 1)
+                <span class="badge bg-secondary">{{ $status[$receipt->status] }}</span>
+                @elseif($receipt->status === 2)
+                <span class="badge bg-info">{{ $status[$receipt->status] }}</span>
+                @elseif($receipt->status === 0)
+                <span class="badge bg-warning">{{ $status[$receipt->status] }}</span>
+                @endif
+              </td>
+              <td>
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
+                  href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-edit text-primary"></i></a>
+                @if ($receipt->status === 1)
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
+                  href=""><i class="fa fa-check text-success"></i></a>
+                @php
+                $addEntry =
+                $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
+                @endphp
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Add Entries"
+                  href="{{ route($addEntry, [$receipt->id]) }}"><i
+                    class="fa fa-square-plus text-success"></i></a>
+                @elseif($receipt->status === 2)
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="archive Receipt"
+                  onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
+                  href="{{ route('destroy-receipt-info', $receipt->id) }}"><i
+                    class="fa fa-archive text-danger"></i></a>
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Enable Receipt Entries "
+                  href=""><i class="fa fa-ban text-primary"></i></a>
+                @elseif($receipt->trashed())
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
+                  onclick="if (!confirm('You are going to Restore this receipt, are you sure?'))return false"
+                  href="{{ route('restore-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-undo text-warning"></i></a>
+                @endif
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
+                  href=""><i class="fa fa-eye text-primary"></i></a>
+
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"
+                  href=""><i class="fa fa-print text-secondary"></i></a>
+
+                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="hard delete Receipt"
+                  onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
+                  href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-trash-alt text-danger"></i></a>
+              </td>
+
+
+            </tr>
+
+            @endforeach
             @else
-              <tr>
-                <td colspan="7">No Receipts has been added yet, Add your <a class="" data-bs-toggle="collapse" data-bs-target="#addreceiptForm">first Receipt</a>.</td>
-              </tr>
+            <tr>
+              <td colspan="7">No Receipts has been added yet, Add your <a class="" data-bs-toggle="collapse" data-bs-target="#addreceiptForm">first Receipt</a>.</td>
+            </tr>
             @endif
           </tbody>
         </table>

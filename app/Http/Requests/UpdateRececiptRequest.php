@@ -22,9 +22,11 @@ class UpdateRececiptRequest extends FormRequest
     public function rules()
     {
       return [
-        'reference'      => 'required|string|max:14',
-        'breif'          => 'nullable|string|max:255',
-        'notes'          => 'nullable|string|max:255'
+        'reference'           => 'required|string|max:14',
+        'reference_type'      => 'required|string',
+        'admin_id'            => 'required|string',
+        'brief'               => 'nullable|string|max:255',
+        'notes'               => 'nullable|string|max:255'
       ];
     }
   
@@ -36,15 +38,21 @@ class UpdateRececiptRequest extends FormRequest
     public function messages()
     {
       return [
-        'reference.required'      => 'The reference field is required.',
-        'reference.string'        => 'The reference must be a number.',
-        'reference.max'           => 'The reference may not be greater than 14 number.',
-  
-        'breif.string'            => 'The brief  must be a string.',
-        'breif.max'               => 'The brief  may not be greater than 255 characters.',
+        'reference.required'           => 'The reference field is required.',
+        'reference.string'             => 'The reference must be a number.',
+        'reference.max'                => 'The reference may not be greater than 14 number.',
 
-        'notes.string'            => 'The notes  must be a string.',
-        'notes.max'               => 'The  notes may not be greater than 255 characters.',
+        'reference_type.required'      => 'The reference_type field is required.',
+        'reference_type.string'        => 'The reference_type must be a number.',
+
+        'admin_id.required'             => 'The admin_id field is required.',
+        'admin_id.string'               => 'The admin_id must be a number.',
+  
+        'brief.string'                  => 'The brief  must be a string.',
+        'brief.max'                     => 'The brief  may not be greater than 255 characters.',
+
+        'notes.string'                  => 'The notes  must be a string.',
+        'notes.max'                     => 'The  notes may not be greater than 255 characters.',
   
       ];
     }

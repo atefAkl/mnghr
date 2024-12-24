@@ -29,9 +29,6 @@
 </style>
 
 <h1 class="mt-3 pb-2 " style="border-bottom: 2px solid #dedede">All {{$dir }} Receipts
-  <a class="py-0 ms-3 btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#addreceiptForm" aria-expanded="false"
-    aria-controls="addreceiptForm"><i data-bs-toggle="tooltip" title="Add New Receipt" class="fa fa-plus"></i> Add
-    New</a>
     <a href="/admin/receipts/display/{{$dir === 'Input' ? 'Output' : 'Input'}}/{{$tab}}" class="btn px-3 py-0 btn-outline-secondary btn-sm" title="Switch To Output">
       Switch to {{$dir === 'Input' ? 'Output' : 'Input'}}
     </a>
@@ -154,27 +151,54 @@
       </legend>
 
       <div class="row d-flex justify-content-end mt-2">
-        <form class="col col-9">
+        <form class="col col-8 sm">
+          @csrf
+          <div class="input-group sm mb-2">
+            <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
+              <option value="">Reference Type</option>
+              @foreach ($reference_type as $key => $value)
+              <option value="{{ $key }}">{{ $value }}</option>
+              @endforeach
+            </select>
+            <select class="form-select form-control sm py-0" name="admin_id" id="admin_id">
+              <option hidden>Representative</option>
+              @foreach ($admins as $admin)
+              <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
+              @endforeach
+            </select>
+            <select class="form-select form-control sm py-0" name="direction" id="direction" placeholder="Serial Number">
+              <option class="">Direction</option>
+            </select>
+            <select class="form-select form-control sm py-0" name="status" id="status">
+              <option>Status</option>
+            </select>
+            <button type="reset" class="input-group-text btn py-0 btn-outline-secondary"
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Filter">
+              <i class="fas fa-filter me-1"></i> Filter
+            </button>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="row d-flex justify-content-end ">
+        <form class="col col-8">
           @csrf
           <div class="input-group sm mb-2">
 
             <input type="text" class="form-control" name="serial" id="serial"
               placeholder="Serial Number">
 
-            <input type="number" class="form-control" name="reference_type" id="reference_type"
-              placeholder="Reference Type">
-            <select class="form-control py-0" name="admin_id" id="admin_id">
-              <option hidden>Representative</option>
-              @foreach ($admins as $admin)
-              <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
-              @endforeach
-            </select>
-
-            <input type="number" class="form-control" name="reception_date" id="reception_date"
+            <input type="text" class="form-control" name="beforeDate" id="reception_date"
               placeholder="Before Date">
 
-            <button type="submit" class="form-control btn btn-outline-primary py-0">Apply Filter
+            <input type="number" class="form-control" name="afterDate" id="reception_date"
+              placeholder="After Date">
+            <button type="reset" class="input-group-text btn py-0 btn-outline-primary"
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Search">
+              <i class="fas fa-search me-1"></i> Search
             </button>
+
           </div>
         </form>
       </div>

@@ -236,41 +236,20 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء التحديث.
    */
-public function update(UpdateRececiptRequest $request)
-  {
-        $validated = $request->validated();
-        return   $validated ;
+public function update(UpdateRececiptRequest $request){
+  
     try {
-      $receipt = StoreReceipt::find($request->id); 
-
-        $receipt->updated_by = currentUserId();
-        $receipt->update($validated);
+            $receipt = StoreReceipt::find($request->id); 
+            $validated = $request->validated();
+            $receipt->updated_by = currentUserId(); 
+            $receipt->update($validated); 
+          
       return redirect()->back()->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
     }
   }
-// public function update(Request $request)
-// {
-//   $receipt = StoreReceipt::find($request->id);
 
-//   //return $request->product_serial;
-//   try {
-//     $receipt->update([
-//       'reference_type'          => $request->reference_type,
-//       'reference'               => $request->reference,
-//       'brief'                   => $request->brief,
-//       'notes'                   => $request->notes,
-//       'admin_id'                => $request->admin_id,
-//       'store_id'                => $request->store_id,
-//       'updated_by'              => currentUserId(),
-
-//     ]);
-//     return redirect()->back()->with('success', 'Receipt updated successfully');
-//   } catch (Exception $e) {
-//     return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
-//   }
-// }
   /**
    * إزالة مورد محدد من قاعدة البيانات.
    *
@@ -284,11 +263,16 @@ public function update(UpdateRececiptRequest $request)
   public function destroy($id)
   {
     $receipt = StoreReceipt::find($id);
+    $receipt->status = 0;
+  
     if (!$receipt) {
       return redirect()->back()->withError('The receipt is not exist, may be deleted or you have insuffecient privilleges to delete it.');
     }
     try {
+      $receipt->update();
       $receipt->delete();
+
+    
       return redirect()->back()->with('success', 'receipt Removed Successfully');
     } catch (Exception $err) {
 
