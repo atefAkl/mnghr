@@ -193,17 +193,19 @@
                 <span class="badge bg-secondary">{{ $status[$receipt->status] }}</span>
                 @elseif($receipt->status === 2)
                 <span class="badge bg-info">{{ $status[$receipt->status] }}</span>
-                @elseif($receipt->status === 0)
+                @elseif($receipt->deleted_at && $receipt->status === 0)
                 <span class="badge bg-warning">{{ $status[$receipt->status] }}</span>
                 @endif
               </td>
               <td>
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
-                  href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
-                    class="fa fa-edit text-primary"></i></a>
+                
                 @if ($receipt->status === 1)
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
                   href=""><i class="fa fa-check text-success"></i></a>
+
+                  <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
+                  href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-edit text-primary"></i></a>
                 @php
                 $addEntry =
                 $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
@@ -211,18 +213,26 @@
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Add Entries"
                   href="{{ route($addEntry, [$receipt->id]) }}"><i
                     class="fa fa-square-plus text-success"></i></a>
-                @elseif($receipt->status === 2)
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="archive Receipt"
+                    <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="archive Receipt"
                   onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
                   href="{{ route('destroy-receipt-info', $receipt->id) }}"><i
                     class="fa fa-archive text-danger"></i></a>
+                @elseif($receipt->status === 2 )
+                  
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Enable Receipt Entries "
                   href=""><i class="fa fa-ban text-primary"></i></a>
-                @elseif($receipt->trashed())
+                  <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
+                  href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-edit text-primary"></i></a>
+                @elseif($receipt->deleted_at && $receipt->status === 0)
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
                   onclick="if (!confirm('You are going to Restore this receipt, are you sure?'))return false"
                   href="{{ route('restore-receipt-info', [$receipt->id]) }}"><i
                     class="fa fa-undo text-warning"></i></a>
+                    <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="hard delete Receipt"
+                  onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
+                  href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
+                    class="fa fa-trash-alt text-danger"></i></a>
                 @endif
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
                   href=""><i class="fa fa-eye text-primary"></i></a>
@@ -230,10 +240,7 @@
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"
                   href=""><i class="fa fa-print text-secondary"></i></a>
 
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="hard delete Receipt"
-                  onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
-                  href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
-                    class="fa fa-trash-alt text-danger"></i></a>
+                
               </td>
 
 
