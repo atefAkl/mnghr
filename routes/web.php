@@ -163,6 +163,8 @@ Route::group(
     Route::post('receipts/update',                          [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
     Route::post('/receipts/store',                          [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
     Route::get('receipts/destroy/{id}',                     [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
+    Route::get('/admin/receipts/approve/{id}',             [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
+    Route::post('/admin/receipts/reject/{id}',              [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
 
     /* ========================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================

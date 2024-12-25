@@ -155,6 +155,7 @@
         </form>
       </div>
       <div id="data-container">
+
         <table class="table table-striped table-bordered mt-2">
           <thead>
             <tr>
@@ -187,13 +188,17 @@
                 <span class="badge bg-danger">Output</span>
                 @endif
               </td>
-              <td data-bs-toggle="tooltip" title=" {{ $receipt->admin->profile->possition }}">{{ $receipt->admin->userName }}</td>
+              <td data-bs-toggle="tooltip" title="{{  'Manager' /*@$receipt->admin->profile->possition*/ }}">{{ $receipt->admin->userName }}</td>
               <td>
-                @if($receipt->status === 1)
+                @if($receipt->status == "1")
                 <span class="badge bg-secondary">{{ $status[$receipt->status] }}</span>
-                @elseif($receipt->status === 2)
+                @elseif($receipt->status == "2")
                 <span class="badge bg-info">{{ $status[$receipt->status] }}</span>
+<<<<<<< HEAD
                 @elseif($receipt->deleted_at && $receipt->status === 0)
+=======
+                @elseif($receipt->status == "0")
+>>>>>>> a6648e76e177379ad49485169b60e5084d0c0706
                 <span class="badge bg-warning">{{ $status[$receipt->status] }}</span>
                 @endif
               </td>
@@ -201,11 +206,15 @@
                 
                 @if ($receipt->status === 1)
                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
+<<<<<<< HEAD
                   href=""><i class="fa fa-check text-success"></i></a>
 
                   <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
                   href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
                     class="fa fa-edit text-primary"></i></a>
+=======
+                  href="{{ route('approve-receipt', [$receipt->id]) }}"><i class="fa fa-check text-success"></i></a>
+>>>>>>> a6648e76e177379ad49485169b60e5084d0c0706
                 @php
                 $addEntry =
                 $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
