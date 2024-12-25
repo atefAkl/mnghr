@@ -82,7 +82,7 @@ class StoreReceiptsController extends Controller
    */
   public function home(): View
   {
-    $receipts = StoreReceipt::where([])->orderBy('serial', 'desc')->paginate(10);
+    $receipts = StoreReceipt::withTrashed()->orderBy('serial', 'desc')->paginate(10);
 
     $stores   = Store::all();
     $admins   = Admin::all();
