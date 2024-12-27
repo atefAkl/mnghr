@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{route('admin.dashboard')}}">
+                            <a class="nav-link" aria-current="page" href="{{ route('admin.auth.login') }}">
                                 Go to ERP
                             </a>
                         </li>
@@ -86,14 +86,13 @@
                         </li>
                     </ul>
                     <div class="d-flex ms-lg-4">
-                    @if(auth()->guard('admin')->check())
-                        <p>Welcome, {{ auth()->guard('admin')->user()->userName }}!</p>
-                        <a class="btn btn-warning ms-3" href="{{ route('logout') }}">تسجيل الخروج</a>
-                    @else
-                        
-                    <a class="btn btn-secondary-outline" href="#!">Sign In</a>
-                    <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
-                    @endif
+                        @if (auth()->guard('admin')->check())
+                            <p>Welcome, {{ auth()->guard('admin')->user()->userName }}!</p>
+                            <a class="btn btn-warning ms-3" href="{{ route('logout') }}">تسجيل الخروج</a>
+                        @else
+                            <a class="btn btn-secondary-outline" href="#!">Sign In</a>
+                            <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -108,8 +107,9 @@
                                 class="d-none d-xl-block" />your next user experience.</p>
                         <div class="text-center text-md-start"><a class="btn btn-warning me-3 btn-lg" href="#!"
                                 role="button">Get started</a><a class="btn btn-link text-warning fw-medium"
-                                href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo"><span
-                                    class="fas fa-play me-2"></span>Watch the video </a></div>
+                                href="#!" role="button" data-bs-toggle="modal"
+                                data-bs-target="#popupVideo"><span class="fas fa-play me-2"></span>Watch the video
+                            </a></div>
                     </div>
                     <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid"
                             src="{{ asset('assets/front/uploads/images/hero-img.png') }}" alt="" /></div>

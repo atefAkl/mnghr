@@ -1,4 +1,4 @@
 @extends('layouts.front')
-@section('contents')
+{{-- @section('contents')
 <a href="{{route('admin.auth.login')}}">الذهاب الى لوحة التحكم</a>
-@endsection
+@endsection --}}

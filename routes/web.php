@@ -29,6 +29,7 @@ use App\Http\Controllers\ProductsController;
 
 Route::get('/',            [IndexController::class, 'index']);
 Route::get('home',         [IndexController::class, 'index'])->name('home');
+//Route::get('home/index',   [HomeController::class, 'index'])->name('home.index');
 
 Route::group(
   [
@@ -37,9 +38,9 @@ Route::group(
     'middleware'    => 'auth:admin'
   ],
   function () {
-    Route::get('dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
-    Route::get('operations/log',            [HomeController::class, 'log'])->name('operations.log');
-    Route::get('dashboard/home',            [HomeController::class, 'index'])->name('home.index');
+    Route::get('/dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('/operations/log',            [HomeController::class, 'log'])->name('operations.log');
+    Route::get('/dashboard/home',            [HomeController::class, 'index'])->name('home.index');
 
 
 
@@ -110,7 +111,7 @@ Route::group(
 
     Route::get('logout',                                  [LoginController::class, 'logout'])->name('logout');
     Route::get('/auth/login',                             [LoginController::class, 'index'])->name('admin.auth.login');
-    Route::post('login',                                  [LoginController::class, 'login'])->name('admin.login');
+    Route::post('/login',                                  [LoginController::class, 'login'])->name('admin.login');
   }
 );
 
@@ -123,7 +124,6 @@ Route::group(
   function () {
 
     Route::get('logout',                                [LoginController::class, 'logout'])->name('logout');
-    Route::get('home/index',                            [HomeController::class, 'index'])->name('home.index');
     Route::get('admins/all',                            [AdminsController::class, 'index'])->name('display-admins-list');
     Route::get('admins/create',                         [AdminsController::class, 'create'])->name('create-new-admin');
     Route::get('admins/display/profile/{id}',           [AdminsController::class, 'display'])->name('display-admin');
