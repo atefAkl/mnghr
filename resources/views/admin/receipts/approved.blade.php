@@ -41,11 +41,16 @@
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Enable Receipt Entries "
                                     href=""><i class="fa fa-ban text-primary"></i></a>
 
-                                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
+                                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Display Receipt"
                                     href=""><i class="fa fa-eye text-primary"></i></a>
 
                                 <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"
                                     href=""><i class="fa fa-print text-secondary"></i></a>
+                                    <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"
+                                                    title="archive Receipt"
+                                                    onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
+                                                    href="{{ route('destroy-receipt-info', $receipt->id) }}"><i
+                                                        class="fa fa-archive text-danger"></i></a>
 
                             </td>
                         </tr>

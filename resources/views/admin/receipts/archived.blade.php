@@ -25,7 +25,7 @@
                         <td>{{ @$reference_type[$receipt->reference_type] }}</td>
                         <td>{{ $receipt->reception_date }}</td>
                         <td>
-                                @if ($receipt->direction === 1)
+                                @if ($receipt->direction == 1)
                                     <span class="badge bg-success">Input</span>
                                 @else
                                     <span class="badge bg-danger">Output</span>
@@ -44,7 +44,7 @@
                             <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt" href=""><i
                                     class="fa fa-print text-secondary"></i></a>
 
-                            <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="hard delete Receipt"
+                            <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title=" delete Receipt"
                                 onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
                                 href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
                                     class="fa fa-trash-alt text-danger"></i></a>
