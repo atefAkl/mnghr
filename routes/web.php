@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\StoreReceiptsCopyController;
 use App\Http\Controllers\Admin\ItemCategoriesController;
 use App\Http\Controllers\Admin\StoreReceiptsController;
 use App\Http\Controllers\Admin\PasswordResetController;
@@ -150,7 +151,9 @@ Route::group(
     Route::get('stores/edit/{id}',                      [storesController::class, 'edit'])->name('edit-store-info');
     Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
 
-
+    /* == Stores Receipts Copy == */
+    Route::get('/receipts/copy/{direction}/{tab}',          [StoreReceiptsCopyController::class, 'home'])->name('display-receipts-copy');
+    Route::get('/receipts/index/copy/{dir}/{status}',       [StoreReceiptsCopyController::class, 'index'])->name('display-recepit-copy');
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
@@ -166,7 +169,7 @@ Route::group(
     Route::get('/admin/receipts/approve/{id}',             [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
     Route::post('/admin/receipts/reject/{id}',              [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
 
-    /* ========================================================================================================================================
+    /* ================================================================================================================================
       =========== Items Routes Collection ===========================================================================================================
       ======================================================================================================================================== */
     Route::get('items/home',                            [ItemsController::class, 'home'])->name('display-items');

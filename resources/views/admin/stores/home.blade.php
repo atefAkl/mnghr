@@ -30,6 +30,12 @@
                 <span class="">Output Receipts</span>
             </a>
         </div>
+        <div class="col col-12 col-sm-6 col-lg-4 mt-5">
+            <a class="fw-bold" href="{{route('display-recepit-copy', ['0', '0'])}}" class="link-item">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="">Receipts Copy</span>
+            </a>
+        </div>
     </div>
     <script></script>
 @endsection
