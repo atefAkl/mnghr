@@ -152,8 +152,8 @@ Route::group(
     Route::get('stores/destroy/{id}',                   [storesController::class, 'destroy'])->name('destroy-store-info');
 
     /* == Stores Receipts Copy == */
-    Route::get('/receipts/copy/{direction}/{tab}',          [StoreReceiptsCopyController::class, 'home'])->name('display-receipts-copy');
-    Route::get('/receipts/index/copy/{dir}/{status}',       [StoreReceiptsCopyController::class, 'index'])->name('display-recepit-copy');
+    // Route::get('/receipts/copy/{direction}/{tab}',          [StoreReceiptsCopyController::class, 'home'])->name('display-receipts-copy');
+    Route::get('/receipts/index/copy',       [StoreReceiptsCopyController::class, 'index'])->name('display-recepit-copy');
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection ===========================================================================================================
         ======================================================================================================================================== */

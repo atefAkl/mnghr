@@ -42,7 +42,7 @@ class StoreReceiptsCopyController extends Controller
    * @var array
    */
   private static $receipt_status = [
-    3 => 'all',   // الكل
+    0 => 'all',   // الكل
     1 => 'inprogress', // قيد التنفيذ
     2 => 'approved',   // معتمد
     3 => 'archived',   // مؤرشف
@@ -115,15 +115,29 @@ class StoreReceiptsCopyController extends Controller
    * كانت قيد الاتعديل أو تمت الموافقة عليها أو مؤرشفة.
    * @return \Illuminate\View\View
    */
-  public function index($dir, $status): View
+  public function index()
   {
+    $filters = request()->query();
     $conditions = [];
-    if ($dir != '0' && $status != '0') {
-      $conditions['direction'] = $dir;
-      $conditions['status'] = $status;
+    if ($filters['status'] != '0') {
+      $conditions['status'] = $filters['status'];
     }
+    if ($filters['direction'] != '0') {
+      $conditions['direction'] = $filters['direction'];
+    }
+
+    if ($filters['reference_type'] != '') {
+      $conditions['reference_type'] = $filters['reference_type'];
+    }
+    if ($filters['admin_id'] != '') {
+      $conditions['admin_id'] = $filters['admin_id'];
+    }
+
+
     $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
     $vars = [
+      'query' => request()->query(),
+      'admins' => Admin::all(),
       'reference_types' => StoreReceipt::getReferenceTypes(),
       'receipt_status' => static::$receipt_status,
       'receipt_direction' => static::$receipt_direction,
