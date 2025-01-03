@@ -98,6 +98,33 @@ legend .title-archived {
 }
 
 /*=========================================
+===== Setting Items Styles ======================
+==========================================*/
+
+.setting-item .item-icon,
+.setting-item .item-text  {
+    transition: all 0.5s ease-in-out;
+}
+.setting-item .item-icon {
+    width: 50px;
+}
+.setting-item:hover .item-icon {
+    transform: scale(1.05) rotate(-1deg);
+    color: #0b7baf;
+}
+.setting-item:hover .item-text p,
+.setting-item:hover .item-text small {
+    color: #0b7baf;
+}
+.setting-item .item-text p {
+    font: 800 0.9rem/1.2 'Cairo';
+
+}
+.setting-item .item-text small {
+    font: normal 0.9rem/1.2 'Cairo';
+
+}
+/*=========================================
 ===== Categories List With Tree Display Styles ======================
 ==========================================*/
 

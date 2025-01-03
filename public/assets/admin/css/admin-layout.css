@@ -30,7 +30,7 @@
         overflow: hidden;
     }
 
-    .sidebar-backdrop {
+    /* .sidebar-backdrop {
         display: none;
         position: fixed;
         top: 0;
@@ -43,7 +43,7 @@
 
     .sidebar-backdrop.show {
         display: block;
-    }
+    } */
 }
 
 /* إضافة تنسيقات للبطاقات */

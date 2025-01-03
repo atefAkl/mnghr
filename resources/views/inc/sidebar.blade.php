@@ -7,36 +7,36 @@
         <!-- المخازن -->
         <li class="mb-1">
             <button
-                class="btn btn-toggle d-inline-flex align-items-center {{ Request::is('admin/stores*') ? '' : 'collapsed' }}"
+                class="btn btn-toggle d-inline-flex align-items-center {{ Request::is('admin/stores/*') || Request::is('admin/items/*') ? '' : 'collapsed' }}"
                 data-bs-toggle="collapse" data-bs-target="#stores-collapse"
-                aria-expanded="{{ Request::is('admin/stores*') ? 'true' : 'false' }}">
+                aria-expanded="{{ Request::is('admin/stores*') || Request::is('admin/items*') ? 'true' : 'false' }}">
                 <i class="fas fa-warehouse"></i> &nbsp; Stores
             </button>
-            <div class="collapse {{ Request::is('admin/stores*') ? 'show' : '' }}" id="stores-collapse"
+            <div class="collapse {{ Request::is('admin/stores*') || Request::is('admin/items*') ? 'show' : '' }}" id="stores-collapse"
                 data-bs-parent="#sidebarAccordion">
                 <ul class="btn-toggle-nav list-unstyled fw-normal small">
                     <li>
                         <a href="/admin/stores/home"
                             class="rounded {{ Request::is('admin/stores/home') ? 'active' : '' }}">
-                            <i class="fas fa-chart-pie"></i> &nbsp; Statistics
+                            <i class="fas fa-chart-pie"></i> &nbsp; Home
                         </a>
                     </li>
                     <li>
                         <a href="/admin/items/home"
-                            class="rounded {{ Request::is('admin/items/home') ? 'active' : '' }}">
+                            class="rounded {{ Request::is('admin/items/*') ? 'active' : '' }}">
                             <i class="fas fa-boxes"></i> &nbsp; Items
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/items/categories"
-                            class="rounded {{ Request::is('admin/items/categories') ? 'active' : '' }}">
-                            <i class="fas fa-tags"></i> &nbsp; Categories
+                        <a href="{{route('store-reports')}}"
+                            class="rounded {{ Request::is('admin/stores/reports/*') ? 'active' : '' }}">
+                            <i class="fas fa-tags"></i> &nbsp; Reports
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/items/units"
-                            class="rounded {{ Request::is('admin/items/units') ? 'active' : '' }}">
-                            <i class="fas fa-weight-hanging"></i> &nbsp; Units
+                        <a href="{{route('store-settings')}}"
+                            class="rounded {{ Request::is('admin/stores/settings/*') ? 'active' : '' }}">
+                            <i class="fas fa-weight-hanging"></i> &nbsp; Settings
                         </a>
                     </li>
                 </ul>
