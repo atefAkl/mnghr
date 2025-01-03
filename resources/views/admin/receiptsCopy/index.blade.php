@@ -1,24 +1,19 @@
 @extends('layouts.admin')
 @section('header-links')
-<li class="breadcrumb-item"><a href="/admin/stores/home">Stores</a></li>
-<li class="breadcrumb-item active" aria-current="page">Receipts</li>
+    <li class="breadcrumb-item"><a href="/admin/stores/home">Stores</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Receipts</li>
 @endsection
 @section('contents')
-<h1 class="mt-3 pb-2 d-flex" style="border-bottom: 2px solid #dedede">Store Movement Receipts
+    <h1 class="mt-3 pb-2 d-flex" style="border-bottom: 2px solid #dedede">Store Movement Receipts
 
-  {{-- <button class="px-2 mx-2 py-0 ms-4 btn btn-outline-primary" data-type="{{ $direction_input }}"><a
+        {{-- <button class="px-2 mx-2 py-0 ms-4 btn btn-outline-primary" data-type="{{ $direction_input }}"><a
       href="{{ route('display-receipts-list', ['Input', 1]) }}">Inputs</a></button>
   <button class="py-0 btn btn-outline-primary" data-type="{{ $direction_output }}"><a
       href="{{ route('display-receipts-list', ['Output', 1]) }}">Outputs</a></button> --}}
 
-</h1>
-{{-- <div class="row">
-  <div class="col col-12 collapse @if (
-            $errors->has('reference') ||
-                $errors->has('serial') ||
-                $errors->has('reception_date') ||
-                $errors->has('brief') ||
-                $errors->has('notes')) show @endif pt-3" id="addreceiptForm">
+    </h1>
+    {{-- <div class="row">
+  <div class="col col-12 collapse @if ($errors->has('reference') || $errors->has('serial') || $errors->has('reception_date') || $errors->has('brief') || $errors->has('notes')) show @endif pt-3" id="addreceiptForm">
     <div class="row">
       <div
         class="col {{ $errors->has('reference') || $errors->has('serial') || $errors->has('reception_date') || $errors->has('brief') || $errors->has('notes') ? 'col-9 show' : 'col-12' }}">
@@ -106,54 +101,60 @@
   </div>
 </div> --}}
 
-<div class="row">
-  <div class="col col-12">
-    <fieldset class="mt-4 mx-0 mb-0">
-      <legend>Receipts &nbsp; &nbsp;
-        <a class="ms-3" data-bs-toggle="collapse" data-bs-target="#addreceiptForm" aria-expanded="false"
-          aria-controls="addreceiptForm">
-          <i data-bs-toggle="tooltip" title="Add New Receipt" class="fa fa-plus"></i>
-        </a>
-      </legend>
+    <div class="row">
+        <div class="col col-12">
+            <fieldset class="mt-4 mx-0 mb-0">
+                <legend>Receipts &nbsp; &nbsp;
+                    <a class="ms-3" data-bs-toggle="collapse" data-bs-target="#addreceiptForm" aria-expanded="false"
+                        aria-controls="addreceiptForm">
+                        <i data-bs-toggle="tooltip" title="Add New Receipt" class="fa fa-plus"></i>
+                    </a>
+                </legend>
 
-      <div class="row d-flex justify-content-end ">
-        <form method="GET" action="{{ route('display-recepits-list') }}" class="col col-8 sm">
-          <div class="input-group sm mb-2">
-            <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
-              <option value="">Ref Type</option>
-              @foreach ($reference_types as $key => $value)
-              <option {{isset($query['reference_type']) && $query['reference_type'] == $key ?'selected':''}} value="{{ $key }}">{{ $value }}</option>
-              @endforeach
-            </select>
-            <select class="form-select form-control sm py-0" name="admin_id" id="admin_id">
-              <option value="">Representative</option>
-              @foreach ($admins as $admin)
-              <option {{isset($query['admin_id']) && $query['admin_id'] ==  $admin->id ?'selected':''}} value="{{ $admin->id }}">{{ $admin->userName }}</option>
-              @endforeach
-            </select>
-            <select class="form-select form-control sm py-0" name="direction" id="direction">
-              <option value="0" >Direction</option>
-              @foreach ($receipt_direction as $d_index => $direction)
-              <option {{isset($query['direction']) && $query['direction'] == $d_index ?'selected':''}} value="{{$d_index}}">{{$direction}}</option>
+                <div class="row d-flex justify-content-end ">
+                    <form method="GET" action="{{ route('display-recepits-list') }}" class="col col-8 sm">
+                        <div class="input-group sm mb-2">
+                            <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
+                                <option value="">Ref Type</option>
+                                @foreach ($reference_types as $key => $value)
+                                    <option
+                                        {{ isset($query['reference_type']) && $query['reference_type'] == $key ? 'selected' : '' }}
+                                        value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            <select class="form-select form-control sm py-0" name="admin_id" id="admin_id">
+                                <option value="">Representative</option>
+                                @foreach ($admins as $admin)
+                                    <option
+                                        {{ isset($query['admin_id']) && $query['admin_id'] == $admin->id ? 'selected' : '' }}
+                                        value="{{ $admin->id }}">{{ $admin->userName }}</option>
+                                @endforeach
+                            </select>
+                            <select class="form-select form-control sm py-0" name="direction" id="direction">
+                                <option value="0">Direction</option>
+                                @foreach ($receipt_direction as $d_index => $direction)
+                                    <option
+                                        {{ isset($query['direction']) && $query['direction'] == $d_index ? 'selected' : '' }}
+                                        value="{{ $d_index }}">{{ $direction }}</option>
+                                @endforeach
+                            </select>
+                            <select class="form-select form-control sm py-0" name="status" id="status">
+                                <option value='0'>status</option>
+                                @foreach ($receipt_status as $s_index => $status)
+                                    <option {{ isset($query['status']) && $query['status'] == $s_index ? 'selected' : '' }}
+                                        value="{{ $s_index }}" value="">{{ $status }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="input-group-text btn py-0 btn-outline-secondary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Filter">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
 
-              @endforeach
-            </select>
-            <select class="form-select form-control sm py-0" name="status" id="status">
-              <option value='0'>status</option>
-              @foreach ($receipt_status as $s_index => $status)
-              <option {{isset($query['status']) && $query['status'] == $s_index ?'selected':''}} value="{{$s_index}}" value="">{{ $status }}</option>
-              @endforeach
-            </select>
-            <button type="submit" class="input-group-text btn py-0 btn-outline-secondary"
-              data-bs-toggle="tooltip" data-bs-placement="top" title="Filter">
-              <i class="fas fa-filter me-1"></i> Filter
-            </button>
+                        </div>
+                    </form>
+                </div>
 
-          </div>
-        </form>
-      </div>
-
-      {{-- <div class="row d-flex justify-content-end ">
+                {{-- <div class="row d-flex justify-content-end ">
         <form class="col col-8">
           @csrf
           <div class="input-group sm mb-2">
@@ -176,70 +177,66 @@
       </div> --}}
 
 
-      <div id="data-container">
-    
-        <table class="table table-striped table-bordered mt-2">
-          <thead>
-            <tr>
-              <th><i class="fa fa-list"></i></th>
-              <th><i class="fa fa-barcode"></i> Serial Number</th>
-              <th><i class="fa fa-tags"></i> Reference Type</th>
-              <th><i class="fa fa-calendar"></i> Date</th>
-              <th><i class="fa fa-arrow-right"></i> Dir</th>
-              <th><i class="fa fa-user"></i> Representative</th>
-              <th><i class="fa fa-check-circle"></i>Status</th>
-              <th><i class="fa fa-cogs"></i> Control</th>
-            </tr>
-          </thead>
-          @php
-          $counter = 0;
-          @endphp  
-          @foreach ($receipts as $receipt)
+                <div id="data-container">
 
-          <tr>
-            <td>{{ ++$counter }}</td>
-            <td>{{ $receipt->serial }}</td>
-            <td>{{ $reference_types[$receipt->reference_type] }}</td>
-            <td>{{ $receipt->reception_date }}</td>
-            <td>{{ $receipt->getTypeName() }}</td>
-            <td>{{ $receipt->admin->userName }}</td>
-            <td>{{ $receipt_status[$receipt->status] }}</td>
-            <td>
-                @if($receipt->status == 1)
-                <a class=" "><i class="fa fa-edit"></i></a>
-                <a class=" "><i class="fa fa-check"></i></a>
-                <a class=" "><i class="fa fa-plus-square"></i></a>
-                
-                @elseif($receipt->status == 2)
-                <a class=" "><i class="fa fa-ban"></i></a>
-                <a class=" "><i class="fa fa-archive"></i></a>
-                
-                @elseif($receipt->status == 3)
-                
-                <a class=" "><i class="fa fa-undo"></i></a>
-                @endif
-                
-                <a class=" "><i class="fa fa-file"></i></a>
-                <a class=" "><i class="fa fa-print"></i></a>
-                <a class=" "><i class="fa fa-trash"></i></a>
-                    
-                
-            </td>
-            </tr>
-            @endforeach
-          <tbody>
-            
-          
-        </table>
-        <div class="mt-3">
-         
+                    <table class="table table-striped table-bordered mt-2">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-list"></i></th>
+                                <th><i class="fa fa-barcode"></i> Serial Number</th>
+                                <th><i class="fa fa-tags"></i> Reference Type</th>
+                                <th><i class="fa fa-calendar"></i> Date</th>
+                                <th><i class="fa fa-arrow-right"></i> Dir</th>
+                                <th><i class="fa fa-user"></i> Representative</th>
+                                <th><i class="fa fa-check-circle"></i>Status</th>
+                                <th><i class="fa fa-cogs"></i> Control</th>
+                            </tr>
+                        </thead>
+                        @php
+                            $counter = 0;
+                        @endphp
+                        @foreach ($receipts as $receipt)
+                            <tr>
+                                <td>{{ ++$counter }}</td>
+                                <td>{{ $receipt->serial }}</td>
+                                <td>{{ $reference_types[$receipt->reference_type] }}</td>
+                                <td>{{ $receipt->reception_date }}</td>
+                                <td>{{ $receipt->getTypeName() }}</td>
+                                <td>{{ $receipt->admin->userName }}</td>
+                                <td>{{ $receipt_status[$receipt->status] }}</td>
+                                <td>
+                                    @if ($receipt->status == 1)
+                                        <a class=" "><i class="fa fa-edit"></i></a>
+                                        <a class=" "><i class="fa fa-check"></i></a>
+                                        <a class=" "><i class="fa fa-plus-square"></i></a>
+                                    @elseif($receipt->status == 2)
+                                        <a class=" "><i class="fa fa-ban"></i></a>
+                                        <a class=" "><i class="fa fa-archive"></i></a>
+                                    @elseif($receipt->status == 3)
+                                        <a class=" "><i class="fa fa-undo"></i></a>
+                                    @endif
+
+                                    <a class=" "><i class="fa fa-file"></i></a>
+                                    <a class=" "><i class="fa fa-print"></i></a>
+                                    <a class=" "><i class="fa fa-trash"></i></a>
+
+
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tbody>
+
+
+                    </table>
+                    <div class="mt-3">
+
+                    </div>
+                </div>
+            </fieldset>
         </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
+    </div>
 
-{{-- <script>
+    {{-- <script>
   $(document).ready(function() {
     $('button[data-type]').on('click', function() {
       const type = $(this).data('type');
@@ -258,5 +255,4 @@
     });
   });
 </script> --}}
-
 @endsection

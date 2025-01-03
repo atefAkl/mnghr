@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="sidebar-backdrop"></div>
+        
     </div>
 
     {{-- ========== Theme Color Toggler  ======================== --}}

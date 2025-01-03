@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Branch;
 use App\Models\Store;
 use Exception;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class storesController extends Controller
@@ -123,5 +124,15 @@ class storesController extends Controller
         } catch (Exception $err) {
             return redirect()->route('display-stores-list')->with('error', 'Error deleting branch because of: ' . $err->getMessage());
         }
+    }
+
+    public function settings() : View 
+    {
+        return view('admin.stores.settings.home');
+    }
+
+    public function reports() : View 
+    {
+        return view('admin.stores.reports.home');
     }
 }
