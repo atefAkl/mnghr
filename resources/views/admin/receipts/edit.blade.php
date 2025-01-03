@@ -2,12 +2,9 @@
 @section('header-links')
     <li class="breadcrumb-item"><a href="/admin/stores/home"> Stores </a></li>
     <li class="breadcrumb-item"><a
-            href="{{ route('display-receipts-list', [$receipt->directoin == 1 ? 'Input' : 'Output', $receipt->status]) }}">
+            href="/admin/receipts/index">
             Receipts </a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Receipt</li>
-    @if (isset($_SERVER['HTTP_REFERER']))
-        <a href="{{ $_SERVER['HTTP_REFERER'] }}">Back</a>
-    @endif
 @endsection
 
 @section('contents')

@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
-  /**
+    /**
    * حالة الإيصالات.
    * هذا المصفوفة تحتوي على القيم الممكنة لحالة الإيصالات، 
    * والتى يتم التعبير عنها فى الروابط بالأرقام 
@@ -41,7 +41,7 @@ class StoreReceiptsController extends Controller
    * @var array
    */
   private static $receipt_status = [
-    3 => 'all',   // الكل
+    0 => 'all',   // الكل
     1 => 'inprogress', // قيد التنفيذ
     2 => 'approved',   // معتمد
     3 => 'archived',   // مؤرشف
@@ -76,33 +76,6 @@ class StoreReceiptsController extends Controller
   private const OUTPUT_ENTRY = 2;
 
   /**
-   * عرض قائمة بجميع الإيصالات.
-   * هذه الدالة تسترجع جميع الإيصالات من قاعدة البيانات وتعرضها مع معلومات
-   * إضافية مثل المتاجر والمدراء. يتم إعداد المتغيرات اللازمة للعرض في الواجهة.
-   *
-   * @return \Illuminate\View\View
-   */
-  public function home(): View
-  {
-    //     $receipts = StoreReceipt::whereNull('deleted_at')->withTrashed()->orderBy('serial', 'desc')->paginate(10);
-    $receipts = StoreReceipt::withTrashed()->orderBy('serial', 'desc')->paginate(10);
-    $stores   = Store::all();
-    $admins   = Admin::all();
-
-    $vars = [
-      'reference_type'   => StoreReceipt::getReferenceTypes(),
-      'direction_input'  => self::INSERT_ENTRY,
-      'direction_output' => self::OUTPUT_ENTRY,
-      'admins'           => $admins,
-      'receipts'         => $receipts,
-      'stores'           => $stores,
-
-    ];
-    return view('admin.receipts.index', $vars);
-  }
-
-
-  /**
    * عرض قائمة بالإيصالات بناءً على الحالة والاتجاه المحددين.
    *
    * هذه الدالة تسترجع الإيصالات من قاعدة البيانات بناءً على الحالة المحددة
@@ -114,23 +87,41 @@ class StoreReceiptsController extends Controller
    * كانت قيد الاتعديل أو تمت الموافقة عليها أو مؤرشفة.
    * @return \Illuminate\View\View
    */
-  public function index($dir, $status): View
+  public function index()
   {
+    $filters = request()->query();
     $conditions = [];
-    if ($dir != '0' && $status != '0') {
-      $conditions['direction'] = $dir;
-      $conditions['status'] = $status;
+    if (array_key_exists('status' ,$filters) && $filters['status'] != '0') {
+      $conditions['status'] = $filters['status'];
     }
+    if (array_key_exists('direction' ,$filters) && $filters['direction'] != '0') {
+      $conditions['direction'] = $filters['direction'];
+    }
+
+    if (array_key_exists('reference_type' ,$filters) && $filters['reference_type'] != '') {
+      $conditions['reference_type'] = $filters['reference_type'];
+    }
+    if (array_key_exists('admin_id' ,$filters) && $filters['admin_id'] != '') {
+      $conditions['admin_id'] = $filters['admin_id'];
+    }
+
+
     $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
     $vars = [
-      'reference_types' => StoreReceipt::getReferenceTypes(),
-      'receipt_status' => static::$receipt_status,
+      'query'             => request()->query(),
+      'admins'            => Admin::all(),
+      'stores'            => Store::all(),
+      'reference_types'   => StoreReceipt::getReferenceTypes(),
+      'receipt_status'    => static::$receipt_status,
       'receipt_direction' => static::$receipt_direction,
-      'receipts' => $receipts
+      'receipts'          => $receipts,
+      'insert_entry'   => self::INSERT_ENTRY,
+      'output_entry'  => self::OUTPUT_ENTRY,
+      
     ];
+    
     return view('admin.receipts.index', $vars);
   }
-
   /**
    * عرض نموذج لإنشاء مورد جديد جديد.
    * هذه الدالة تعرض نموذجًا لإنشاء إيصال جديد. لا توجد معالجة إضافية

@@ -119,20 +119,19 @@ class StoreReceiptsCopyController extends Controller
   {
     $filters = request()->query();
     $conditions = [];
-    if ($filters['status'] != '0') {
+    if (array_key_exists('status' ,$filters) && $filters['status'] != '0') {
       $conditions['status'] = $filters['status'];
     }
-    if ($filters['direction'] != '0') {
+    if (array_key_exists('direction' ,$filters) && $filters['direction'] != '0') {
       $conditions['direction'] = $filters['direction'];
     }
 
-    if ($filters['reference_type'] != '') {
+    if (array_key_exists('reference_type' ,$filters) && $filters['reference_type'] != '') {
       $conditions['reference_type'] = $filters['reference_type'];
     }
-    if ($filters['admin_id'] != '') {
+    if (array_key_exists('admin_id' ,$filters) && $filters['admin_id'] != '') {
       $conditions['admin_id'] = $filters['admin_id'];
     }
-
 
     $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
     $vars = [

@@ -117,36 +117,31 @@
       </legend>
 
       <div class="row d-flex justify-content-end ">
-        
-        {{$query['reference_type']}}<br>
-            
-     
-        <form method="GET" action="{{ route('display-recepit-copy') }}" class="col col-8 sm">
-          
+        <form method="GET" action="{{ route('display-recepits-list') }}" class="col col-8 sm">
           <div class="input-group sm mb-2">
             <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
-              <option value="">Reference Type</option>
+              <option value="">Ref Type</option>
               @foreach ($reference_types as $key => $value)
-              <option {{$query['reference_type'] == $key ?'selected':''}} value="{{ $key }}">{{ $value }}</option>
+              <option {{isset($query['reference_type']) && $query['reference_type'] == $key ?'selected':''}} value="{{ $key }}">{{ $value }}</option>
               @endforeach
             </select>
             <select class="form-select form-control sm py-0" name="admin_id" id="admin_id">
               <option value="">Representative</option>
               @foreach ($admins as $admin)
-              <option {{$query['admin_id'] ==  $admin->id ?'selected':''}} value="{{ $admin->id }}">{{ $admin->userName }}</option>
+              <option {{isset($query['admin_id']) && $query['admin_id'] ==  $admin->id ?'selected':''}} value="{{ $admin->id }}">{{ $admin->userName }}</option>
               @endforeach
             </select>
             <select class="form-select form-control sm py-0" name="direction" id="direction">
-              <option value="" hidden>Direction</option>
+              <option value="0" >Direction</option>
               @foreach ($receipt_direction as $d_index => $direction)
-              <option {{$query['direction'] == $d_index ?'selected':''}}  value="{{$d_index}}">{{$direction}}</option>
-                  
+              <option {{isset($query['direction']) && $query['direction'] == $d_index ?'selected':''}} value="{{$d_index}}">{{$direction}}</option>
+
               @endforeach
             </select>
             <select class="form-select form-control sm py-0" name="status" id="status">
-              <option hidden>status</option>
+              <option value='0'>status</option>
               @foreach ($receipt_status as $s_index => $status)
-              <option {{$query['status'] == $s_index ?'selected':''}}  value="{{$s_index}}" value="">{{ $status }}</option>
+              <option {{isset($query['status']) && $query['status'] == $s_index ?'selected':''}} value="{{$s_index}}" value="">{{ $status }}</option>
               @endforeach
             </select>
             <button type="submit" class="input-group-text btn py-0 btn-outline-secondary"
