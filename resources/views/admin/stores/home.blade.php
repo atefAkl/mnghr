@@ -25,7 +25,7 @@
                             </div>
                         </a>
 
-                        <a class="col col-4 setting-item text-secondary" href="{{ route('display-recepit-list') }}">
+                        <a class="col col-4 setting-item text-secondary" href="{{ route('display-recepits-list') }}">
                             <div class="row pt-3">
                                 <div class="item-icon">
                                     <i class="fa fa-receipt fa-2x"></i>
