@@ -157,9 +157,7 @@ Route::group(
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection ===========================================================================================================
         ======================================================================================================================================== */
-    Route::get('receipts/load-data/{type}',                 [StoreReceiptsController::class, 'loadData'])->name('load.data');
-    Route::get('/receipts/display/{direction}/{tab}',       [StoreReceiptsController::class, 'index'])->name('display-receipts-list');
-    Route::get('/receipts/index',                           [StoreReceiptsController::class, 'home'])->name('display-recepit-all');
+    Route::get('/receipts/index',                           [StoreReceiptsController::class, 'index'])->name('display-recepits-list');
     Route::get('receipts/restore/{id}',                     [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
     Route::get('receipts/forceDelete/{id}',                 [StoreReceiptsController::class, 'forceDelete'])->name('forceDelete-receipt-info');
     Route::get('receipts/edit/{id}',                        [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');

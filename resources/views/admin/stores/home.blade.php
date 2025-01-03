@@ -13,23 +13,12 @@
             </a>
         </div>
         <div class="col col-12 col-sm-6 col-lg-4">
-            <a class="fw-bold" href="/admin/receipts/index" class="link-item">
+            <a class="fw-bold" href={{route('display-recepits-list',['0' ,'0'])}}" class="link-item">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="">All Receipts</span>
             </a>
         </div>
-        <div class="col col-12 col-sm-6 col-lg-4">
-            <a class="fw-bold" href="/admin/receipts/display/input/1" class="link-item">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="">Input Receipts</span>
-            </a>
-        </div>
-        <div class="col col-12 col-sm-6 col-lg-4 mt-5">
-            <a class="fw-bold" href="/admin/receipts/display/output/2" class="link-item">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="">Output Receipts</span>
-            </a>
-        </div>
+    
         <div class="col col-12 col-sm-6 col-lg-4 mt-5">
             <a class="fw-bold" href="{{route('display-recepit-copy', ['0', '0'])}}" class="link-item">
                 <i class="fa fa-home fa-2x"></i>

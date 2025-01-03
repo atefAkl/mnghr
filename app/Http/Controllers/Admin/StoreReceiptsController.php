@@ -17,7 +17,6 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
-
   /**
    * حالة الإيصالات.
    * هذا المصفوفة تحتوي على القيم الممكنة لحالة الإيصالات، 
@@ -32,18 +31,20 @@ class StoreReceiptsController extends Controller
     3 => '0', // مؤرشف
   ];
 
+
+
   /**
-   * حالة الإيصالات مع تسميات نصية.
-   *
-   * هذا المصفوفة تحتوي على القيم الممكنة لحالة الإيصالات مع تسميات نصية.
-   * 1: قيد التنفيذ، 2: معتمد، 0: مؤرشف.
+   * علامات التبويب المستخدمة في واجهة المستخدم.
+   * هذا المصفوفة تحتوي على القيم الممكنة لعلامات التبويب المستخدمة.
+   * 1: قيد التنفيذ، 2: معتمد، 3: مؤرشف.
    *
    * @var array
    */
-  private static $receiptStatus = [
-    'archived',   // مؤرشف
-    'inprogress', // قيد التنفيذ
-    'approved',   // معتمد
+  private static $receipt_status = [
+    3 => 'all',   // الكل
+    1 => 'inprogress', // قيد التنفيذ
+    2 => 'approved',   // معتمد
+    3 => 'archived',   // مؤرشف
   ];
 
   /**
@@ -53,10 +54,11 @@ class StoreReceiptsController extends Controller
    *
    * @var array
    */
-  private static $tabs = [
-    1 => 'inprogress', // قيد التنفيذ
-    2 => 'approved',   // معتمد
-    3 => 'archived',   // مؤرشف
+  private static $receipt_direction = [
+    0 => 'all',   // الكل
+    1 => 'input', // المدخلات
+    2 => 'output',   // المخرجات
+
   ];
 
   /**
@@ -91,7 +93,6 @@ class StoreReceiptsController extends Controller
       'reference_type'   => StoreReceipt::getReferenceTypes(),
       'direction_input'  => self::INSERT_ENTRY,
       'direction_output' => self::OUTPUT_ENTRY,
-      'status'           => self::$receiptStatus,
       'admins'           => $admins,
       'receipts'         => $receipts,
       'stores'           => $stores,
@@ -113,35 +114,22 @@ class StoreReceiptsController extends Controller
    * كانت قيد الاتعديل أو تمت الموافقة عليها أو مؤرشفة.
    * @return \Illuminate\View\View
    */
-  public function index($dir, $tab): View
+  public function index($dir, $status): View
   {
-
-    $receipts = StoreReceipt::where(['status' => self::$status[$tab], 'direction' => $dir == 'Input' ? 1 : 2])
-      ->orderBy('serial', 'desc')
-      ->paginate(10);
-    $archived = StoreReceipt::where(['direction' => $dir == 'Input' ? 1 : 2])->onlyTrashed()
-      ->orderBy('serial', 'desc')
-      ->paginate(10);
-
-    $stores   = Store::all();
-    $admins   = Admin::all();
+    $conditions = [];
+    if ($dir != '0' && $status != '0') {
+      $conditions['direction'] = $dir;
+      $conditions['status'] = $status;
+    }
+    $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
     $vars = [
-      'tabs'              => self::$tabs,
-      'tab'               => $tab,
-      'dir'               => $dir,
-      'reference_type'    => StoreReceipt::getReferenceTypes(),
-      'direction_input'   => self::INSERT_ENTRY,
-      'direction_output'  => self::OUTPUT_ENTRY,
-      'status'            => self::$status,
-      'admins'            => $admins,
-      'receipts'          => $receipts,
-      'archived'          => $archived,
-      'stores'            => $stores,
+      'reference_types' => StoreReceipt::getReferenceTypes(),
+      'receipt_status' => static::$receipt_status,
+      'receipt_direction' => static::$receipt_direction,
+      'receipts' => $receipts
     ];
-    $file = 'admin.receipts.' . self::$tabs[$tab];
-    return view($file, $vars);
+    return view('admin.receipts.index', $vars);
   }
-
 
   /**
    * عرض نموذج لإنشاء مورد جديد جديد.
