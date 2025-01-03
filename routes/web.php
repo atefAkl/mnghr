@@ -159,12 +159,12 @@ Route::group(
         ======================================================================================================================================== */
     Route::get('/receipts/index',                           [StoreReceiptsController::class, 'index'])->name('display-recepits-list');
     Route::get('receipts/restore/{id}',                     [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
-    Route::get('receipts/forceDelete/{id}',                 [StoreReceiptsController::class, 'forceDelete'])->name('forceDelete-receipt-info');
+    Route::get('receipts/destroy/{id}',                    [StoreReceiptsController::class, 'destroy'])->name('forceDelete-receipt-info');
     Route::get('receipts/edit/{id}',                        [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
     Route::post('receipts/update',                          [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
     Route::post('/receipts/store',                          [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
-    Route::get('receipts/destroy/{id}',                     [StoreReceiptsController::class, 'destroy'])->name('destroy-receipt-info');
-    Route::get('/admin/receipts/approve/{id}',             [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
+    Route::get('receipts/archive/{id}',                     [StoreReceiptsController::class, 'archiveReceipt'])->name('archive-receipt');
+    Route::get('/admin/receipts/approve/{id}',              [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
     Route::post('/admin/receipts/reject/{id}',              [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
 
     /* ================================================================================================================================

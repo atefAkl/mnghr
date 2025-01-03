@@ -226,7 +226,7 @@ class StoreReceiptsController extends Controller
       $receipt->updated_by = currentUserId();
       $receipt->update($validated);
 
-      return redirect()->back()->with('success', 'Receipt updated successfully');
+      return redirect()->route('display-recepits-list')->with('success', 'Receipt updated successfully');
     } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error updating because of: ' . $e->getMessage());
     }
@@ -242,45 +242,46 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء الحذف.
    */
-  public function destroy($id)
+  public function archiveReceipt($id)
   {
-    $receipt = StoreReceipt::find($id);
-    $receipt->status = 0;
 
-    if (!$receipt) {
-      return redirect()->back()->withError('The receipt is not exist, may be deleted or you have insuffecient privilleges to delete it.');
-    }
-    try {
-      $receipt->update();
-      $receipt->delete();
+      // العثور على الإيصال باستخدام المعرف
+      $receipt = StoreReceipt::find($id);
+      // التحقق مما إذا كان الإيصال موجودًا
+  
+      if (!$receipt) {
+        return redirect()->back()->with('error', 'Receipt not found.');
+      }
+      try {
+        $receipt->status = 3;
+        $receipt->deleted_at =null; // تعيين قيمة deleted_at إلى التاريخ والوقت الحالي
+        $receipt->save();
+        return redirect()->back()->with('success', 'Receipt Archived successfully.');
 
-
-      return redirect()->back()->with('success', 'receipt Removed Successfully');
-    } catch (Exception $err) {
-
-      return redirect()->back()->with(['error' => 'receipt can not be Removed due to: ' . $err]);
-    }
+    } catch (Exception $e) {
+        return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
+      }
   }
 
   public function approveReceipt($id)
   {
     // العثور على الإيصال باستخدام المعرف
     $receipt = StoreReceipt::find($id);
-
     // التحقق مما إذا كان الإيصال موجودًا
+
     if (!$receipt) {
       return redirect()->back()->with('error', 'Receipt not found.');
     }
     try {
-      // تحديث حالة الإيصال إلى 2
       $receipt->status = 2;
       $receipt->updated_by = currentUserId(); // إذا كنت تحتاج إلى تتبع من قام بالتحديث
-      $receipt->update();
+      $receipt->save();
+      return redirect()->back()->with('success', 'Receipt Archived successfully.');
 
-      return redirect()->back()->with('success', 'Receipt approved successfully.');
-    } catch (Exception $e) {
+  } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
     }
+  
   }
 
   /**
@@ -292,15 +293,25 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء الاستعادة.
    */
+
   public function  restore($id)
   {
 
-    try {
-      StoreReceipt::withTrashed()->where('id', $id)->restore();
-      return redirect()->back()->with(['success' => 'Receipt Restore Successfully']);
-    } catch (Exception $err) {
+    // العثور على الإيصال باستخدام المعرف
+    $receipt = StoreReceipt::find($id);
+    // التحقق مما إذا كان الإيصال موجودًا
 
-      return redirect()->back()->with(['error' => 'Receipt can not be Removed due to: ' . $err]);
+    if (!$receipt) {
+      return redirect()->back()->with('error', 'Receipt not found.');
+    }
+    try {
+      $receipt->status = 2;
+      $receipt->deleted_at =null; 
+      $receipt->save();
+      return redirect()->back()->with('success', 'Receipt  Restore Successfully.');
+
+  } catch (Exception $e) {
+      return redirect()->back()->with('error', 'Error Restore receipt: ' . $e->getMessage());
     }
   }
 
@@ -313,7 +324,7 @@ class StoreReceiptsController extends Controller
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception في حال حدوث خطأ أثناء الحذف.
    */
-  public function  forceDelete($id)
+  public function  destroy($id)
   {
     $receipt = StoreReceipt::withTrashed()->find($id);
     if (!$receipt) {

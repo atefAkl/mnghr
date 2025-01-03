@@ -188,7 +188,7 @@
                 href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
                   class="fa fa-edit text-primary"></i></a>
               <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
-                href=""><i class="fa fa-check text-info"></i></a>
+              href="{{ route('approve-receipt', [$receipt->id]) }}"><i class="fa fa-check text-info"></i></a>
               @php
               $addEntry =
               $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
@@ -203,7 +203,7 @@
               <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"
                 title="archive Receipt"
                 onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
-                href="{{ route('destroy-receipt-info', $receipt->id) }}"><i
+                href="{{ route('archive-receipt', [$receipt->id]) }}"><i
                   class="fa fa-archive text-danger"></i></a>
 
               @elseif($receipt->status == 3)
@@ -229,6 +229,9 @@
 
 
         </table>
+        <div class="mt-3">
+          {{ $receipts->links() }}
+        </div>
     </fieldset>
   </div>
 </div>
