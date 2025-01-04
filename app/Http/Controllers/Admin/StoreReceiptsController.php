@@ -254,7 +254,7 @@ class StoreReceiptsController extends Controller
       }
       try {
         $receipt->status = 3;
-        $receipt->deleted_at =null; // تعيين قيمة deleted_at إلى التاريخ والوقت الحالي
+        $receipt->deleted_at =now(); // تعيين قيمة deleted_at إلى التاريخ والوقت الحالي
         $receipt->save();
         return redirect()->back()->with('success', 'Receipt Archived successfully.');
 
@@ -294,25 +294,25 @@ class StoreReceiptsController extends Controller
    * @throws \Exception في حال حدوث خطأ أثناء الاستعادة.
    */
 
-  public function  restore($id)
-  {
-
-    // العثور على الإيصال باستخدام المعرف
-    $receipt = StoreReceipt::find($id);
-    // التحقق مما إذا كان الإيصال موجودًا
-
-    if (!$receipt) {
-      return redirect()->back()->with('error', 'Receipt not found.');
-    }
+  public function restore($id)
+{
     try {
-      $receipt->status = 2;
-      $receipt->deleted_at =null; 
-      $receipt->save();
-      return redirect()->back()->with('success', 'Receipt  Restore Successfully.');
+        $receipt = StoreReceipt::withTrashed()->find($id); // Use find() to get the model instance
+        if ($receipt) { // Check if the receipt exists
+            $receipt->restore();
+            $receipt->status = 2;
+            $receipt->save();
 
-  } catch (Exception $e) {
-      return redirect()->back()->with('error', 'Error Restore receipt: ' . $e->getMessage());
+            return redirect()->back()->with(['success' => 'Receipt Restore Successfully']);
+        } else {
+            return redirect()->back()->with(['error' => 'Receipt not found.']); // Handle the case where the receipt doesn't exist.
+        }
+
+    } catch (Exception $err) {
+        return redirect()->back()->with(['error' => 'Receipt can not be restored due to: ' . $err->getMessage()]); // Use getMessage() for more specific error info
     }
+
+
   }
 
   /**
