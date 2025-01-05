@@ -107,7 +107,6 @@
       </legend>
       <div class="row d-flex justify-content-end ">
     <form method="GET"  action="{{ route('display-recepits-list') }}"  class="col col-8">
-      {{ request()}}
         <div class="input-group sm mb-2">
             <input type="text" class="form-control" name="serial" value="{{ request('serial') }}" placeholder="Serial Number" data-bs-toggle="tooltip" data-bs-placement="top" title="Serial Number">
             <input type="date" class="form-control" name="beforeDate" value="{{ request('beforeDate') }}" placeholder="Before Date" data-bs-toggle="tooltip" data-bs-placement="top" title="Before Date">
