@@ -87,41 +87,89 @@ class StoreReceiptsController extends Controller
    * كانت قيد الاتعديل أو تمت الموافقة عليها أو مؤرشفة.
    * @return \Illuminate\View\View
    */
+  // public function index()
+  // {
+  //   $filters = request()->query();
+  //   $conditions = [];
+  //   if (array_key_exists('status' ,$filters) && $filters['status'] != '0') {
+  //     $conditions['status'] = $filters['status'];
+  //   }
+  //   if (array_key_exists('direction' ,$filters) && $filters['direction'] != '0') {
+  //     $conditions['direction'] = $filters['direction'];
+  //   }
+
+  //   if (array_key_exists('reference_type' ,$filters) && $filters['reference_type'] != '') {
+  //     $conditions['reference_type'] = $filters['reference_type'];
+  //   }
+  //   if (array_key_exists('admin_id' ,$filters) && $filters['admin_id'] != '') {
+  //     $conditions['admin_id'] = $filters['admin_id'];
+  //   }
+
+
+  //   $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
+  //   $vars = [
+  //     'query'             => request()->query(),
+  //     'admins'            => Admin::all(),
+  //     'stores'            => Store::all(),
+  //     'reference_types'   => StoreReceipt::getReferenceTypes(),
+  //     'receipt_status'    => static::$receipt_status,
+  //     'receipt_direction' => static::$receipt_direction,
+  //     'receipts'          => $receipts,
+  //     'insert_entry'   => self::INSERT_ENTRY,
+  //     'output_entry'  => self::OUTPUT_ENTRY,
+      
+  //   ];
+    
+  //   return view('admin.receipts.index', $vars);
+  // }
+
   public function index()
-  {
+{
     $filters = request()->query();
     $conditions = [];
-    if (array_key_exists('status' ,$filters) && $filters['status'] != '0') {
-      $conditions['status'] = $filters['status'];
+    $query = StoreReceipt::withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
+
+    if (array_key_exists('status', $filters) && $filters['status'] != '0') {
+        $query->where('status', $filters['status']); // Use where on the query builder
     }
-    if (array_key_exists('direction' ,$filters) && $filters['direction'] != '0') {
-      $conditions['direction'] = $filters['direction'];
+    if (array_key_exists('direction', $filters) && $filters['direction'] != '0') {
+        $query->where('direction', $filters['direction']);
+    }
+    if (array_key_exists('reference_type', $filters) && $filters['reference_type'] != '') {
+        $query->where('reference_type', $filters['reference_type']);
+    }
+    if (array_key_exists('admin_id', $filters) && $filters['admin_id'] != '') {
+        $query->where('admin_id', $filters['admin_id']);
     }
 
-    if (array_key_exists('reference_type' ,$filters) && $filters['reference_type'] != '') {
-      $conditions['reference_type'] = $filters['reference_type'];
+    // Search functionality
+    if (array_key_exists('serial', $filters) && $filters['serial'] != '') {
+        $query->where('serial', 'like', '%' . $filters['serial'] . '%'); // Use like for partial matches
     }
-    if (array_key_exists('admin_id' ,$filters) && $filters['admin_id'] != '') {
-      $conditions['admin_id'] = $filters['admin_id'];
+    if (array_key_exists('beforeDate', $filters) && $filters['beforeDate'] != '') {
+        $query->where('reception_date', '<=', $filters['beforeDate']); // Assuming you have a reception_date column
+    }
+    if (array_key_exists('afterDate', $filters) && $filters['afterDate'] != '') {
+        $query->where('reception_date', '>=', $filters['afterDate']);
     }
 
+    $receipts = $query->paginate(10); // Paginate the query
 
-    $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
     $vars = [
-      'query'             => request()->query(),
-      'admins'            => Admin::all(),
-      'stores'            => Store::all(),
-      'reference_types'   => StoreReceipt::getReferenceTypes(),
-      'receipt_status'    => static::$receipt_status,
-      'receipt_direction' => static::$receipt_direction,
-      'receipts'          => $receipts,
-      'insert_entry'   => self::INSERT_ENTRY,
-      'output_entry'  => self::OUTPUT_ENTRY,
-      
+        'query' => request()->query(),
+        'admins' => Admin::all(),
+        'stores' => Store::all(),
+        'reference_types' => StoreReceipt::getReferenceTypes(),
+        'receipt_status' => static::$receipt_status,
+        'receipt_direction' => static::$receipt_direction,
+        'receipts' => $receipts,
+        'insert_entry' => self::INSERT_ENTRY,
+        'output_entry' => self::OUTPUT_ENTRY,
     ];
-    
+
     return view('admin.receipts.index', $vars);
-  }
+}
+
   /**
    * عرض نموذج لإنشاء مورد جديد جديد.
    * هذه الدالة تعرض نموذجًا لإنشاء إيصال جديد. لا توجد معالجة إضافية

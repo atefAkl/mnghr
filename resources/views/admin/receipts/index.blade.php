@@ -106,6 +106,22 @@
         </a>
       </legend>
       <div class="row d-flex justify-content-end ">
+    <form method="GET"  action="{{ route('display-recepits-list') }}"  class="col col-8">
+      {{ request()}}
+        <div class="input-group sm mb-2">
+            <input type="text" class="form-control" name="serial" value="{{ request('serial') }}" placeholder="Serial Number" data-bs-toggle="tooltip" data-bs-placement="top" title="Serial Number">
+            <input type="date" class="form-control" name="beforeDate" value="{{ request('beforeDate') }}" placeholder="Before Date" data-bs-toggle="tooltip" data-bs-placement="top" title="Before Date">
+            <input type="date" class="form-control" name="afterDate" value="{{ request('afterDate') }}" placeholder="After Date" data-bs-toggle="tooltip" data-bs-placement="top" title="After Date">
+            <button type="submit" class="input-group-text btn py-0 btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Search">
+                <i class="fas fa-search me-1"></i> Search
+            </button>
+            <a href="{{ route('display-recepits-list') }}" class="input-group-text btn py-0 btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear Search">
+                <i class="fas fa-times me-1"></i> Clear
+            </a>
+        </div>
+    </form>
+</div>
+      <div class="row d-flex justify-content-end ">
         <form method="GET" action="{{ route('display-recepits-list') }}" class="col col-8 sm">
           <div class="input-group sm mb-2">
             <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
@@ -162,7 +178,7 @@
 
           <tr>
             <td>{{ ++$counter }}</td>
-            <td>{{ $receipt->serial }}</td>
+            <td><a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"  title="Display Receipt" href="#">{{ $receipt->serial }}</a></td>
             <td>{{ $receipt->getTypeName() }}</td>
             <td>{{ $receipt->reception_date }}</td>
             <td>
@@ -172,7 +188,7 @@
               <span class="badge bg-danger">{{ $receipt_direction[$receipt->direction] }}</span>
               @endif
             </td>
-            <td>{{ @$receipt->admin->userName }}</td>
+            <td data-bs-toggle="tooltip" title="{{ 'Manager' }}" {{-- @$receipt->admin->profile->possition --}}>{{ $receipt->admin->userName }}</td>
             <td>
               @if($receipt->status === 1)
               <span class="badge bg-secondary"> {{ $receipt_status[$receipt->status] }}</span>
