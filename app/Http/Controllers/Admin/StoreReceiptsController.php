@@ -231,6 +231,27 @@ class StoreReceiptsController extends Controller
     //
   }
 
+  public function searchSN() {
+      $query = StoreReceipt::withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
+  
+      
+      $receipts = $query->paginate(10); // Paginate the query
+  
+      $vars = [
+          'query' => request()->query(),
+          'admins' => Admin::all(),
+          'stores' => Store::all(),
+          'reference_types' => StoreReceipt::getReferenceTypes(),
+          'receipt_status' => static::$receipt_status,
+          'receipt_direction' => static::$receipt_direction,
+          'receipts' => $receipts,
+          'insert_entry' => self::INSERT_ENTRY,
+          'output_entry' => self::OUTPUT_ENTRY,
+      ];
+  
+      return view('admin.receipts.search.sn', $vars);
+  }
+
   /**
    * عرض نموذج لتعديل مورد محدد.
    *
