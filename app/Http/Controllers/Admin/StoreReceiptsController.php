@@ -167,7 +167,7 @@ class StoreReceiptsController extends Controller
         'output_entry' => self::OUTPUT_ENTRY,
     ];
 
-    return view('admin.receipts.index', $vars);
+    return view('admin.stores.receipts.index', $vars);
 }
 
   /**
@@ -180,7 +180,7 @@ class StoreReceiptsController extends Controller
   public function create(): View
   {
     //
-    return view('admin.receipts.create');
+    return view('admin.stores.receipts.create');
   }
 
   /**
@@ -253,7 +253,7 @@ class StoreReceiptsController extends Controller
       'stores'           => $stores,
 
     ];
-    return view('admin.receipts.edit', $vars);
+    return view('admin.stores.receipts.edit', $vars);
   }
 
   /**

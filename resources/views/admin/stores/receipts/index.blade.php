@@ -161,7 +161,7 @@
           <thead>
             <tr>
               <th><i class="fa fa-list"></i></th>
-              <th><i class="fa fa-barcode"></i> Serial Number</th>
+              <th><i class="fa fa-barcode"></i> SN <input type="text" class="form-control" name="serial"></th>
               <th><i class="fa fa-tags"></i> Ref Type</th>
               <th><i class="fa fa-calendar"></i> Date</th>
               <th><i class="fa fa-arrow-right"></i> Dir</th>
