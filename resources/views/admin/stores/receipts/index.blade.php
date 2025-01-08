@@ -4,6 +4,20 @@
 <li class="breadcrumb-item active" aria-current="page">Receipts</li>
 @endsection
 @section('contents')
+<style>
+  .custom-input {
+    height: 22px !important;
+    border-radius: 0 !important;
+    /* padding: 0.2rem 0.5rem; */
+  }
+
+  .custom-input::placeholder {
+    font-size: 11px;
+  }
+  input[type="text"] {
+    font-size: 12px; }
+  
+</style>
 <h1 class="mt-3 pb-2 d-flex" style="border-bottom: 2px solid #dedede">Store Movement Receipts</h1>
 <div class="row">
   <div class="col col-12 collapse @if (
@@ -99,27 +113,13 @@
 <div class="row">
   <div class="col col-12">
     <fieldset class="mt-4 mx-0 mb-0">
-    <legend>Receipts &nbsp; &nbsp;
+      <legend>Receipts &nbsp; &nbsp;
         <a class="ms-3" data-bs-toggle="collapse" data-bs-target="#addreceiptForm" aria-expanded="false"
           aria-controls="addreceiptForm">
           <i data-bs-toggle="tooltip" title="Add New Receipt" class="fa fa-plus"></i>
         </a>
       </legend>
-      <div class="row d-flex justify-content-end ">
-    <form method="GET"  action="{{ route('display-recepits-list') }}"  class="col col-8">
-        <div class="input-group sm mb-2">
-            <input type="text" class="form-control" name="serial" value="{{ request('serial') }}" placeholder="Serial Number" data-bs-toggle="tooltip" data-bs-placement="top" title="Serial Number">
-            <input type="date" class="form-control" name="beforeDate" value="{{ request('beforeDate') }}" placeholder="Before Date" data-bs-toggle="tooltip" data-bs-placement="top" title="Before Date">
-            <input type="date" class="form-control" name="afterDate" value="{{ request('afterDate') }}" placeholder="After Date" data-bs-toggle="tooltip" data-bs-placement="top" title="After Date">
-            <button type="submit" class="input-group-text btn py-0 btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Search">
-                <i class="fas fa-search me-1"></i> Search
-            </button>
-            <a href="{{ route('display-recepits-list') }}" class="input-group-text btn py-0 btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear Search">
-                <i class="fas fa-times me-1"></i> Clear
-            </a>
-        </div>
-    </form>
-</div>
+
       <div class="row d-flex justify-content-end ">
         <form method="GET" action="{{ route('display-recepits-list') }}" class="col col-8 sm">
           <div class="input-group sm mb-2">
@@ -136,7 +136,7 @@
               @endforeach
             </select>
             <select class="form-select form-control sm py-0" name="direction" id="direction">
-              <option value="0" >Dir</option>
+              <option value="0">Dir</option>
               @foreach ($receipt_direction as $d_index => $direction)
               <option {{isset($query['direction']) && $query['direction'] == $d_index ?'selected':''}} value="{{$d_index}}">{{$direction}}</option>
 
@@ -158,129 +158,138 @@
       </div>
 
       <table class="table table-striped table-bordered mt-2">
-          <thead>
-            <tr>
-              <th><i class="fa fa-list"></i></th>
-              <th><i class="fa fa-barcode"></i> SN</th>
-              <th><i class="fa fa-tags"></i> Ref Type</th>
-              <th><i class="fa fa-calendar"></i> Date</th>
-              <th><i class="fa fa-arrow-right"></i> Dir</th>
-              <th><i class="fa fa-user"></i> Person</th>
-              <th><i class="fa fa-check-circle"></i>Status</th>
-              <th><i class="fa fa-cogs"></i> Control</th>
-            </tr>
-          </thead>
-          <tbody id="receipt-list">
-            @php
-            $counter = 0;
-            @endphp
-            @foreach ($receipts as $receipt)
+        <thead>
+          <tr>
+            <th><i class="fa fa-list"></i></th>
+            <th class="d-flex  gap-2">
+              <div class="d-flex align-items-center">
+                <i class="fa fa-barcode me-1"></i>
+              SN
+              </div>
+              <input
+                type="text"
+                class="form-control  custom-input sm"
+                id="serialSearch"
+                name="serial"
+                placeholder="Search"
+                style="max-width: 120px;">
+            </th>
 
-            <tr>
-              <td>{{ ++$counter }}</td>
-              <td><a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"  title="Display Receipt" href="#">{{ $receipt->serial }}</a></td>
-              <td>{{ $receipt->getTypeName() }}</td>
-              <td>{{ $receipt->reception_date }}</td>
-              <td>
-                @if ($receipt->direction === 1)
-                <span class="badge bg-success">{{ $receipt_direction[$receipt->direction] }}</span>
-                @elseif($receipt->direction === 2)
-                <span class="badge bg-danger">{{ $receipt_direction[$receipt->direction] }}</span>
-                @endif
-              </td>
-              <td data-bs-toggle="tooltip" title="{{ 'Manager' }}" {{-- @$receipt->admin->profile->possition --}}>{{ $receipt->admin->userName }}</td>
-              <td>
-                @if($receipt->status === 1)
-                <span class="badge bg-secondary"> {{ $receipt_status[$receipt->status] }}</span>
-                @elseif($receipt->status === 2)
-                <span class="badge bg-info"> {{ $receipt_status[$receipt->status] }}</span>
-                @elseif($receipt->status === 3)
-                <span class="badge bg-warning"> {{ $receipt_status[$receipt->status] }}</span>
-                @endif
-              </td>
-              <td>
-                @if($receipt->status == 1)
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
-                  href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
-                    class="fa fa-edit text-primary"></i></a>
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
+            <th><i class="fa fa-tags"></i> Ref Type</th>
+            <th><i class="fa fa-calendar"></i> Date</th>
+            <th><i class="fa fa-arrow-right"></i> Dir</th>
+            <th><i class="fa fa-user"></i> Person</th>
+            <th><i class="fa fa-check-circle"></i>Status</th>
+            <th><i class="fa fa-cogs"></i> Control</th>
+          </tr>
+        </thead>
+        <tbody id="searchResults">
+          @php
+          $counter = 0;
+          @endphp
+          @foreach ($receipts as $receipt)
+
+          <tr>
+            <td>{{ ++$counter }}</td>
+            <td><a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Display Receipt" href="#">{{ $receipt->serial }}</a></td>
+            <td>{{ $receipt->getTypeName() }}</td>
+            <td>{{ $receipt->reception_date }}</td>
+            <td>
+              @if ($receipt->direction === 1)
+              <span class="badge bg-success">{{ $receipt_direction[$receipt->direction] }}</span>
+              @elseif($receipt->direction === 2)
+              <span class="badge bg-danger">{{ $receipt_direction[$receipt->direction] }}</span>
+              @endif
+            </td>
+            <td data-bs-toggle="tooltip" title="{{ 'Manager' }}" {{-- @$receipt->admin->profile->possition --}}>{{ $receipt->admin->userName }}</td>
+            <td>
+              @if($receipt->status === 1)
+              <span class="badge bg-secondary"> {{ $receipt_status[$receipt->status] }}</span>
+              @elseif($receipt->status === 2)
+              <span class="badge bg-info"> {{ $receipt_status[$receipt->status] }}</span>
+              @elseif($receipt->status === 3)
+              <span class="badge bg-warning"> {{ $receipt_status[$receipt->status] }}</span>
+              @endif
+            </td>
+            <td>
+              @if($receipt->status == 1)
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="edit Receipt"
+                href="{{ route('edit-receipt-info', [$receipt->id]) }}"><i
+                  class="fa fa-edit text-primary"></i></a>
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Approve Receipt"
                 href="{{ route('approve-receipt', [$receipt->id]) }}"><i class="fa fa-check text-info"></i></a>
-                @php
-                $addEntry =
-                $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
-                @endphp
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Add Entries"
-                  href="{{ route($addEntry, [$receipt->id]) }}"><i
-                    class="fa fa-square-plus text-success"></i></a>
+              @php
+              $addEntry =
+              $receipt->direction === 1 ? 'add-store-input-entry' : 'add-store-output-entry';
+              @endphp
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Add Entries"
+                href="{{ route($addEntry, [$receipt->id]) }}"><i
+                  class="fa fa-square-plus text-success"></i></a>
 
-                @elseif($receipt->status == 2)
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Enable Receipt Entries "
-                  href=""><i class="fa fa-ban text-primary"></i></a>
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"
-                  title="archive Receipt"
-                  onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
-                  href="{{ route('archive-receipt', [$receipt->id]) }}"><i
-                    class="fa fa-archive text-danger"></i></a>
+              @elseif($receipt->status == 2)
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Enable Receipt Entries "
+                href=""><i class="fa fa-ban text-primary"></i></a>
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip"
+                title="archive Receipt"
+                onclick="if (!confirm('You are going to archive this receipt, are you sure?'))return false"
+                href="{{ route('archive-receipt', [$receipt->id]) }}"><i
+                  class="fa fa-archive text-danger"></i></a>
 
-                @elseif($receipt->status == 3)
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
-                  onclick="if (!confirm('You are going to Restore this receipt, are you sure?'))return false"
-                  href="{{ route('restore-receipt-info', [$receipt->id]) }}"><i
-                    class="fa fa-undo text-warning"></i></a>
-                @endif
-                <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt" href=""><i
-                                      class="fa fa-file text-primary"></i></a>
-                              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt" href=""><i
-                                      class="fa fa-print text-secondary"></i></a>
-                              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title=" delete Receipt"
-                                  onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
-                                  href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
-                                      class="fa fa-trash-alt text-danger"></i></a>
-
-
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
+              @elseif($receipt->status == 3)
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Restore Receipt"
+                onclick="if (!confirm('You are going to Restore this receipt, are you sure?'))return false"
+                href="{{ route('restore-receipt-info', [$receipt->id]) }}"><i
+                  class="fa fa-undo text-warning"></i></a>
+              @endif
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt" href=""><i
+                  class="fa fa-file text-primary"></i></a>
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt" href=""><i
+                  class="fa fa-print text-secondary"></i></a>
+              <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title=" delete Receipt"
+                onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
+                href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
+                  class="fa fa-trash-alt text-danger"></i></a>
 
 
-        </table>
-      </fieldset>
-      <div class="mt-3">
-        {{ $receipts->links() }}
-      </div>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+
+
+      </table>
+    </fieldset>
+    <div class="mt-3">
+      {{ $receipts->links() }}
+    </div>
   </div>
 </div>
 
 <script>
-  $(document).ready(function () {
-    //sn search btn onkeyup
-    $('#search').on('keyup', function () {
-      //get search form params // dir, status, admin_id, reference_type
-      // get search value form sn input
-      // ajaxRequest
-      var search = $(this).val();
+  $(document).ready(function() {
+    $('#serialSearch').on('keyup', function() {
+      let query = $(this).val();
       var dir = $('#direction').val();
       var status = $('#status').val();
       var admin_id = $('#admin_id').val();
       var reference_type = $('#reference_type').val();
-      var url = "{{ route('display-recepits-list') }}";
+      var url = "{{ route('search.serial') }}";
       $.ajax({
         url: url,
-        type: 'GET',
-
+        type: "Get",
+        dataType: 'html',
         data: {
-          search,
+          'serial': query,
           dir,
           status,
           admin_id,
           reference_type
         },
-        success: function (response) {
-          const receiptData = JSON.parse(response).map();
-          $('#receipt-list').html(response);
+        success: function(data) {
+          // Handle the response data here
+          $('#searchResults').html(data);
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
           console.log(error);
         }
       });

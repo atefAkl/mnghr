@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
-    /**
+  /**
    * حالة الإيصالات.
    * هذا المصفوفة تحتوي على القيم الممكنة لحالة الإيصالات، 
    * والتى يتم التعبير عنها فى الروابط بالأرقام 
@@ -117,58 +117,58 @@ class StoreReceiptsController extends Controller
   //     'receipts'          => $receipts,
   //     'insert_entry'   => self::INSERT_ENTRY,
   //     'output_entry'  => self::OUTPUT_ENTRY,
-      
+
   //   ];
-    
+
   //   return view('admin.receipts.index', $vars);
   // }
 
   public function index()
-{
+  {
     $filters = request()->query();
     $conditions = [];
     $query = StoreReceipt::withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
 
     if (array_key_exists('status', $filters) && $filters['status'] != '0') {
-        $query->where('status', $filters['status']); // Use where on the query builder
+      $query->where('status', $filters['status']); // Use where on the query builder
     }
     if (array_key_exists('direction', $filters) && $filters['direction'] != '0') {
-        $query->where('direction', $filters['direction']);
+      $query->where('direction', $filters['direction']);
     }
     if (array_key_exists('reference_type', $filters) && $filters['reference_type'] != '') {
-        $query->where('reference_type', $filters['reference_type']);
+      $query->where('reference_type', $filters['reference_type']);
     }
     if (array_key_exists('admin_id', $filters) && $filters['admin_id'] != '') {
-        $query->where('admin_id', $filters['admin_id']);
+      $query->where('admin_id', $filters['admin_id']);
     }
 
     // Search functionality
     if (array_key_exists('serial', $filters) && $filters['serial'] != '') {
-        $query->where('serial', 'like', '%' . $filters['serial'] . '%'); // Use like for partial matches
+      $query->where('serial', 'like', '%' . $filters['serial'] . '%'); // Use like for partial matches
     }
     if (array_key_exists('beforeDate', $filters) && $filters['beforeDate'] != '') {
-        $query->where('reception_date', '<=', $filters['beforeDate']); // Assuming you have a reception_date column
+      $query->where('reception_date', '<=', $filters['beforeDate']); // Assuming you have a reception_date column
     }
     if (array_key_exists('afterDate', $filters) && $filters['afterDate'] != '') {
-        $query->where('reception_date', '>=', $filters['afterDate']);
+      $query->where('reception_date', '>=', $filters['afterDate']);
     }
 
     $receipts = $query->paginate(10); // Paginate the query
 
     $vars = [
-        'query' => request()->query(),
-        'admins' => Admin::all(),
-        'stores' => Store::all(),
-        'reference_types' => StoreReceipt::getReferenceTypes(),
-        'receipt_status' => static::$receipt_status,
-        'receipt_direction' => static::$receipt_direction,
-        'receipts' => $receipts,
-        'insert_entry' => self::INSERT_ENTRY,
-        'output_entry' => self::OUTPUT_ENTRY,
+      'query' => request()->query(),
+      'admins' => Admin::all(),
+      'stores' => Store::all(),
+      'reference_types' => StoreReceipt::getReferenceTypes(),
+      'receipt_status' => static::$receipt_status,
+      'receipt_direction' => static::$receipt_direction,
+      'receipts' => $receipts,
+      'insert_entry' => self::INSERT_ENTRY,
+      'output_entry' => self::OUTPUT_ENTRY,
     ];
 
     return view('admin.stores.receipts.index', $vars);
-}
+  }
 
   /**
    * عرض نموذج لإنشاء مورد جديد جديد.
@@ -230,27 +230,22 @@ class StoreReceiptsController extends Controller
   {
     //
   }
-
-  public function searchSN() {
-      $query = StoreReceipt::withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
-  
-      
+  public function searchSerial(Request $request)
+  {
+      $query = StoreReceipt::where('serial', 'LIKE', '%'.$request->serial.'%')->withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
       $receipts = $query->paginate(10); // Paginate the query
-  
       $vars = [
-          'query' => request()->query(),
-          'admins' => Admin::all(),
-          'stores' => Store::all(),
-          'reference_types' => StoreReceipt::getReferenceTypes(),
-          'receipt_status' => static::$receipt_status,
-          'receipt_direction' => static::$receipt_direction,
-          'receipts' => $receipts,
-          'insert_entry' => self::INSERT_ENTRY,
-          'output_entry' => self::OUTPUT_ENTRY,
+        'reference_types' => StoreReceipt::getReferenceTypes(),
+        'receipt_status' => static::$receipt_status,
+        'receipt_direction' => static::$receipt_direction,
+        'receipts' => $receipts,
+
       ];
-  
-      return view('admin.receipts.search.sn', $vars);
+      return view('admin.stores.receipts.search.S_search', $vars);
+    
   }
+
+
 
   /**
    * عرض نموذج لتعديل مورد محدد.
@@ -314,22 +309,21 @@ class StoreReceiptsController extends Controller
   public function archiveReceipt($id)
   {
 
-      // العثور على الإيصال باستخدام المعرف
-      $receipt = StoreReceipt::find($id);
-      // التحقق مما إذا كان الإيصال موجودًا
-  
-      if (!$receipt) {
-        return redirect()->back()->with('error', 'Receipt not found.');
-      }
-      try {
-        $receipt->status = 3;
-        $receipt->deleted_at =now(); // تعيين قيمة deleted_at إلى التاريخ والوقت الحالي
-        $receipt->save();
-        return redirect()->back()->with('success', 'Receipt Archived successfully.');
+    // العثور على الإيصال باستخدام المعرف
+    $receipt = StoreReceipt::find($id);
+    // التحقق مما إذا كان الإيصال موجودًا
 
+    if (!$receipt) {
+      return redirect()->back()->with('error', 'Receipt not found.');
+    }
+    try {
+      $receipt->status = 3;
+      $receipt->deleted_at = now(); // تعيين قيمة deleted_at إلى التاريخ والوقت الحالي
+      $receipt->save();
+      return redirect()->back()->with('success', 'Receipt Archived successfully.');
     } catch (Exception $e) {
-        return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
-      }
+      return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
+    }
   }
 
   public function approveReceipt($id)
@@ -346,11 +340,9 @@ class StoreReceiptsController extends Controller
       $receipt->updated_by = currentUserId(); // إذا كنت تحتاج إلى تتبع من قام بالتحديث
       $receipt->save();
       return redirect()->back()->with('success', 'Receipt Archived successfully.');
-
-  } catch (Exception $e) {
+    } catch (Exception $e) {
       return redirect()->back()->with('error', 'Error approving receipt: ' . $e->getMessage());
     }
-  
   }
 
   /**
@@ -364,24 +356,21 @@ class StoreReceiptsController extends Controller
    */
 
   public function restore($id)
-{
+  {
     try {
-        $receipt = StoreReceipt::withTrashed()->find($id); // Use find() to get the model instance
-        if ($receipt) { // Check if the receipt exists
-            $receipt->restore();
-            $receipt->status = 2;
-            $receipt->save();
+      $receipt = StoreReceipt::withTrashed()->find($id); // Use find() to get the model instance
+      if ($receipt) { // Check if the receipt exists
+        $receipt->restore();
+        $receipt->status = 2;
+        $receipt->save();
 
-            return redirect()->back()->with(['success' => 'Receipt Restore Successfully']);
-        } else {
-            return redirect()->back()->with(['error' => 'Receipt not found.']); // Handle the case where the receipt doesn't exist.
-        }
-
+        return redirect()->back()->with(['success' => 'Receipt Restore Successfully']);
+      } else {
+        return redirect()->back()->with(['error' => 'Receipt not found.']); // Handle the case where the receipt doesn't exist.
+      }
     } catch (Exception $err) {
-        return redirect()->back()->with(['error' => 'Receipt can not be restored due to: ' . $err->getMessage()]); // Use getMessage() for more specific error info
+      return redirect()->back()->with(['error' => 'Receipt can not be restored due to: ' . $err->getMessage()]); // Use getMessage() for more specific error info
     }
-
-
   }
 
   /**
