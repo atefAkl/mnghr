@@ -41,7 +41,7 @@ class StoreReceiptsController extends Controller
    * @var array
    */
   private static $receipt_status = [
-    0 => 'all',   // الكل
+    0 => 'All States',   // الكل
     1 => 'inprogress', // قيد التنفيذ
     2 => 'approved',   // معتمد
     3 => 'archived',   // مؤرشف
@@ -55,7 +55,7 @@ class StoreReceiptsController extends Controller
    * @var array
    */
   private static $receipt_direction = [
-    0 => 'all',   // الكل
+    0 => 'All Types',   // الكل
     1 => 'input', // المدخلات
     2 => 'output',   // المخرجات
 
@@ -232,17 +232,16 @@ class StoreReceiptsController extends Controller
   }
   public function searchSerial(Request $request)
   {
-      $query = StoreReceipt::where('serial', 'LIKE', '%'.$request->serial.'%')->withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
-      $receipts = $query->paginate(10); // Paginate the query
-      $vars = [
-        'reference_types' => StoreReceipt::getReferenceTypes(),
-        'receipt_status' => static::$receipt_status,
-        'receipt_direction' => static::$receipt_direction,
-        'receipts' => $receipts,
+    $query = StoreReceipt::where('serial', 'LIKE', '%' . $request->serial . '%')->withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
+    $receipts = $query->paginate(10); // Paginate the query
+    $vars = [
+      'reference_types' => StoreReceipt::getReferenceTypes(),
+      'receipt_status' => static::$receipt_status,
+      'receipt_direction' => static::$receipt_direction,
+      'receipts' => $receipts,
 
-      ];
-      return view('admin.stores.receipts.search.S_search', $vars);
-    
+    ];
+    return view('admin.stores.receipts.search.S_search', $vars);
   }
 
 
