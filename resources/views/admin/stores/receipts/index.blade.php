@@ -6,17 +6,21 @@
 @section('contents')
 <style>
   .custom-input {
-    height: 22px !important;
+    height: 25px !important;
     border-radius: 0 !important;
-    /* padding: 0.2rem 0.5rem; */
+    padding: 0.2rem 0.5rem;
   }
 
   .custom-input::placeholder {
     font-size: 11px;
   }
+
   input[type="text"] {
-    font-size: 12px; }
-  
+    font-size: 11px;
+  }
+  input[type="date"] {
+    font-size: 10px;
+  }
 </style>
 <h1 class="mt-3 pb-2 d-flex" style="border-bottom: 2px solid #dedede">Store Movement Receipts</h1>
 <div class="row">
@@ -152,7 +156,9 @@
               data-bs-toggle="tooltip" data-bs-placement="top" title="Filter">
               <i class="fas fa-filter me-1"></i> Filter
             </button>
-
+            <a href="{{ route('display-recepits-list') }}" class="input-group-text btn py-0 btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear Search">
+                <i class="fas fa-times me-1"></i> Clear
+            </a>
           </div>
         </form>
       </div>
@@ -161,22 +167,37 @@
         <thead>
           <tr>
             <th><i class="fa fa-list"></i></th>
-            <th class="d-flex  gap-2">
-              <div class="d-flex align-items-center">
-                <i class="fa fa-barcode me-1"></i>
-              SN
+            <th class="py-0 pt-2" style="max-width: 120px;">
+              <div class="input-group sm mb-2">
+                <label class="input-group-text  custom-input" for="serialSearch"><i class="fa fa-search "></i></label>
+                <input type="text" class="form-control   custom-input sm " name="serial" id="serialSearch" placeholder="Serial Number" >
               </div>
-              <input
-                type="text"
-                class="form-control  custom-input sm"
-                id="serialSearch"
-                name="serial"
-                placeholder="Search"
-                style="max-width: 120px;">
             </th>
-
             <th><i class="fa fa-tags"></i> Ref Type</th>
-            <th><i class="fa fa-calendar"></i> Date</th>
+            <th class="py-0 pt-2 " style="max-width: 200px;">
+              <div class="input-group sm mb-2">
+                <label class="input-group-text custom-input" for="reception_date" data-bs-toggle="tooltip" data-bs-placement="top" title="Reception Date">
+                  <i class="fa fa-calendar"></i>
+                </label>
+                <input
+                  type="text"
+                  id="after_date"
+                  class="form-control custom-input sm py-0 px-0"
+                  placeholder="After Date"
+                  onfocus="(this.type='date')"
+                  onblur="if(this.value==''){this.type='text'}">
+                <input
+                  type="text"
+                  id="before_date"
+                  class="form-control custom-input sm py-0 px-0"
+                  placeholder="Before Date"
+                  onfocus="(this.type='date')"
+                  onblur="if(this.value==''){this.type='text'}">
+                <button id="search" class="input-group-text custom-input sm py-0 btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Search">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </th>
             <th><i class="fa fa-arrow-right"></i> Dir</th>
             <th><i class="fa fa-user"></i> Person</th>
             <th><i class="fa fa-check-circle"></i>Status</th>
@@ -255,46 +276,69 @@
           </tr>
           @endforeach
         </tbody>
-
-
       </table>
     </fieldset>
-    <div class="mt-3">
+    <div class="mt-3 pagination-container">
       {{ $receipts->links() }}
     </div>
   </div>
 </div>
 
 <script>
-  $(document).ready(function() {
-    $('#serialSearch').on('keyup', function() {
-      let query = $(this).val();
-      var dir = $('#direction').val();
-      var status = $('#status').val();
-      var admin_id = $('#admin_id').val();
-      var reference_type = $('#reference_type').val();
-      var url = "{{ route('search.serial') }}";
+ $(document).ready(function() {
+    function performSearch() {
+        var serial = $('#serialSearch').val();
+         var dir = $('#direction').val();
+        var status = $('#status').val();
+        var admin_id = $('#admin_id').val();
+        var reference_type = $('#reference_type').val();
+        var after_date = $('#after_date').val();
+        var before_date = $('#before_date').val();
+        var Url = "{{ route('search.receipt') }}";
+      console.log(serial, Url , before_date,after_date);
       $.ajax({
-        url: url,
-        type: "Get",
+        url: Url,
+        type: "GET", // Use GET for retrieving data
         dataType: 'html',
-        data: {
-          'serial': query,
-          dir,
-          status,
-          admin_id,
-          reference_type
-        },
-        success: function(data) {
-          // Handle the response data here
-          $('#searchResults').html(data);
-        },
-        error: function(xhr, status, error) {
-          console.log(error);
-        }
-      });
-    });
-  });
-</script>
+            data: {
+                'serial': serial,
+                'after_date': after_date,
+                'before_date': before_date,
+                'dir': dir,
+                'status': status,
+                'admin_id': admin_id,
+                'reference_type': reference_type,
+              
+            },
+            success: function(data) {
+                $('#searchResults').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", error);
+                console.log("XHR:", xhr)
+            }
+        });
+    }
 
+    // Handle serial search input
+    $('#serialSearch').on('keyup', function() {
+        performSearch();
+    });
+
+    // Handle date search button click
+    $('#search').on('click', function() {
+        performSearch();
+    });
+
+    // Handle date input changes
+    $('#after_date').on('change', function() {
+        performSearch();
+    });
+      // Handle date input changes
+      $('#before_date').on('change', function() {
+        performSearch();
+    });
+});
+
+</script>
 @endsection

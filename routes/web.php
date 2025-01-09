@@ -166,8 +166,7 @@ Route::group(
     Route::get('receipts/archive/{id}',                     [StoreReceiptsController::class, 'archiveReceipt'])->name('archive-receipt');
     Route::get('/admin/receipts/approve/{id}',              [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
     Route::post('/admin/receipts/reject/{id}',              [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
-    Route::get('/search-serial',                            [StoreReceiptsController::class, 'searchSerial'])->name('search.serial');
-
+    Route::get('/search-receipts',                          [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
     /* ================================================================================================================================
       =========== Items Routes Collection ===================================================================================================
       ======================================================================================================================================== */
