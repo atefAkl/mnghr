@@ -153,7 +153,7 @@ class StoreReceiptsController extends Controller
       $query->where('reception_date', '>=', $filters['afterDate']);
     }
 
-    $receipts = $query->paginate(10); // Paginate the query
+    $receipts = $query->paginate(20); // Paginate the query
 
     $vars = [
       'query' => request()->query(),
@@ -230,20 +230,30 @@ class StoreReceiptsController extends Controller
   {
     //
   }
-  public function searchSerial(Request $request)
+
+  public function searchReceipt(Request $request)
   {
-    $query = StoreReceipt::where('serial', 'LIKE', '%' . $request->serial . '%')->withTrashed()->orderBy('serial', 'desc'); // Start with a query builder
-    $receipts = $query->paginate(10); // Paginate the query
+    $query = StoreReceipt::query()->withTrashed()->orderBy('serial', 'desc');
+    // Serial search
+    if ($request->serial) {
+      $query->where('serial', 'LIKE', '%' . $request->serial . '%');
+    }
+    // Date range filter
+    if ($request->after_date) {
+      $query->whereDate('reception_date', '>=', $request->after_date);
+    }
+    if ($request->before_date) {
+      $query->whereDate('reception_date', '<=', $request->before_date);
+    }
+    $receipts = $query->paginate(20);
     $vars = [
+      'receipts' => $receipts,
       'reference_types' => StoreReceipt::getReferenceTypes(),
       'receipt_status' => static::$receipt_status,
       'receipt_direction' => static::$receipt_direction,
-      'receipts' => $receipts,
-
     ];
-    return view('admin.stores.receipts.search.S_search', $vars);
+    return view('admin.stores.receipts.search.S_search',  $vars);
   }
-
 
 
   /**

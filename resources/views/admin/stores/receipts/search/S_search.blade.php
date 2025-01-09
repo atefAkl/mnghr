@@ -67,3 +67,7 @@
     </td>
   </tr>
 @endforeach
+@if ($receipts->isEmpty())
+    <tr><td colspan="8" class="text-center">No matching records found</td></tr>
+@endif
+
