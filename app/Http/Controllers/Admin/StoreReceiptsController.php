@@ -141,18 +141,6 @@ class StoreReceiptsController extends Controller
     if (array_key_exists('admin_id', $filters) && $filters['admin_id'] != '') {
       $query->where('admin_id', $filters['admin_id']);
     }
-
-    // Search functionality
-    if (array_key_exists('serial', $filters) && $filters['serial'] != '') {
-      $query->where('serial', 'like', '%' . $filters['serial'] . '%'); // Use like for partial matches
-    }
-    if (array_key_exists('beforeDate', $filters) && $filters['beforeDate'] != '') {
-      $query->where('reception_date', '<=', $filters['beforeDate']); // Assuming you have a reception_date column
-    }
-    if (array_key_exists('afterDate', $filters) && $filters['afterDate'] != '') {
-      $query->where('reception_date', '>=', $filters['afterDate']);
-    }
-
     $receipts = $query->paginate(20); // Paginate the query
 
     $vars = [
@@ -252,7 +240,7 @@ class StoreReceiptsController extends Controller
       'receipt_status' => static::$receipt_status,
       'receipt_direction' => static::$receipt_direction,
     ];
-    return view('admin.stores.receipts.search.S_search',  $vars);
+    return view('admin.stores.receipts.search.search',  $vars);
   }
 
 
