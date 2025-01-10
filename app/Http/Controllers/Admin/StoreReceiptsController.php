@@ -17,6 +17,8 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
+  private const STORE_RECEIPT_NUMBER = 150;
+
   /**
    * حالة الإيصالات.
    * هذا المصفوفة تحتوي على القيم الممكنة لحالة الإيصالات، 
@@ -142,8 +144,19 @@ class StoreReceiptsController extends Controller
       $query->where('admin_id', $filters['admin_id']);
     }
     $receipts = $query->paginate(20); // Paginate the query
+    $lastInputReceipt = StoreReceipt::where(['direction' => 1])->orderBy('id', "DESC")->first();
+    $lastOutputReceipt = StoreReceipt::where(['direction' => 2])->orderBy('id', "DESC")->first();
+    // 2 for year - 3 for DocIndex - 2 for DocType - 2 for Month - 5 for Doc Order
+    // str_pad(string $input, int $pad_length, string $pad_string = "0", int $pad_type = STR_PAD_RIGHT): string
 
+    $dynamic_in = str_pad($lastInputReceipt->serial + 1, 5, '0', STR_PAD_LEFT);
+    $dynamic_out = str_pad($lastOutputReceipt->serial + 1, 5, '0', STR_PAD_LEFT);
+    $gen_in_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::INSERT_ENTRY . date('m') . substr($dynamic_in, -5);
+    $gen_out_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::OUTPUT_ENTRY . date('m') . substr($dynamic_out, -5);
     $vars = [
+      'gen_in_sn' => $gen_in_sn,
+      'gen_out_sn' => $gen_out_sn,
+      'lasts' => [substr($lastInputReceipt->serial, -5), substr($lastOutputReceipt->serial, -5)],
       'query' => request()->query(),
       'admins' => Admin::all(),
       'stores' => Store::all(),
