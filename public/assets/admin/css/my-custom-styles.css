@@ -53,6 +53,10 @@ h5 {
     font: Bold 0.9rem/1.2 Arial;
 }
 
+.bg-lightblue{
+  background-color: #ebf5ff  !important;
+}
+
 fieldset {
     border: 0.5pt solid #dee2e6;
     padding: 2rem 1rem 1rem;

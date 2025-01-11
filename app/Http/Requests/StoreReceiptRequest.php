@@ -25,7 +25,7 @@ class StoreReceiptRequest extends FormRequest
         'reference'      => 'required|string|max:14',
         'reception_date' => 'required|date',
         'serial'         => 'required|string|size:14',
-        'breif'          => 'nullable|string|max:255',
+        'serial'        => 'required|string|size:14|unique:store_receipts,serial',
         'notes'          => 'nullable|string|max:255'
       ];
     }
@@ -45,8 +45,8 @@ class StoreReceiptRequest extends FormRequest
         'serial.required'         => 'The serial field is required.',
         'serial.string'           => 'The serial must be a number.',
         'serial.max'              => 'The serial may not be greater than 14 number.',
-  
-        'reception_date.required' => 'The date field is required.',
+        'serial.unique'            => 'The serial has already been taken.',
+        'reception_date.required'  => 'The date field is required.',
         'reception_date.date'     => 'The reception date must be a date.',
   
         'breif.string'            => 'The brief  must be a string.',

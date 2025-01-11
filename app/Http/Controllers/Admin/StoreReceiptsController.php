@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 class StoreReceiptsController extends Controller
 {
 
-  private const STORE_RECEIPT_NUMBER = 150;
+  private const STORE_RECEIPT_NUMBER = 1500;
 
   /**
    * حالة الإيصالات.
@@ -89,42 +89,6 @@ class StoreReceiptsController extends Controller
    * كانت قيد الاتعديل أو تمت الموافقة عليها أو مؤرشفة.
    * @return \Illuminate\View\View
    */
-  // public function index()
-  // {
-  //   $filters = request()->query();
-  //   $conditions = [];
-  //   if (array_key_exists('status' ,$filters) && $filters['status'] != '0') {
-  //     $conditions['status'] = $filters['status'];
-  //   }
-  //   if (array_key_exists('direction' ,$filters) && $filters['direction'] != '0') {
-  //     $conditions['direction'] = $filters['direction'];
-  //   }
-
-  //   if (array_key_exists('reference_type' ,$filters) && $filters['reference_type'] != '') {
-  //     $conditions['reference_type'] = $filters['reference_type'];
-  //   }
-  //   if (array_key_exists('admin_id' ,$filters) && $filters['admin_id'] != '') {
-  //     $conditions['admin_id'] = $filters['admin_id'];
-  //   }
-
-
-  //   $receipts = StoreReceipt::where($conditions)->withTrashed()->orderBy('serial', 'desc')->paginate(10);
-  //   $vars = [
-  //     'query'             => request()->query(),
-  //     'admins'            => Admin::all(),
-  //     'stores'            => Store::all(),
-  //     'reference_types'   => StoreReceipt::getReferenceTypes(),
-  //     'receipt_status'    => static::$receipt_status,
-  //     'receipt_direction' => static::$receipt_direction,
-  //     'receipts'          => $receipts,
-  //     'insert_entry'   => self::INSERT_ENTRY,
-  //     'output_entry'  => self::OUTPUT_ENTRY,
-
-  //   ];
-
-  //   return view('admin.receipts.index', $vars);
-  // }
-
   public function index()
   {
     $filters = request()->query();
@@ -146,29 +110,30 @@ class StoreReceiptsController extends Controller
     $receipts = $query->paginate(20); // Paginate the query
     $lastInputReceipt = StoreReceipt::where(['direction' => 1])->orderBy('id', "DESC")->first();
     $lastOutputReceipt = StoreReceipt::where(['direction' => 2])->orderBy('id', "DESC")->first();
-    // 2 for year - 3 for DocIndex - 2 for DocType - 2 for Month - 5 for Doc Order
-    // str_pad(string $input, int $pad_length, string $pad_string = "0", int $pad_type = STR_PAD_RIGHT): string
-
-    $dynamic_in = str_pad($lastInputReceipt->serial + 1, 5, '0', STR_PAD_LEFT);
-    $dynamic_out = str_pad($lastOutputReceipt->serial + 1, 5, '0', STR_PAD_LEFT);
+    
+    $dynamic_in = $lastInputReceipt ? str_pad((int) $lastInputReceipt->serial + 1, 5, '0', STR_PAD_LEFT) : str_pad(1, 5, '0', STR_PAD_LEFT);
+    $dynamic_out = $lastOutputReceipt ? str_pad((int) $lastOutputReceipt->serial + 1, 5, '0', STR_PAD_LEFT) : str_pad(1, 5, '0', STR_PAD_LEFT);
+    
     $gen_in_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::INSERT_ENTRY . date('m') . substr($dynamic_in, -5);
     $gen_out_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::OUTPUT_ENTRY . date('m') . substr($dynamic_out, -5);
+    
     $vars = [
-      'gen_in_sn' => $gen_in_sn,
-      'gen_out_sn' => $gen_out_sn,
-      'lasts' => [substr($lastInputReceipt->serial, -5), substr($lastOutputReceipt->serial, -5)],
-      'query' => request()->query(),
-      'admins' => Admin::all(),
-      'stores' => Store::all(),
-      'reference_types' => StoreReceipt::getReferenceTypes(),
-      'receipt_status' => static::$receipt_status,
-      'receipt_direction' => static::$receipt_direction,
-      'receipts' => $receipts,
-      'insert_entry' => self::INSERT_ENTRY,
-      'output_entry' => self::OUTPUT_ENTRY,
-    ];
-
-    return view('admin.stores.receipts.index', $vars);
+        'gen_in_sn' => $gen_in_sn,
+        'gen_out_sn' => $gen_out_sn,
+        'lasts' => [$lastInputReceipt ? substr($lastInputReceipt->serial, -5) : '00001', $lastOutputReceipt ? substr($lastOutputReceipt->serial, -5) : '00001'],
+        'query' => request()->query(),
+        'admins' => Admin::all(),
+        'stores' => Store::all(),
+        'reference_types' => StoreReceipt::getReferenceTypes(),
+        'receipt_status' => static::$receipt_status,
+        'receipt_direction' => static::$receipt_direction,
+        'receipts' => $receipts,
+        'insert_entry' => self::INSERT_ENTRY,
+        'output_entry' => self::OUTPUT_ENTRY,
+      ];
+        return view('admin.stores.receipts.index', $vars);
+  
+  
   }
 
   /**
