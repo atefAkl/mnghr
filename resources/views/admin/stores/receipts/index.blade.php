@@ -19,33 +19,37 @@
           <form action="/admin/receipts/store" method="POST">
             @csrf
             <div class="input-group sm mb-2">
+              <?php
+              $currentDateTime = date('Y-m-d\TH:i');
+              ?>
               <label class="input-group-text" for="reception_date">Reception Date</label>
-              <input type="datetime-local" class="form-control sm" name="reception_date" id="reception_date">
+              <input type="datetime-local" class="form-control sm" name="reception_date" id="reception_date" value="<?php echo $currentDateTime; ?>">
+
               <label class="input-group-text" for="reference">Reference</label>
               <input type="number" class="form-control sm" name="reference" id="reference">
               <label class="input-group-text" for="reference_type">Reference Type</label>
               <select class="form-select form-control sm py-0" name="reference_type" id="reference_type">
-              <option readonly>All Ref Types</option>
+                <option readonly>All Ref Types</option>
                 @foreach ($reference_types as $key => $value)
                 <option value="{{ $key }}">{{ $value }}</option>
                 @endforeach
               </select>
             </div>
             <div class="input-group sm mt-2">
-            <label class="input-group-text" for="serial">Serial Number</label>
+              <label class="input-group-text" for="serial">Serial Number</label>
               <input type="text" class="form-control sm" name="serial" id="serial"
                 data-in="{{ $gen_in_sn }}" data-out="{{ $gen_out_sn }}"
                 value="{{ $gen_in_sn }}">
               <label class="input-group-text" for="admin_id">Person</label>
               <select class="form-select  form-control sm py-0" name="admin_id" id="admin_id">
-              <option readonly>All Persons</option>
+                <option readonly>All Persons</option>
                 @foreach ($admins as $admin)
                 <option value="{{ $admin->id }}">{{ $admin->userName }}</option>
                 @endforeach
               </select>
               <label class="input-group-text" for="store_id">Store</label>
               <select class="form-select  form-control sm py-0" name="store_id" id="store_id">
-              <option readonly>All Stores </option>
+                <option readonly>All Stores </option>
                 @foreach ($stores as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
@@ -61,17 +65,17 @@
             </div>
             <div class="input-group sm mt-2">
               <label class="input-group-text">Receipt [direction] Type:</label>
-                <div class="input-group-text">
-                  <input class="form-check-input sm mt-0" name="direction" type="radio" checked
-                    value="{{ $insert_entry }}" id="input">
-                </div>
-                <label for="input" class="input-group-text text-start">Input</label>
-                <div class="input-group-text">
-                  <input class="form-check-input mt-0 sm" name="direction" type="radio"
-                    value="{{ $output_entry }}" id="output">
-                </div>
-                <label for="output" class="input-group-text text-start">Output</label>
-                <button type="submit" class="form-control py-0 btn btn-outline-primary">Save Receipt</button>
+              <div class="input-group-text">
+                <input class="form-check-input sm mt-0" name="direction" type="radio" checked
+                  value="{{ $insert_entry }}" id="input">
+              </div>
+              <label for="input" class="input-group-text text-start">Input</label>
+              <div class="input-group-text">
+                <input class="form-check-input mt-0 sm" name="direction" type="radio"
+                  value="{{ $output_entry }}" id="output">
+              </div>
+              <label for="output" class="input-group-text text-start">Output</label>
+              <button type="submit" class="form-control py-0 btn btn-outline-primary">Save Receipt</button>
             </div>
           </form>
         </div>
@@ -99,7 +103,7 @@
     </div>
     <div class="py-2" style="border-bottom: 2px solid #dedede"></div>
   </div>
-</div> 
+</div>
 <div class="row ">
   <div class="col col-12">
     <fieldset class="mt-4 mx-0 mb-0 bg-lightblue">
@@ -353,7 +357,7 @@
       performSearch();
     });
   });
-  
+
   document.addEventListener('DOMContentLoaded', function() {
     const serialInput = document.getElementById('serial');
     const inputRadio = document.getElementById('input');
@@ -361,17 +365,17 @@
 
     // Event listener to check changes on radio buttons
     inputRadio.addEventListener('change', function() {
-        if (inputRadio.checked) {
-            serialInput.value = serialInput.dataset.in;
-        }
+      if (inputRadio.checked) {
+        serialInput.value = serialInput.dataset.in;
+      }
     });
 
     outputRadio.addEventListener('change', function() {
-        if (outputRadio.checked) {
-            serialInput.value = serialInput.dataset.out;
-        }
+      if (outputRadio.checked) {
+        serialInput.value = serialInput.dataset.out;
+      }
     });
-});
+  });
 </script>
 
 @endsection
