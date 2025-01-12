@@ -13,7 +13,7 @@ use App\Models\Admin;
 use Illuminate\View\View;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-
+  use Carbon\Carbon;
 class StoreReceiptsController extends Controller
 {
 
@@ -116,6 +116,9 @@ class StoreReceiptsController extends Controller
     
     $gen_in_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::INSERT_ENTRY . date('m') . substr($dynamic_in, -5);
     $gen_out_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::OUTPUT_ENTRY . date('m') . substr($dynamic_out, -5);
+    $currentTime = Carbon::now();
+    $formattedTime = $currentTime->format('Y-m-d H:i:s');
+
     $vars = [
         'gen_in_sn' => $gen_in_sn,
         'gen_out_sn' => $gen_out_sn,
@@ -129,6 +132,7 @@ class StoreReceiptsController extends Controller
         'receipts'      => $receipts,
         'insert_entry'  => self::INSERT_ENTRY,
         'output_entry'  => self::OUTPUT_ENTRY,
+        'formattedTime' =>$formattedTime
       ];
         return view('admin.stores.receipts.index', $vars);
   
