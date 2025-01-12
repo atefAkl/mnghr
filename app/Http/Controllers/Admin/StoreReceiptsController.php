@@ -116,7 +116,6 @@ class StoreReceiptsController extends Controller
     
     $gen_in_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::INSERT_ENTRY . date('m') . substr($dynamic_in, -5);
     $gen_out_sn = date('y') . self::STORE_RECEIPT_NUMBER . self::OUTPUT_ENTRY . date('m') . substr($dynamic_out, -5);
-    
     $vars = [
         'gen_in_sn' => $gen_in_sn,
         'gen_out_sn' => $gen_out_sn,
@@ -127,9 +126,9 @@ class StoreReceiptsController extends Controller
         'reference_types' => StoreReceipt::getReferenceTypes(),
         'receipt_status' => static::$receipt_status,
         'receipt_direction' => static::$receipt_direction,
-        'receipts' => $receipts,
-        'insert_entry' => self::INSERT_ENTRY,
-        'output_entry' => self::OUTPUT_ENTRY,
+        'receipts'      => $receipts,
+        'insert_entry'  => self::INSERT_ENTRY,
+        'output_entry'  => self::OUTPUT_ENTRY,
       ];
         return view('admin.stores.receipts.index', $vars);
   
@@ -161,9 +160,8 @@ class StoreReceiptsController extends Controller
    */
   public function store(StoreReceiptRequest $request)
   {
-
     try {
-      StoreReceipt::create([
+      StoreReceipt::create([ 
         'reception_date'          => $request->reception_date,
         'reference_type'          => $request->reference_type,
         'reference'               => $request->reference,

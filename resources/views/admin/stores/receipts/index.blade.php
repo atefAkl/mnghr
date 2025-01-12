@@ -19,11 +19,11 @@
           <form action="/admin/receipts/store" method="POST">
             @csrf
             <div class="input-group sm mb-2">
-              <?php
-              $currentDateTime = date('Y-m-d\TH:i');
-              ?>
+
+              
+
               <label class="input-group-text" for="reception_date">Reception Date</label>
-              <input type="datetime-local" class="form-control sm" name="reception_date" id="reception_date" value="<?php echo $currentDateTime; ?>">
+              <input type="datetime-local" class="form-control sm" name="reception_date" id="reception_date" >
 
               <label class="input-group-text" for="reference">Reference</label>
               <input type="number" class="form-control sm" name="reference" id="reference">
