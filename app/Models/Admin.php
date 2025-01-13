@@ -37,6 +37,14 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
+    public function edit(array $arr) {
+        
+        foreach ($arr as $key => $value) {
+            $this->$key = $value;
+        }
+        return $this;
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
         'last_login_at' => 'datetime',
@@ -67,7 +75,7 @@ class Admin extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(AdminRole::class);
     }
 
     public function getFullName()
