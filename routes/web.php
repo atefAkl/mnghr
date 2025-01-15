@@ -30,8 +30,9 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/',            [IndexController::class, 'index']);
-Route::get('home',         [IndexController::class, 'index'])->name('home');
+Route::get('/',                 [IndexController::class, 'index']);
+Route::get('home',              [IndexController::class, 'index'])->name('home');
+Route::get('/admin/dashboard',  [HomeController::class, 'index'])->name('admin-dashboard');
 //Route::get('home/index',   [HomeController::class, 'index'])->name('home.index');
 
 
@@ -53,20 +54,11 @@ Route::group(
     Route::get('/reset-password/{token}',                 [PasswordResetController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password',                        [PasswordResetController::class, 'resetPassword'])->name('password.update');
 
-    Route::get('logout',                                  [LoginController::class, 'logout'])->name('logout');
-    Route::get('/auth/login',                             [LoginController::class, 'index'])->name('admin.auth.login');
-    Route::post('/login',                                  [LoginController::class, 'login'])->name('admin.login');
   }
 );
 
-Route::group(
-  [
-    'namespace'     => 'Admin',
-    'prefix'        => 'admin',
-    'middleware'    => 'auth:admin'
-  ],
-  function () {
 
+<<<<<<< HEAD
     Route::get('/dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
     Route::get('/operations/log',            [HomeController::class, 'log'])->name('operations.log');
     Route::get('/dashboard/home',            [HomeController::class, 'index'])->name('home.index');
@@ -210,3 +202,5 @@ Route::group(
 
   }
 );
+=======
+>>>>>>> 9759686e70923fdc5f3163cfc7acf4606df120bb

@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -174,9 +175,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
       
+=======
+        App\Providers\RedirectServiceProvider::class,
+>>>>>>> 9759686e70923fdc5f3163cfc7acf4606df120bb
 
     ],
     
@@ -233,8 +238,12 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+<<<<<<< HEAD
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
         'Excel' => Maatwebsite\Excel\Facade\Excel::class,
+=======
+        'Redirect' => Illuminate\Support\Facades\Redirect::class,
+>>>>>>> 9759686e70923fdc5f3163cfc7acf4606df120bb
     ],
 
 ];
