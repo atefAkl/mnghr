@@ -58,7 +58,6 @@ Route::group(
 );
 
 
-<<<<<<< HEAD
     Route::get('/dashboard',                 [HomeController::class, 'index'])->name('admin.dashboard');
     Route::get('/operations/log',            [HomeController::class, 'log'])->name('operations.log');
     Route::get('/dashboard/home',            [HomeController::class, 'index'])->name('home.index');
@@ -200,7 +199,3 @@ Route::group(
     Route::post('branches/update',                     [BranchesController::class, 'update'])->name('update-branch-info');
     Route::get('branches/delete/{id}',                 [BranchesController::class, 'destroy'])->name('destroy-branch');
 
-  }
-);
-=======
->>>>>>> 9759686e70923fdc5f3163cfc7acf4606df120bb
