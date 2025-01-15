@@ -151,9 +151,12 @@ Route::group(
     Route::get('stores/reports/home',                   [StoreReportsController::class, 'reports'])->name('store-reports');
     Route::get('stores/settings/home',                  [StoreSettingsController::class, 'settings'])->name('store-settings');
 
-    /* == Stores Receipts Copy == */
-    // Route::get('/receipts/copy/{direction}/{tab}',          [StoreReceiptsCopyController::class, 'home'])->name('display-receipts-copy');
-    Route::get('/receipts/index/copy',       [StoreReceiptsCopyController::class, 'index'])->name('display-recepit-copy');
+      /* ========================================================================================================================================
+        =========== Store reports Routes Collection =======================================================================================
+        ======================================================================================================================================== */
+
+      Route::get('/generate-pdf', [StoreReportsController::class, 'generatePDF']);
+    
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection =======================================================================================
         ======================================================================================================================================== */

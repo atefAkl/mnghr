@@ -169,7 +169,7 @@
                 Back To Store
             </button>
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Back to Receipts">
-                <a href="{{ route('display-receipts-list', ['Output', 1]) }}">Back To Receipts</a>
+                <a href="{{ route('display-recepits-list') }}">Back To Receipts</a>
             </button>
             <button class="btn px-3 py-1 btn-outline-secondary btn-sm" title="Approve Receipt">
                 Approve Receipt
