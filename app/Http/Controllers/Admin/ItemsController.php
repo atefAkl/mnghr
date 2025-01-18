@@ -12,7 +12,6 @@ use App\Models\Unit;
 use App\Models\User;
 use Exception;
 
-
 class ItemsController extends Controller
 {
 
@@ -26,7 +25,7 @@ class ItemsController extends Controller
 
     $products = Item::all();
     $vars = [
-
+      'cats' => ItemCategroy::roots(),
       'products' => $products
     ];
     return view('admin.items.index', $vars);
@@ -141,7 +140,11 @@ class ItemsController extends Controller
     return view('admin.items.filter', $vars);
   }
 
-
+  public function getCategoryProducts($id)
+  {
+    $products = Item::where('category_id', $id)->get();
+    return view('admin.items.products-list', ['products' => $products]);
+  }
 
   /**
    * Show the form for editing the specified resource.
