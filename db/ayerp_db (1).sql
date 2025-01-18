@@ -225,9 +225,4 @@ COMMIT;
 
 
 
-SELECT u.Username, a.AccountName, a.Balance
-FROM Users u
-LEFT JOIN Accounts a ON u.UserID = a.UserID;
-
-
 

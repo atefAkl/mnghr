@@ -63,7 +63,7 @@ class LoginController extends Controller
                 ->performedOn($user)
                 ->log('تم تسجيل الدخول بنجاح');
 
-            return redirect()->route('admin.dashboard')
+            return redirect()->route('admin-dashboard-home')
                 ->with('success', 'تم تسجيل الدخول بنجاح');
         }
 
@@ -94,7 +94,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.auth.login')
+        return redirect()->route('admin.login')
             ->with('success', 'تم تسجيل الخروج بنجاح');
     }
 }
