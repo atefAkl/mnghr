@@ -135,8 +135,7 @@ class StoreReceiptsController extends Controller
         'formattedTime' =>$formattedTime
       ];
         return view('admin.stores.receipts.index', $vars);
-  
-  
+
   }
 
   /**

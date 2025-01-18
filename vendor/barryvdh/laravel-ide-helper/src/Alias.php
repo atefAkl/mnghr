@@ -13,8 +13,10 @@ namespace Barryvdh\LaravelIdeHelper;
 
 use Barryvdh\Reflection\DocBlock;
 use Barryvdh\Reflection\DocBlock\Context;
+use Barryvdh\Reflection\DocBlock\ContextFactory;
 use Barryvdh\Reflection\DocBlock\Serializer as DocBlockSerializer;
 use Barryvdh\Reflection\DocBlock\Tag\MethodTag;
+use Barryvdh\Reflection\DocBlock\Tag\TemplateTag;
 use Closure;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -44,8 +46,13 @@ class Alias
     protected $phpdoc = null;
     protected $classAliases = [];
 
+    protected $isMacroable = false;
+
     /** @var ConfigRepository  */
     protected $config;
+
+    /** @var string[] */
+    protected $templateNames;
 
     /**
      * @param ConfigRepository $config
@@ -55,12 +62,13 @@ class Alias
      * @param array            $magicMethods
      * @param array            $interfaces
      */
-    public function __construct($config, $alias, $facade, $magicMethods = [], $interfaces = [])
+    public function __construct($config, $alias, $facade, $magicMethods = [], $interfaces = [], $isMacroable = false)
     {
         $this->alias = $alias;
         $this->magicMethods = $magicMethods;
         $this->interfaces = $interfaces;
         $this->config = $config;
+        $this->isMacroable = $isMacroable;
 
         // Make the class absolute
         $facade = '\\' . ltrim($facade, '\\');
@@ -81,7 +89,12 @@ class Alias
         $this->detectExtendsNamespace();
 
         if (!empty($this->namespace)) {
-            $this->classAliases = (new UsesResolver())->loadFromClass($this->root);
+            try {
+                $this->classAliases = (new ContextFactory())->createFromReflector(new ReflectionClass($this->root))->getNamespaceAliases();
+            } catch (Throwable $e) {
+                $this->classAliases = [];
+            }
+
 
             //Create a DocBlock and serializer instance
             $this->phpdoc = new DocBlock(new ReflectionClass($alias), new Context($this->namespace, $this->classAliases));
@@ -341,7 +354,8 @@ class Alias
                         $magic,
                         $this->interfaces,
                         $this->classAliases,
-                        $this->getReturnTypeNormalizers($class)
+                        $this->getReturnTypeNormalizers($class),
+                        $this->getTemplateNames()
                     );
                 }
                 $this->usedMethods[] = $magic;
@@ -373,7 +387,8 @@ class Alias
                                 $method->name,
                                 $this->interfaces,
                                 $this->classAliases,
-                                $this->getReturnTypeNormalizers($reflection)
+                                $this->getReturnTypeNormalizers($reflection),
+                                $this->getTemplateNames(),
                             );
                         }
                         $this->usedMethods[] = $method->name;
@@ -383,15 +398,20 @@ class Alias
 
             // Check if the class is macroable
             // (Eloquent\Builder is also macroable but doesn't use Macroable trait)
-            $traits = collect($reflection->getTraitNames());
-            if ($traits->contains('Illuminate\Support\Traits\Macroable') || $class === EloquentBuilder::class) {
+            if ($this->isMacroable || $class === EloquentBuilder::class) {
                 $properties = $reflection->getStaticProperties();
                 $macros = isset($properties['macros']) ? $properties['macros'] : [];
                 foreach ($macros as $macro_name => $macro_func) {
                     if (!in_array($macro_name, $this->usedMethods)) {
+                        try {
+                            $method = $this->getMacroFunction($macro_func);
+                        } catch (Throwable $e) {
+                            // Invalid method, skip
+                            continue;
+                        }
                         // Add macros
                         $this->methods[] = new Macro(
-                            $this->getMacroFunction($macro_func),
+                            $method,
                             $this->alias,
                             $reflection,
                             $macro_name,
@@ -466,6 +486,67 @@ class Alias
 
         $this->removeDuplicateMethodsFromPhpDoc();
         return $serializer->getDocComment($this->phpdoc);
+    }
+
+    /**
+     * @param $prefix
+     * @return string
+     */
+    public function getPhpDocTemplates($prefix = "\t\t")
+    {
+        $templateDoc = new DocBlock('');
+        $serializer = new DocBlockSerializer(1, $prefix);
+
+        foreach ($this->getTemplateNames() as $templateName) {
+            $template = new TemplateTag('template', $templateName);
+            $template->setBound('static');
+            $template->setDocBlock($templateDoc);
+            $templateDoc->appendTag($template);
+        }
+
+        return $serializer->getDocComment($templateDoc);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTemplateNames()
+    {
+        if (!isset($this->templateNames)) {
+            $this->detectTemplateNames();
+        }
+        return $this->templateNames;
+    }
+
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function detectTemplateNames()
+    {
+        $templateNames = [];
+        foreach ($this->classes as $class) {
+            $reflection = new ReflectionClass($class);
+            $traits = collect($reflection->getTraitNames());
+
+            $phpdoc = new DocBlock($reflection);
+            $templates = $phpdoc->getTagsByName('template');
+            /** @var TemplateTag $template */
+            foreach ($templates as $template) {
+                $templateNames[] = $template->getTemplateName();
+            }
+
+            foreach ($traits as $trait) {
+                $phpdoc = new DocBlock(new ReflectionClass($trait));
+                $templates = $phpdoc->getTagsByName('template');
+
+                /** @var TemplateTag $template */
+                foreach ($templates as $template) {
+                    $templateNames[] = $template->getTemplateName();
+                }
+            }
+        }
+        $this->templateNames = $templateNames;
     }
 
     /**

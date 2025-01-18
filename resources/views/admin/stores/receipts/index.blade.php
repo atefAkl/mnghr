@@ -276,7 +276,7 @@
               <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="Q-Display Receipt"
                 href=""><i class="fa fa-file text-primary"></i></a>
               <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title="print Receipt"
-                href=""><i class="fa fa-print text-secondary"></i></a>
+                href="/admin/generate-pdf"><i class="fa fa-print text-secondary"></i></a>
               <a class="btn btn-sm py-0 p-0" data-bs-toggle="tooltip" title=" delete Receipt"
                 onclick="if (!confirm('You are going to delete this receipt, are you sure?'))return false"
                 href="{{ route('forceDelete-receipt-info', [$receipt->id]) }}"><i
