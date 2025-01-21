@@ -36,7 +36,7 @@ Route::middleware('guest:admin')->prefix('admin')->group(function () {
 // Authenticated admin routes
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Authentication
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Dashboard
     Route::get('/dashboard', [HomeController::class, 'index'])->name('admin-dashboard');

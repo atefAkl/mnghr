@@ -32,9 +32,6 @@ use App\Http\Controllers\ProductsController;
 
 Route::get('/',                 [IndexController::class, 'index']);
 Route::get('home',              [IndexController::class, 'index'])->name('home');
-Route::get('/admin/dashboard',  [HomeController::class, 'index'])->name('admin-dashboard');
-//Route::get('home/index',   [HomeController::class, 'index'])->name('home.index');
-
 
 Route::group(
   [
@@ -53,6 +50,8 @@ Route::group(
     Route::post('/forgot-password',                       [PasswordResetController::class, 'sendResetLink'])->name('password.email');
     Route::get('/reset-password/{token}',                 [PasswordResetController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password',                        [PasswordResetController::class, 'resetPassword'])->name('password.update');
+
+    Route::get('/categories/{id}/products', [ItemsController::class, 'getCategoryProducts'])->name('admin.category.products');
 
   }
 );
