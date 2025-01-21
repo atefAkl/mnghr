@@ -1,4 +1,4 @@
-@include('admin.includes.headerstart')
+{{-- @include('admin.includes.headerstart') --}}
   @section('headerLinks')
 {{-- Font Awesome Icons --}}
   <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-free/css/all.min.css') }}">
