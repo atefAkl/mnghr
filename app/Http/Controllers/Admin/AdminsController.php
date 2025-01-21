@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
-
-
 use App\Models\AdminProfile;
+use Illuminate\Http\Request;
 use App\Models\Possitions;
 use App\Models\UserRule;
-use App\Models\Admin;
 use App\Models\AdminRole;
+use App\Models\Admin;
 use App\Models\Rule;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+
+
 
 class AdminsController extends Controller
 {

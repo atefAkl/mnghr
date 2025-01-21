@@ -1,26 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ItemCategoriesController;
+use App\Http\Controllers\Admin\StoreSettingsController;
+use App\Http\Controllers\Admin\PasswordResetController;
+use App\Http\Controllers\Admin\StoreReceiptsController;
+use App\Http\Controllers\Admin\StoreEntriesController;
+use App\Http\Controllers\Admin\StoreReportsController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\BranchesController;
+use App\Http\Controllers\Admin\StoresController;
+use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\RegisterController;
-use App\Http\Controllers\Admin\PasswordResetController;
-use App\Http\Controllers\Admin\StoreEntriesController;
-use App\Http\Controllers\Admin\ItemsController;
-use App\Http\Controllers\Admin\ItemCategoriesController;
-use App\Http\Controllers\Admin\BranchesController;
-use App\Http\Controllers\Admin\AdminsController;
-use App\Http\Controllers\Admin\StoresController;
-use App\Http\Controllers\Admin\StoreReportsController;
-use App\Http\Controllers\Admin\StoreSettingsController;
-use App\Http\Controllers\Admin\StoreReceiptsController;
-use App\Http\Controllers\Admin\SettingsController;
+use Illuminate\Support\Facades\Route;
 
 // Guest routes
 Route::middleware('guest:admin')->prefix('admin')->group(function () {
     // Authentication Routes
-    Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('admin.login');
+    Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [LoginController::class, 'login'])->name('check.login');
 
     // Registration Routes
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -36,12 +36,13 @@ Route::middleware('guest:admin')->prefix('admin')->group(function () {
 // Authenticated admin routes
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Authentication
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Dashboard
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin-dashboard');
-    Route::get('/operations/log', [HomeController::class, 'log'])->name('operations.log');
-    Route::get('/dashboard/home', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/dashboard',        [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/home',   [HomeController::class, 'index'])->name('dashboard-home');
+    Route::get('/operations/log',   [HomeController::class, 'log'])->name('operations.log');
+    
     Route::get('dashboard/settings/home', [SettingsController::class, 'index'])->name('dashboard-settings-home');
 
     // Store Entries Routes

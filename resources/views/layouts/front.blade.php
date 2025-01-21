@@ -88,7 +88,7 @@
                     <div class="d-flex ms-lg-4">
                         @if (auth()->guard('admin')->check())
                             <p>Welcome, {{ auth()->guard('admin')->user()->userName }}!</p>
-                            <a class="btn btn-warning ms-3" href="{{ route('logout') }}">تسجيل الخروج</a>
+                            <form method="POST" action="{{ route('logout') }}"> @csrf <button class="btn btn-primary m-0" type="submit">تسجيل الخروج</button></form>
                         @else
                             <a class="btn btn-secondary-outline" href="#!">Sign In</a>
                             <a class="btn btn-warning ms-3" href="#!">Sign Up</a>

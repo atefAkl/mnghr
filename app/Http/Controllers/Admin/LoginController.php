@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests\LoginRequest;
-use App\Http\Controllers\Admin\Controller;
-use Exception;
-use App\Models\Admin;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Http\Controllers\Admin\Controller;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
+use App\Models\Admin;
 use Carbon\Carbon;
+use Exception;
 
 class LoginController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +40,6 @@ class LoginController extends Controller
                 ->withInput($request->only('userName'))
                 ->with('error', "لقد تجاوزت الحد المسموح من المحاولات. يرجى المحاولة بعد {$seconds} ثانية.");
         }
-
         // محاولة تسجيل الدخول
         if (auth()->guard('admin')->attempt([
             'userName' => $request->input('userName'),
@@ -69,13 +67,11 @@ class LoginController extends Controller
 
         // تسجيل محاولة فاشلة
         RateLimiter::hit($key);
-
         return redirect()->back()
             ->withInput($request->only('userName'))
             ->with('error', 'بيانات الاعتماد غير صحيحة');
     }
     
-
     /**
      * Log the current user out.
      *
@@ -83,7 +79,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        $user = auth()->guard('admin')->user();
+        $user = Admin::find(auth()->guard('admin')->user()->id);
 
         // تسجيل عملية تسجيل الخروج
         activity()
