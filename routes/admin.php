@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/dashboard/home',   [HomeController::class, 'index'])->name('dashboard-home');
+
 // Guest routes
 Route::middleware('guest:admin')->prefix('admin')->group(function () {
     // Authentication Routes
@@ -40,7 +42,6 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     
     // Dashboard
     Route::get('/dashboard',        [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/home',   [HomeController::class, 'index'])->name('dashboard-home');
     Route::get('/operations/log',   [HomeController::class, 'log'])->name('operations.log');
     
     Route::get('dashboard/settings/home', [SettingsController::class, 'index'])->name('dashboard-settings-home');
@@ -116,6 +117,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [StoresController::class, 'edit'])->name('edit-store-info');
         Route::get('/destroy/{id}', [StoresController::class, 'destroy'])->name('destroy-store-info');
         Route::get('/reports/home', [StoreReportsController::class, 'reports'])->name('store-reports');
+        Route::get('/reports/template', [StoreReportsController::class, 'printTemplate'])->name('store-reports-template');
         Route::get('/settings/home', [StoreSettingsController::class, 'settings'])->name('store-settings');
     });
 

@@ -49,6 +49,13 @@ public function printReceipt($id){
     return view('admin.stores.reports.receiptInput' ,$vars);
 }
 
+public function printTemplate(){
+    
+  
+      return view('admin.stores.reports.template');
+  }
+  
+
 public function printReceiptCase(){
   $receipts = StoreReceipt::all();
   $vars = [
