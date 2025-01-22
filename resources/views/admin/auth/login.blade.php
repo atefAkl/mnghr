@@ -137,7 +137,7 @@
                 </div>
             @endif
             
-            <form method="POST" action="{{ route('admin.login') }}">
+            <form method="POST" action="{{ route('admin.login.submit') }}">
                 @csrf
                 
                 <div class="input-group mb-3">
@@ -173,7 +173,7 @@
                 <div class="links-section">
                     <a href="{{ route('password.request') }}" class="d-block mb-2">Forgot Password?</a>
                     <span class="d-block text-muted">Don't have an account?</span>
-                    <a href="{{ route('register') }}">Create new account</a>
+                    <a href="{{ route('admin.register') }}">Create new account</a>
                 </div>
             </form>
         </div>

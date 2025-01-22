@@ -38,8 +38,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    
+                <td>  
                     <div class="row">
                         <div class="col col-6">
                             <div class="row">
