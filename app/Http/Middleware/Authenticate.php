@@ -18,10 +18,10 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             // تحقق مما إذا كان الرابط يخص لوحة التحكم
             if ($request->is('admin') || $request->is('admin/*')) {
-                return route('admin.login');
+                return route('login');
             }
             // توجيه عام لصفحة تسجيل الدخول الافتراضية
-            return route('admin.login');
+            return route('login');
         }
     }
 }

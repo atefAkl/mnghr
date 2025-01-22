@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ auth()->guard('admin')->check() ? route('admin.dashboard') : route('admin.login') }}">
+                            <a class="nav-link" aria-current="page" href="{{ auth()->guard('admin')->check() ? route('admin.dashboard') : route('login') }}">
                                 Go to ERP
                             </a>
                         </li>
@@ -90,7 +90,7 @@
                             <p>Welcome, {{ auth()->guard('admin')->user()->userName }}!</p>
                             <form method="get" action="{{ route('logout') }}"> @csrf <button class="btn btn-primary m-0" type="submit">تسجيل الخروج</button></form>
                         @else
-                            <a class="btn btn-secondary-outline" href="{{ route('admin.login') }}">Sign In</a>
+                            <a class="btn btn-secondary-outline" href="{{ route('login') }}">Sign In</a>
                             <a class="btn btn-warning ms-3" href="#!">Sign Up</a>
                         @endif
                     </div>
