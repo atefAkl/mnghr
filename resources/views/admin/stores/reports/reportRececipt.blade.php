@@ -106,7 +106,7 @@
           </table>
 
 
-          <div class="row ">
+          <div class="row signature-section">
             <div class="col col-4">
               <br><br>
               <span class="signature"> Manager signature</span>

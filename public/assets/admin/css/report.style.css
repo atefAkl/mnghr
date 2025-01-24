@@ -103,13 +103,13 @@ table table tfoot .price {
   text-align: center;
   font-weight: bold;
 }
-
+.signature-section{
+  text-align: center;
+}
 .signature {
   border-top: 2px solid #39A7FF;
   ;
   width: 100%;
-
-
 }
 
 /*====== footer report Styles ============*/
