@@ -42,9 +42,9 @@ class LoginController extends Controller
         }
         // محاولة تسجيل الدخول
         if (auth()->guard('admin')->attempt([
-            'userName' => $request->input('userName'),
-            'password' => $request->input('password'),
-            'status' => 1 // التحقق من أن المستخدم نشط
+            'userName'  => $request->input('userName'),
+            'password'  => $request->input('password'),
+            'status'    => 1 // التحقق من أن المستخدم نشط
         ])) {
             RateLimiter::clear($key);
 
