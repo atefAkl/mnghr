@@ -13,4 +13,9 @@ class HomeController extends Controller
 
         return view('admin.settings.general.index');
     }
+    public function log()
+    {
+
+        return view('admin.settings.general.index');
+    }
 }

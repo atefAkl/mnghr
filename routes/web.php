@@ -136,7 +136,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         ======================================================================================================================================== */
     
     // Route::get('stores/report/receipt/input', [StoreReportsController::class, 'index'])->name('reports-receipt');
-    // Route::get('print/receipt/{id}', [StoreReportsController::class, 'printReceipt'])->name('print-receipt');
+    Route::get('print/receipt/{id}', [StoreReportsController::class, 'printReceipt'])->name('print-receipt');
     Route::get('/print/ReceiptCase', [StoreReportsController::class, 'printReceiptCase'])->name('print-Receipt-Case');
     Route::get('receipt/export/', [StoreReportsController::class, 'export'])->name('receipt-export');
   

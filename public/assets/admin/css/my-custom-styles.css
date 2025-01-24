@@ -25,6 +25,10 @@ a * {
     box-shadow: 0 0 5px 2px #ccc;
 }
 
+.border-radius-1 {
+    border-radius: 0.25rem;
+}
+
 h1,
 h2,
 h3,
@@ -107,18 +111,19 @@ legend .title-archived {
 
 .setting-item .item-icon,
 .setting-item .item-text  {
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .setting-item .item-icon {
     width: 50px;
+    color: #2b414b;
 }
 .setting-item:hover .item-icon {
     transform: scale(1.05) rotate(-1deg);
-    color: #0b7baf;
+    color: #006797;
 }
 .setting-item:hover .item-text p,
 .setting-item:hover .item-text small {
-    color: #0b7baf;
+    color: #006797;
 }
 .setting-item .item-text p {
     font: 800 0.9rem/1.2 'Cairo';
