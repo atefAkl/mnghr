@@ -126,5 +126,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/approve/{id}', [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
         Route::post('/reject/{id}', [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
         Route::get('/search', [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
+    // reports receipts
+        Route::get('/reports/receipt', [StoreReportsController::class, 'reportRececipt'])->name('store-reports-receipt');
+
     });
 });

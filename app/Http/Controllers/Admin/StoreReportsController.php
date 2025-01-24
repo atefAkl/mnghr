@@ -11,8 +11,6 @@ use App\Models\Item;
 use App\Models\StoreEntry;
 use App\Exports\ReceiptExport;
 use Maatwebsite\Excel\Facades\Excel;
-
-
 use App\Models\Unit;
 
 class StoreReportsController extends Controller
@@ -23,48 +21,15 @@ class StoreReportsController extends Controller
         return view('admin.stores.reports.home');
     }
 
-
-
-    public function generatePDF()
-    {
+  public function reportRececipt() : View    {
+    $receipts = StoreReceipt::all();
+    $vars = [
+        'receipts' => $receipts,
         
-        $receipts = StoreReceipt::all();
-        $data = [
-            'receipts' => $receipts,
-            
-        ];
-        $pdf = PDF::loadView('admin.stores.reports.receiptInput', $data);
-        // return $pdf->stream('report.pdf');
-         return $pdf->download('report.pdf');
-    }
-
-
-public function printReceipt($id){
-  $receipt = StoreReceipt::find($id)->first();
-  $vars = [
-      'receipt' => $receipt,
-      
-  ];
-
-    return view('admin.stores.reports.receiptInput' ,$vars);
-}
-
-public function printTemplate(){
-    
+    ];
   
-      return view('admin.stores.reports.template');
+      return view('admin.stores.reports.reportRececipt' ,$vars);
   }
-  
-
-public function printReceiptCase(){
-  $receipts = StoreReceipt::all();
-  $vars = [
-      'receipts' => $receipts,
-      
-  ];
-
-    return view('admin.stores.reports.case' ,$vars);
-}   
 
 public function export() 
     {

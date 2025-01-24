@@ -186,9 +186,9 @@
             </div>
             <div class="card">
                 <div class="card-title row">
-                    <h1 class="px-3"> input Receipt Report</h1>
+                    <h1 class="px-3">  Receipt Report</h1>
                 </div>
-                <a href="{{route('print-Receipt-Case')}}" class="card-description py-4 px-3">
+                <a href="{{route('store-reports-receipt')}}" class="card-description py-4 px-3">
                     <p>Represents all Receipt in the store, even those without credits</p>
                     See More...
                 </a>
