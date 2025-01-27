@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes
@@ -97,6 +100,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/assign/role/to/admin/{admin}/{role}', [AdminsController::class, 'assignRole'])->name('assign-role-to-admin');
         Route::get('/dettach/role/from/admin/{a}/{r}', [AdminsController::class, 'dettachRole'])->name('dettach-role-from-admin');
         Route::post('/dettach/roles/from/admins', [AdminsController::class, 'assignRoles'])->name('dettach-roles-from-admin');
+        Route::post('/settings', [AdminsController::class, 'settings'])->name('admins-settings');
     });
 
     // Stores Routes
@@ -126,5 +130,24 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/approve/{id}', [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
         Route::post('/reject/{id}', [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
         Route::get('/search', [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
+    });
+
+    // Roles and Permissions Routes
+    Route::prefix('roles')->group(function () {
+        Route::get('/all', [RoleController::class, 'index'])->name('display-roles-list');
+        Route::get('show/{id}', [RoleController::class, 'show'])->name('show-role-info');
+        Route::post('', [RoleController::class, 'store'])->name('store-role-info');
+        Route::get('edit/{id}', [RoleController::class, 'edit'])->name('edit-roles-info');
+        Route::put('update/{id}', [RoleController::class, 'update'])->name('update-roles-info');
+        Route::delete('destroy/{id}', [RolePermissionController::class, 'destroy'])->name('destroy-role');
+    });
+
+    Route::prefix('permissions')->group(function () {
+        Route::get('/all', [PermissionController::class, 'index'])->name('display-permissions-list');
+        Route::post('store', [PermissionController::class, 'store'])->name('store-permission-info');
+        Route::get('show/{id}', [PermissionController::class, 'show'])->name('show-permission-info');
+        Route::get('edit/{id}', [PermissionController::class, 'edit'])->name('edit-permission-info');
+        Route::put('update/{id}', [PermissionController::class, 'update'])->name('update-permission-info');
+        Route::delete('destroy/{id}', [RolePermissionController::class, 'destroy'])->name('destroy-permission');
     });
 });

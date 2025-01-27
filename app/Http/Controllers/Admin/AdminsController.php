@@ -28,7 +28,7 @@ class AdminsController extends Controller
     public function index()
     {
         //
-        $users = Admin::where([])->with('profile')->with('roles')->get();
+        $users = Admin::where([])->get();
 
         $vars = [
             'users' => $users,
@@ -241,28 +241,31 @@ class AdminsController extends Controller
         return redirect()->back()->with(['error' => 'حدث خطأ أثناء تحديث بيانات الموظف']);
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function assignRole($admin_id, $role_id)
+    public function assignRole(Request $request)
     {
-        //
-        $admin = Admin::find($admin_id);
-        $sm = "تم تعيين الدور بنجاح إلى $admin->userName";
-        $em = "لم يتم تعيين الدور إلى $admin->userName بسبب: ";
+        $request->validate([
+            'user_id' => 'required|exists:admins,id',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
         try {
-            $admin->assignRole($role_id);
-            return redirect()->back()->with(['success' => $sm]);
-        } catch (QueryException $err) {
-            return redirect()->back()->withError($em . $err);
+            AdminRole::create([
+                'admin_id' => $request->user_id,
+                'role_id' => $request->role_id,
+                'guard_name' => 'admin',
+            ]);
+
+            return redirect()->back()->withSuccess('Role assigned successfully.');
+        } catch (QueryException $e) {
+            return redirect()->back()->withError('Failed to assign role.');
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

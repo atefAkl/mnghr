@@ -208,15 +208,21 @@
                 data-bs-parent="#sidebarAccordion">
                 <ul class="btn-toggle-nav list-unstyled fw-normal small">
                     <li>
-                        <a href="/admin/users/list"
+                        <a href="/admin/admins/all"
                             class="rounded {{ Request::is('admin/users/list') ? 'active' : '' }}">
-                            <i class="fas fa-users"></i> &nbsp; Users List
+                            <i class="fas fa-users"></i> &nbsp; Admins List
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/users/roles"
+                        <a href="/admin/roles/all"
                             class="rounded {{ Request::is('admin/users/roles') ? 'active' : '' }}">
                             <i class="fas fa-user-tag"></i> &nbsp; Roles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/permissions/all"
+                            class="rounded {{ Request::is('admin/users/roles') ? 'active' : '' }}">
+                            <i class="fas fa-user-tag"></i> &nbsp; Permissions
                         </a>
                     </li>
                 </ul>

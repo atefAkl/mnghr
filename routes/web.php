@@ -115,6 +115,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('assign/role/to/admin/{admin}/{role}', [AdminsController::class, 'assignRole'])->name('assign-role-to-admin');
     Route::get('dettach/role/from/admin/{a}/{r}', [AdminsController::class, 'dettachRole'])->name('dettach-role-from-admin');
     Route::post('dettach/roles/from/admins', [AdminsController::class, 'assignRoles'])->name('dettach-roles-from-admin');
+    Route::post('/assign-role', [AdminsController::class, 'assignRole'])->name('assign-role');
 
     /* ========================================================================================================================================
         =========== Stores Routes Collection ====================================================================================
@@ -156,4 +157,13 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/admin/receipts/approve/{id}', [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
     Route::post('/admin/receipts/reject/{id}', [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
     Route::get('/search-receipts', [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
+
+    // Settings Routes
+    Route::prefix('settings')->group(function () {
+        Route::get('/users-roles', [SettingsController::class, 'showUsersRoles'])->name('settings.users.roles');
+        Route::get('/employees', [SettingsController::class, 'showEmployees'])->name('settings.employees');
+        Route::get('/users-options', [SettingsController::class, 'showUsersOptions'])->name('settings.users.options');
+        Route::get('/profile-settings', [SettingsController::class, 'showProfileSettings'])->name('settings.profile.settings');
+    });
+
 });

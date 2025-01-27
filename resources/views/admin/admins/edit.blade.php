@@ -7,9 +7,9 @@
     <style>
 
     </style>
-    <div class="container" style="min-height: 100vh">
-        <fieldset>
-            <legend>Edit Admin's Info</legend>
+    <div class="mt-3 pt-2" style="min-height: 100vh">
+        <fieldset class="mt-4 mx-0 mb-0 border-radius-1">
+            <legend class="border-radius-1 px-3 py-1">Edit Admin's Info</legend>
 
             <form action="{{ route('update-admin-info') }}" method="post">
 

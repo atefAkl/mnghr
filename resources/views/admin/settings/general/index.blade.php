@@ -13,9 +13,9 @@
         </legend>
         <div class="card-body">
             <div class="row ">
-                <a class="col col-4 mb-3 setting-item text-secondary" href="">
+                <a class="col col-4 mb-3 setting-item text-secondary" href="{{ route('display-roles-list') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-shield-alt fa-2x"></i>    
                         </div>
                         <div class="col item-text ">
@@ -25,9 +25,9 @@
                     </div>
                 </a>
 
-                <a class="col col-4 mb-3 setting-item text-secondary" href="">
+                <a class="col col-4 mb-3 setting-item text-secondary" href="{{ route('display-permissions-list') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-user-lock fa-2x"></i> 
                         </div>
                         <div class="col item-text ">
@@ -37,10 +37,10 @@
                     </div>
                 </a>
 
-                <a class="col col-4 mb-3 setting-item text-secondary" href="">
+                <a class="col col-4 mb-3 setting-item text-secondary" href="{{ route('settings.employees') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
-                            <i class="fa fa-users fa-2x"></i> 
+                        <div class="item-icon " style="">
+                            <i class="fa fa-user-tie fa-2x"></i> 
                         </div>
                         <div class="col item-text ">
                             <p class="my-0">Employees</p>
@@ -49,14 +49,26 @@
                     </div>
                 </a>
 
-                <a class="col col-4 mb-3 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('display-admins-list') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-users fa-2x"></i> 
                         </div>
                         <div class="col item-text ">
-                            <p class="my-0">Application Users</p>
-                            <small>Add, Edit and Delete Users</small>
+                            <p class="my-0">Application Admins</p>
+                            <small>Add, Edit and Delete Admins</small>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.users.options') }}">
+                    <div class="row">
+                        <div class="item-icon " style="">
+                            <i class="fa fa-user-cog fa-2x"></i> 
+                        </div>
+                        <div class="col item-text ">
+                            <p class="my-0"> Options</p>
+                            <small>Manage Users options</small>
                         </div>
                     </div>
                 </a>
@@ -68,9 +80,9 @@
         <legend class="px-3 border-radius-1"> <i class="fa fa-filter"></i> Filters</legend>
         <div class="card-body">
             <div class="row ">
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.profile.settings') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-tags fa-2x"></i>    
                         </div>
                         <div class="col item-text ">
@@ -80,9 +92,9 @@
                     </div>
                 </a>
 
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.users.roles') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-user-lock fa-2x"></i> 
                         </div>
                         <div class="col item-text ">
@@ -92,9 +104,9 @@
                     </div>
                 </a>
 
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.employees') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-users fa-2x"></i> 
                         </div>
                         <div class="col item-text ">
@@ -111,9 +123,9 @@
         <legend class="px-3 border-radius-1">Filters</legend>
         <div class="card-body">
             <div class="row ">
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.profile.settings') }}">
                     <div class="row">
-                        <div class="item-icon " style="width: 50px">
+                        <div class="item-icon " style="">
                             <i class="fa fa-tags fa-2x"></i>    
                         </div>
                         <div class="col item-text ">
@@ -123,7 +135,7 @@
                     </div>
                 </a>
 
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.users.roles') }}">
                     <div class="row">
                         <div class="item-icon " style="width: 50px">
                             <i class="fa fa-user-lock fa-2x"></i> 
@@ -135,7 +147,7 @@
                     </div>
                 </a>
 
-                <a class="col col-4 setting-item text-secondary" href="">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.employees') }}">
                     <div class="row">
                         <div class="item-icon " style="width: 50px">
                             <i class="fa fa-users fa-2x"></i> 

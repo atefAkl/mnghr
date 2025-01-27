@@ -281,7 +281,7 @@
   
       /* Client info spacing */
       .client-info {
-          margin-top: 130px;
+          margin-top: 10px;
           margin-bottom: 2rem;
           page-break-inside: avoid;
       }

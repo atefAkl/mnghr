@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminProfile;
-use App\Models\AdminRole;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,7 +38,6 @@ class Admin extends Authenticatable
     ];
 
     public function edit(array $arr) {
-        
         foreach ($arr as $key => $value) {
             $this->$key = $value;
         }
@@ -73,11 +72,6 @@ class Admin extends Authenticatable
         return $this->hasOne(AdminProfile::class, 'user_id', 'id');
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(AdminRole::class);
-    }
-
     public function getFullName()
     {
         return $this->profile->first_name . ' ' . $this->profile->last_name . ' [ ' . $this->userName . ' ]';
@@ -87,4 +81,15 @@ class Admin extends Authenticatable
     {
         return $this->roles->contains('id', $role);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function getAdminRoles()
+    {
+        return $this->roles()->where('guard_name', 'admin')->get();
+    }
+
 }
