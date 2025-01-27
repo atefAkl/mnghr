@@ -132,18 +132,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('stores/reports/home', [StoreReportsController::class, 'reports'])->name('store-reports');
     Route::get('stores/settings/home', [StoreSettingsController::class, 'settings'])->name('store-settings');
 
-      /* ========================================================================================================================================
-        =========== Store reports Routes Collection =======================================================================================
-        ======================================================================================================================================== */
-    
-    // Route::get('stores/report/receipt/input', [StoreReportsController::class, 'index'])->name('reports-receipt');
-    Route::get('print/receipt/{id}', [StoreReportsController::class, 'printReceipt'])->name('print-receipt');
-    Route::get('/print/ReceiptCase', [StoreReportsController::class, 'printReceiptCase'])->name('print-Receipt-Case');
-    Route::get('receipt/export/', [StoreReportsController::class, 'export'])->name('receipt-export');
-  
-      // Route::get('/generate-pdf', [StoreReportsController::class, 'generatePDF'])->name('generatePDF-btn');
 
-    
     /* ========================================================================================================================================
         =========== Store Receipt Routes Collection =======================================================================================
         ======================================================================================================================================== */
