@@ -98,7 +98,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="4">Totals</td>
+                <td colspan="4" class="fw-bold">Totals</td>
                 <td class="price">5400</td>
                 <td class="price">12854</td>
               </tr>
