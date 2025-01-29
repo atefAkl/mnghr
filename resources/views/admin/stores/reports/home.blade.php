@@ -4,12 +4,10 @@
     <li class="breadcrumb-item active" aria-current="page">Reports</li>
 @endsection
 @section('contents')
-<h1 class="my-3 pb-2" style="border-bottom: 2px solid #dedede">
-    <i class="fa fa-cogs"></i> Application Settings
-</h1>
+
 <style>
     .card {
-        height: 200px;
+        height: 150px;
         width: 100%;
         border-radius: 5px;
         overflow: hidden;
@@ -22,7 +20,7 @@
         margin: 0;
         display: block;
         transition: all 0.3s ease;
-        height: 200px;
+        height: 150px;
         color: #fff;
     }
     
@@ -30,7 +28,7 @@
         font-size: 36px;
         background-color: #35c;
         display: flex;
-        height: 200px;
+        height: 150px;
         justify-content: center;
         align-items: center;
     }
@@ -42,16 +40,16 @@
     }
 
     .card:hover .card-title {
-        margin-top: -200px;
+        margin-top: -150px;
     }
 </style>
 
-<div class="setting-items-groups">
+<div class="setting-items-groups mt-5">
     
-    <fieldset class="mt-4 mx-0 mb-0 w-75 border-radius-1">
-        <legend class="px-3 border-radius-1">Reports</legend>
-        <div class="row m-3 g-2">
-            <div class="col col-4">
+    <fieldset class="mx-0 mb-0 rounded-2">
+        <legend class="px-3 rounded-2">Reports</legend>
+        <div class="row mx-2 g-0">
+            <div class="col col-lg-4">
                 <div class="card">
                     <div class="card-title">
                         <h1 class="px-3 text-center">Items<br>List</h1>
@@ -62,7 +60,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col col-4">
+            <div class="col col-lg-4">
                 <div class="card">
                     <div class="card-title">
                         <h1 class="px-3">Items<br>Credit</h1>
@@ -73,7 +71,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col col-4">
+            <div class="col col-lg-4">
                 <div class="card">
                     <div class="card-title">
                         <h1 class="px-3">Over<br>Quantities</h1>
@@ -85,7 +83,7 @@
                 </div>
             </div>
         
-            <div class="col col-4">
+            <div class="col col-lg-4">
                 <div class="card">
                     <div class="card-title">
                         <h1 class="px-3">Material<br>In / Out</h1>
@@ -97,7 +95,7 @@
                 </div>
             </div>
        
-            <div class="col col-4">
+            <div class="col col-lg-4">
                 <div class="card">
                     <div class="card-title">
                         <h1 class="px-3">  Receipts </h1>
