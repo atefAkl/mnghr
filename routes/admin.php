@@ -115,6 +115,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/destroy/{id}', [StoresController::class, 'destroy'])->name('destroy-store-info');
         Route::get('/reports/home', [StoreReportsController::class, 'reports'])->name('store-reports');
         Route::get('/reports/template', [StoreReportsController::class, 'printTemplate'])->name('store-reports-template');
+        
         Route::get('/settings/home', [StoreSettingsController::class, 'settings'])->name('store-settings');
     });
 

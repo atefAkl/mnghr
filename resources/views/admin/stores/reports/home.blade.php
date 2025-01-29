@@ -4,196 +4,111 @@
     <li class="breadcrumb-item active" aria-current="page">Reports</li>
 @endsection
 @section('contents')
-    <h2 class="mt-3">
-        Reports Home
-    </h2>
-    {{-- <div class="row">
-        <div class="col-9">
-            <div class="card my-3 mx-4">
-                <div class="card-header py-2 px-3">
-                    <i class="fa fa-user"></i> General
-                </div>
-                <div class="card-body pt-0 pb-3">
-                    <div class="row">
-                        <a class="col col-4 setting-item text-secondary" href="{{route('display-stores-list')}}">
-                            <div class="row mt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-warehouse fa-2x"></i>   
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">All Stores</p>
-                                    <small>List of Available Stores</small>
-                                </div>
-                            </div>
-                        </a>
-        
-                        <a class="col col-4 setting-item text-secondary" href="{{route('display-recepits-list')}}">
-                            <div class="row pt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-receipt fa-2x"></i>
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">Store Receipts</p>
-                                    <small>Display All Receipts</small>
-                                </div>
-                            </div>
-                        </a>
-        
-                        <a class="col col-4 setting-item text-secondary" href="">
-                            <div class="row pt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-users fa-2x"></i> 
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">Store Admins</p>
-                                    <small>Display All Store Admins</small>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="col col-4 setting-item text-secondary" href="">
-                            <div class="row pt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-map-signs fa-2x"></i>   
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">Store Movements</p>
-                                    <small>Display Material In / Out</small>
-                                </div>
-                            </div>
-                        </a>
-        
-                        <a class="col col-4 setting-item text-secondary" href="">
-                            <div class="row pt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-clipboard-list fa-2x"></i>
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">Store Reports</p>
-                                    <small>Display and Customize Reports</small>
-                                </div>
-                            </div>
-                        </a>
-        
-                        <a class="col col-4 setting-item text-secondary" href="">
-                            <div class="row pt-3">
-                                <div class="item-icon">
-                                    <i class="fa fa-cogs fa-2x"></i>
-                                </div>
-                                <div class="col item-text">
-                                    <p class="my-0">Settings</p>
-                                    <small>Store Settings and Options</small>
-                                </div>
-                            </div>
-                        </a>
-                      
-                    </div>
-                </div>
-            </div>
-        </div> --}}{{-- End of cards --}}
-        <!--<div class="col-3" style=""> {{-- Start of wedgets --}}
-
-        </div>-->
+<h1 class="my-3 pb-2" style="border-bottom: 2px solid #dedede">
+    <i class="fa fa-cogs"></i> Application Settings
+</h1>
 <style>
-    .card-container {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+    .card {
+        height: 200px;
+        width: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .card .card-title,
+    .card .card-description {
+        width: 100%;
+        margin: 0;
+        display: block;
+        transition: all 0.3s ease;
+        height: 200px;
+        color: #fff;
     }
     
-    .card {
-        box-sizing: border-box;
-        width: 200px;
+    .card .card-title h1 {
+        font-size: 36px;
+        background-color: #35c;
+        display: flex;
         height: 200px;
-        background-color: #f0f0f0;
-        border-radius: 5px;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card a.card-description {
+        font-size: 1.3rem;
+        background-color: #385;
         text-align: center;
     }
-    
-    .card-title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #ffffff;
-        color: #007bcc;
-        font: Bolder 2rem/1.5 Cairo;
-        position: absolute;
-        bottom: 0;
-        height: 100%;
-        top: 0;
-        transition: all 0.5s ease;
-    }
-    
-    .card-description {
-        font: 500 1.5em/1.5 Cairo;
-        color: #ffffff;
-        background-color: #007bff;
-        position: absolute;
-        top: 50%;
-        height: 0;
-        transition: all 0.5s ease;
-    }
-    
+
     .card:hover .card-title {
-        top: -100%; /* ينزلق للأعلى */
-        bottom: 100%; /* ينزلق للأعلى */
-    }
-    
-    .card:hover .card-description {
-        top: 0; /* يظهر الوصف */
-        bottom: 0; /* يظهر الوصف */
+        margin-top: -200px;
     }
 </style>
-        <div class="card-container w-75">
-            <div class="card">
-                <div class="card-title row">
-                    <h1 class="px-3">All Store Items Report</h1>
+
+<div class="setting-items-groups">
+    
+    <fieldset class="mt-4 mx-0 mb-0 w-75 border-radius-1">
+        <legend class="px-3 border-radius-1">Reports</legend>
+        <div class="row m-3 g-2">
+            <div class="col col-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h1 class="px-3 text-center">Items<br>List</h1>
+                    </div>
+                    <a href="/" class="card-description py-4 px-3">
+                        <p>Represents all items in the store, even those without credits</p>
+                        See More...
+                    </a>
                 </div>
-                <a href="link1" class="card-description py-4 px-3">
-                    <p>Represents all items in the store, even those without credits</p>
-                    See More...
-                </a>
             </div>
-            <div class="card">
-                <div class="card-title row">
-                    <h1 class="px-3">Items Credit Report</h1>
+            <div class="col col-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h1 class="px-3">Items<br>Credit</h1>
+                    </div>
+                    <a href="link2" class="card-description py-4 px-3">
+                        <p>Represents all items in the store, even those without credits</p>
+                        See More...
+                    </a>
                 </div>
-                <a href="link2" class="card-description py-4 px-3">
-                    <p>Represents all items in the store, even those without credits</p>
-                    See More...
-                </a>
             </div>
-            <div class="card">
-                <div class="card-title row">
-                    <h1 class="px-3">Over Quantities Report</h1>
+            <div class="col col-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h1 class="px-3">Over<br>Quantities</h1>
+                    </div>
+                    <a href="link2" class="card-description py-4 px-3">
+                        <p>Represents all items in the store, even those without credits</p>
+                        See More...
+                    </a>
                 </div>
-                <a href="link2" class="card-description py-4 px-3">
-                    <p>Represents all items in the store, even those without credits</p>
-                    See More...
-                </a>
             </div>
-            <div class="card">
-                <div class="card-title row">
-                    <h1 class="px-3">Quarter Material In / Out Report</h1>
+        
+            <div class="col col-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h1 class="px-3">Material<br>In / Out</h1>
+                    </div>
+                    <a href="link2" class="card-description py-4 px-3">
+                        <p>Represents all items in the store, even those without credits</p>
+                        See More...
+                    </a>
                 </div>
-                <a href="link2" class="card-description py-4 px-3">
-                    <p>Represents all items in the store, even those without credits</p>
-                    See More...
-                </a>
             </div>
-            <div class="card">
-                <div class="card-title row">
-                    <h1 class="px-3">  Receipt Report</h1>
+       
+            <div class="col col-4">
+                <div class="card">
+                    <div class="card-title">
+                        <h1 class="px-3">  Receipts </h1>
+                    </div>
+                    <a href="{{route('store-reports-receipt')}}" class="card-description py-4 px-3">
+                        <p>Represents all Receipt in the store, even those without credits</p>
+                        See More...
+                    </a>
                 </div>
-                <a href="{{route('store-reports-receipt')}}" class="card-description py-4 px-3">
-                    <p>Represents all Receipt in the store, even those without credits</p>
-                    See More...
-                </a>
             </div>
-            <!-- يمكنك إضافة المزيد من الكروت هنا -->
         </div>
+        <!-- يمكنك إضافة المزيد من الكروت هنا -->
     </div>
 @endsection

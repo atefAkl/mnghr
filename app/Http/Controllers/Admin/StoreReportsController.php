@@ -31,6 +31,8 @@ class StoreReportsController extends Controller
       return view('admin.stores.reports.reportRececipt' ,$vars);
   }
 
+
+
 public function export() 
     {
         return Excel::download(new ReceiptExport, 'receipt-export.xlsx');
