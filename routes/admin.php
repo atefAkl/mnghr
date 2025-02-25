@@ -39,7 +39,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('admin-dashboard');
     Route::get('/dashboard/home', [HomeController::class, 'index'])->name('admin.dashboard.home');
     Route::get('/operations/log', [HomeController::class, 'log'])->name('admin.operations.log');
-    
+
     Route::get('dashboard/settings/home', [SettingsController::class, 'index'])->name('dashboard-settings-home');
 
     // Store Entries Routes
@@ -115,7 +115,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/destroy/{id}', [StoresController::class, 'destroy'])->name('destroy-store-info');
         Route::get('/reports/home', [StoreReportsController::class, 'reports'])->name('store-reports');
         Route::get('/reports/template', [StoreReportsController::class, 'printTemplate'])->name('store-reports-template');
-        
+
         Route::get('/settings/home', [StoreSettingsController::class, 'settings'])->name('store-settings');
     });
 
@@ -125,15 +125,15 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/restore/{id}', [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
         Route::get('/destroy/{id}', [StoreReceiptsController::class, 'destroy'])->name('forceDelete-receipt-info');
         Route::get('/edit/{id}', [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
+        Route::get('/print/{id}', [StoreReceiptsController::class, 'print'])->name('print-receipt');
         Route::post('/update', [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
         Route::post('/store', [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
         Route::get('/archive/{id}', [StoreReceiptsController::class, 'archiveReceipt'])->name('archive-receipt');
         Route::get('/approve/{id}', [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
         Route::post('/reject/{id}', [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
         Route::get('/search', [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
-    // reports receipts
+        // reports receipts
         Route::get('/reports/receipt', [StoreReportsController::class, 'reportRececipt'])->name('store-reports-receipt');
-
     });
 
     // Roles and Permissions Routes
