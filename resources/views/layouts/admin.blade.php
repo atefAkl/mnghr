@@ -1,7 +1,6 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
-
-<head>
+<html lang="en" dir="rtl" data-bs-theme="auto">
+    <head>
     <script src="{{ asset('assets/admin/js/color.modes.js') }}"></script>
     {{-- ADMIN TEMPLATE BLADE --}}
     <meta charset="utf-8">
@@ -9,22 +8,31 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
-    <title>@yield('title', 'AYERP | Software Development')</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>@yield('title', 'AQL | HR Moderation')</title>
+    @if (App::getLocale() == 'en')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{-- <link rel="stylesheet" href="{{ asset('/assets/admin/css/style.css') }}"> --}}
+    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <!-- Custom styles for this template -->
+    <link href="{{ asset('assets/admin/css/rtl/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/rtl/admin-layout.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/rtl/my-custom-styles.css') }}" rel="stylesheet">
+    @else
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-dpuaG1suU0eT09tx5plTaGMLBsfDLzUCCUXOY2j/LSvXYuG6Bqs43ALlhIqAJVRb" crossorigin="anonymous">
     <link href="{{ asset('assets/admin/css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/my-custom-styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/admin-layout.css') }}" rel="stylesheet">
+    @endif
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     @yield('extra-links')
 </head>
 
@@ -33,16 +41,17 @@
     <div class="admin-wrapper">
         @include('inc.sidebar')
         <div id="content">
+            
             <header id="main-header">
                 
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">{{__('layout.dashboard')}}</a></li>
                         @yield('header-links')
                     </ul>
                 </nav>
             </header>
-            <div class="container-fluid pt-5">
+            <div class="container-fluid">
                 <div class="container">
                     @if (session('success'))
                         <div class="alert alert-sm alert-success py-1 mt-2">

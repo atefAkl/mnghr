@@ -5,31 +5,30 @@
 
 #content {
   flex: 1;
-  margin-left: 220px;
-  transition: margin-left 0.3s ease;
+  margin-right: 220px;
+  transition: all 0.3s ease;
   position: relative;
+  background-color: #e5e5e5;
 }
 
 h1#view-title {
   display: inline-block;
-
   border-bottom: 2px solid #788788;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font: 600 1.2rem /1.5 Cairo;
   color: #333;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   #content {
-    margin-left: 0;
+    margin-right: 0 !important;
     width: 100%;
   }
 
   .main-sidebar {
-    transform: translateX(-220px);
+    transform: translateX(220px);
     transition: transform 0.3s ease;
   }
 
@@ -40,21 +39,51 @@ h1#view-title {
   body.sidebar-open {
     overflow: hidden;
   }
+}
 
-  /* .sidebar-backdrop {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999999;
-    }
+/* Links collection styles */
 
-    .sidebar-backdrop.show {
-        display: block;
-    } */
+fieldset {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 3px 1px #ccc1;
+  background-color: #e5e5e5;
+}
+
+fieldset:hover {
+  background-color: #efefef;
+  box-shadow: 1px 1px 3px 3px #0000001a;
+  border-radius: 0.25rem;
+}
+
+legend {
+  font: bold 1rem/1.2 Cairo;
+  position: absolute;
+  color: #333;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #e5e5e5;
+  z-index: 9;
+  top: -1rem;
+  left: auto !important;
+  right: 1rem;
+  width: auto;
+  border-bottom: 2px solid #354044;
+}
+fieldset:hover legend {
+  background-color: #fefefe;
+}
+
+legend .title-approved {
+  right: 15.5rem;
+}
+
+legend .title-archived {
+  right: 28.4rem;
+}
+
+.setting-items-groups .card-body {
+  margin: 1.5rem 1rem 1rem;
 }
 
 /* إضافة تنسيقات للبطاقات */
@@ -157,7 +186,7 @@ h1#view-title {
 
 /* تنسيقات الهيدر */
 #main-header {
-  background-color: #cdc;
+  background-color: #555;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
@@ -189,11 +218,15 @@ h1#view-title {
 }
 
 #main-header .breadcrumb-item + .breadcrumb-item::before {
-  color: #6c757d;
+  color: #d0dae4;
+  content: "/";
+  margin: 0 0.5rem;
+  font-weight: bold;
 }
 
 #main-header .breadcrumb-item a {
-  color: #0d6efd;
+  color: #d0dae4;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -202,5 +235,5 @@ h1#view-title {
 }
 
 #main-header .breadcrumb-item.active {
-  color: #6c757d;
+  color: #c7c9ca;
 }

@@ -11,12 +11,18 @@ use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\BranchesController;
 use App\Http\Controllers\Admin\StoresController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\JobtitlesController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RolePermissionController;
+use App\Http\Controllers\Admin\SalariesController;
+use App\Http\Controllers\Admin\VaccationsController;
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes
@@ -36,46 +42,11 @@ Route::middleware('guest:admin')->prefix('admin')->group(function () {
 // Authenticated admin routes
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
     // Dashboard
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin-dashboard');
-    Route::get('/dashboard/home', [HomeController::class, 'index'])->name('admin.dashboard.home');
-    Route::get('/operations/log', [HomeController::class, 'log'])->name('admin.operations.log');
+    Route::get('/dashboard',                            [HomeController::class, 'index'])->name('admin-dashboard');
+    Route::get('/dashboard/home',                       [HomeController::class, 'index'])->name('admin.dashboard.home');
+    Route::get('/operations/log',                       [HomeController::class, 'log'])->name('admin.operations.log');
 
-    Route::get('dashboard/settings/home', [SettingsController::class, 'index'])->name('dashboard-settings-home');
-
-    // Store Entries Routes
-    Route::prefix('entries')->group(function () {
-        Route::get('/index', [StoreEntriesController::class, 'index'])->name('display-entries-list');
-        Route::post('/store', [StoreEntriesController::class, 'store'])->name('save-entry-info');
-        Route::get('/edit/{id}', [StoreEntriesController::class, 'edit'])->name('edit-entry-info');
-        Route::post('/update', [StoreEntriesController::class, 'update'])->name('update-entry-info');
-        Route::get('/destroy/{id}', [StoreEntriesController::class, 'destroy'])->name('destroy-entry-info');
-        Route::get('/input/create/{id}', [StoreEntriesController::class, 'createInsert'])->name('add-store-input-entry');
-        Route::get('/output/create/{id}', [StoreEntriesController::class, 'createOutput'])->name('add-store-output-entry');
-        Route::get('/input/destroy/{id}', [StoreEntriesController::class, 'destroy'])->name('destroy-store-input-entry');
-        Route::post('/input/store', [StoreEntriesController::class, 'storeInsert'])->name('save-store-inputs-entry');
-        Route::post('/input/update', [StoreEntriesController::class, 'updateInsert'])->name('update-store-inputs-entry');
-        Route::post('/get/products/like', [StoreEntriesController::class, 'getProductsLike'])->name('get-products-like-query');
-    });
-
-    // Items Routes
-    Route::prefix('items')->group(function () {
-        Route::get('/home', [ItemsController::class, 'home'])->name('display-items');
-        Route::get('/itemsStatistics', [ItemsController::class, 'ItemsStatistics'])->name('display-product-list');
-        Route::get('/index', [ItemsController::class, 'index'])->name('display-product-all');
-        Route::get('/filter', [ItemsController::class, 'filterProductsAccordingToCategory'])->name('display-product-list-filtered');
-        Route::post('/store', [ItemsController::class, 'store'])->name('store-new-product');
-        Route::get('/display/{id}', [ItemsController::class, 'display'])->name('view-product-info');
-        Route::post('/update', [ItemsController::class, 'update'])->name('update-product-info');
-        Route::get('/edit/{id}', [ItemsController::class, 'edit'])->name('edit-product-info');
-        Route::get('/destroy/{id}', [ItemsController::class, 'destroy'])->name('destroy-product-info');
-
-        // Categories
-        Route::prefix('categories')->group(function () {
-            Route::post('/store', [ItemCategoriesController::class, 'store'])->name('store-new-itemCategory');
-            Route::get('/edit/{id}', [ItemCategoriesController::class, 'edit'])->name('edit-item-info');
-            Route::get('/delete/{id}', [ItemCategoriesController::class, 'destroy'])->name('destroy-item');
-        });
-    });
+    Route::get('dashboard/settings/home',               [SettingsController::class, 'index'])->name('dashboard-settings-home');
 
     // Branches Routes
     Route::prefix('branches')->group(function () {
@@ -103,39 +74,6 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::post('/settings', [AdminsController::class, 'settings'])->name('admins-settings');
     });
 
-    // Stores Routes
-    Route::prefix('stores')->group(function () {
-        Route::get('/home', [StoresController::class, 'home'])->name('stores-home');
-        Route::get('/index', [StoresController::class, 'index'])->name('display-stores-list');
-        Route::post('/store', [StoresController::class, 'store'])->name('save-store-info');
-        Route::post('/update', [StoresController::class, 'update'])->name('update-store-general-info');
-        Route::post('/update/loc', [StoresController::class, 'update_loc'])->name('update-store-location-info');
-        Route::post('/update/com', [StoresController::class, 'update_com'])->name('update-store-communication-info');
-        Route::get('/edit/{id}', [StoresController::class, 'edit'])->name('edit-store-info');
-        Route::get('/destroy/{id}', [StoresController::class, 'destroy'])->name('destroy-store-info');
-        Route::get('/reports/home', [StoreReportsController::class, 'reports'])->name('store-reports');
-        Route::get('/reports/template', [StoreReportsController::class, 'printTemplate'])->name('store-reports-template');
-
-        Route::get('/settings/home', [StoreSettingsController::class, 'settings'])->name('store-settings');
-    });
-
-    // Receipts Routes
-    Route::prefix('receipts')->group(function () {
-        Route::get('/index', [StoreReceiptsController::class, 'index'])->name('display-recepits-list');
-        Route::get('/restore/{id}', [StoreReceiptsController::class, 'restore'])->name('restore-receipt-info');
-        Route::get('/destroy/{id}', [StoreReceiptsController::class, 'destroy'])->name('forceDelete-receipt-info');
-        Route::get('/edit/{id}', [StoreReceiptsController::class, 'edit'])->name('edit-receipt-info');
-        Route::get('/print/{id}', [StoreReceiptsController::class, 'print'])->name('print-receipt');
-        Route::post('/update', [StoreReceiptsController::class, 'update'])->name('update-receipt-info');
-        Route::post('/store', [StoreReceiptsController::class, 'store'])->name('save-receipt-info');
-        Route::get('/archive/{id}', [StoreReceiptsController::class, 'archiveReceipt'])->name('archive-receipt');
-        Route::get('/approve/{id}', [StoreReceiptsController::class, 'approveReceipt'])->name('approve-receipt');
-        Route::post('/reject/{id}', [StoreReceiptsController::class, 'rejectReceipt'])->name('reject-receipt');
-        Route::get('/search', [StoreReceiptsController::class, 'searchReceipt'])->name('search.receipt');
-        // reports receipts
-        Route::get('/reports/receipt', [StoreReportsController::class, 'reportRececipt'])->name('store-reports-receipt');
-    });
-
     // Roles and Permissions Routes
     Route::prefix('roles')->group(function () {
         Route::get('/all', [RoleController::class, 'index'])->name('display-roles-list');
@@ -154,4 +92,90 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::put('update/{id}', [PermissionController::class, 'update'])->name('update-permission-info');
         Route::delete('destroy/{id}', [RolePermissionController::class, 'destroy'])->name('destroy-permission');
     });
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('/operations/log', [HomeController::class, 'log'])->name('operations.log');
+    Route::get('/dashboard/home', [HomeController::class, 'index'])->name('admin-dashboard-home');
+
+   
+    /* ========================================================================================================================================
+        =========== Company Branches Routes Collection ========================================================================================
+        ======================================================================================================================================== */
+    Route::get('/branches/home', [BranchesController::class, 'index'])->name('desplay-branches');
+    Route::post('/branches/store', [BranchesController::class, 'store'])->name('store-new-branches');
+    Route::post('/branches/update', [BranchesController::class, 'update'])->name('update-branch-info');
+    Route::get('/branches/delete/{id}', [BranchesController::class, 'destroy'])->name('destroy-branch');
+
+    /* ========================================================================================================================================
+        =========== Admin Routes Collection ===================================================================================================
+        ======================================================================================================================================== */
+    Route::get('logout',                                    [LoginController::class, 'logout'])->name('logout');
+    Route::get('admins/all',                                [AdminsController::class, 'index'])->name('display-admins-list');
+    Route::get('admins/create',                             [AdminsController::class, 'create'])->name('create-new-admin');
+    Route::get('admins/display/profile/{id}',               [AdminsController::class, 'display'])->name('display-admin');
+    Route::get('admins/display/roles/{id}',                 [AdminsController::class, 'displayRoles'])->name('display-admin-roles');
+    Route::get('admins/display/log/{id}',                   [AdminsController::class, 'displayLog'])->name('display-admin-log');
+    Route::get('admins/edit/{id}',                          [AdminsController::class, 'edit'])->name('edit-admin-info');
+    Route::get('admins/destroy/{id}',                       [AdminsController::class, 'destroy'])->name('destroy-admin');
+    Route::post('admins/store/',                            [AdminsController::class, 'store'])->name('store-admin-info');
+    Route::post('admins/update',                            [AdminsController::class, 'update'])->name('update-admin-info');
+    Route::post('assign/role/to/admins',                    [AdminsController::class, 'assignRoles'])->name('assign-role-to-admins');
+    Route::get('assign/role/to/admin/{admin}/{role}',       [AdminsController::class, 'assignRole'])->name('assign-role-to-admin');
+    Route::get('dettach/role/from/admin/{a}/{r}',           [AdminsController::class, 'dettachRole'])->name('dettach-role-from-admin');
+    Route::post('dettach/roles/from/admins',                [AdminsController::class, 'assignRoles'])->name('dettach-roles-from-admin');
+    Route::post('/assign-role',                             [AdminsController::class, 'assignRole'])->name('assign-role');
+
+  
+    // Settings Routes
+    Route::prefix('settings')->group(function () {
+        Route::get('/users-roles',              [SettingsController::class, 'showUsersRoles'])->name('settings.users.roles');
+        Route::get('/employees',                [SettingsController::class, 'showEmployees'])->name('settings.employees');
+        Route::get('/users-options',            [SettingsController::class, 'showUsersOptions'])->name('settings.users.options');
+        Route::get('/profile-settings',         [SettingsController::class, 'showProfileSettings'])->name('settings.profile.settings');
+    });
+
+    Route::prefix(('profile'))->group(function () {
+        Route::get('/settings', [ProfileController::class, 'index'])->name('profile.settings');
+    });
+
+    // Employees Routes
+    Route::prefix(('employees'))->group(function () {
+        Route::get('/list', [EmployeeController::class, 'index'])->name('display-employees-list');
+        Route::get('/create', [EmployeeController::class, 'create'])->name('create-new-employee');
+        Route::post('/store', [EmployeeController::class, 'store'])->name('store-employee-info');
+    });
+
+    // Salaries Routes
+    Route::prefix(('salaries'))->group(function () {
+        Route::get('/groups', [SalariesController::class, 'index'])->name('display-salaries-groups');
+    });
+
+    // Vaccations Routes
+    Route::prefix(('vaccations'))->group(function () {
+        Route::get('/types', [VaccationsController::class, 'index'])->name('display-vaccations-types');
+    });
+
+    // Jobtitles Routes
+    Route::prefix(('jobtitles'))->group(function () {
+        Route::get('/list', [JobtitlesController::class, 'index'])->name('display-jobtitles-list');
+    });
+
+    // Departments Routes
+    Route::prefix(('departments'))->group(function () {
+        Route::get('/list', [DepartmentController::class, 'index'])->name('display-departments-list');
+    });
+
+});
+
+// Admin Routes
+Route::middleware('guest:admin')->prefix('admin')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('admin.login.submit');
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('admin.register');
+    Route::post('/register', [RegisterController::class, 'register'])->name('admin.register.submit');
+    Route::get('/forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 });

@@ -61,38 +61,14 @@ h5 {
   background-color: #ebf5ff !important;
 }
 
-header#main-header {
-  position: fixed;
-  z-index: 99999;
-  background-color: #fff;
-}
-
-legend {
-  font: 400 1rem/1.2 Cairo;
-  position: absolute;
-  padding: 0.25rem 0.5rem;
-  border: 1pt solid #dee2e6;
-  background-color: #fff;
-  left: 2rem;
-  z-index: 9;
-  top: -1rem;
-  width: auto;
-}
-
-legend .title-approved {
-  left: 15.5rem;
-}
-
-legend .title-archived {
-  left: 28.4rem;
-}
-
 /*===============================================
 ============== Sidebar Styles ===================
 ===============================================*/
 
 .main-sidebar button.btn-toggle::before {
   left: auto;
+  color: #fff;
+  background-color: #333;
   right: 1rem !important;
 }
 
@@ -127,10 +103,7 @@ legend .title-archived {
 =================================================*/
 
 ol {
-  display: block;
   display: inline-block;
-  float: left;
-  clear: left;
   margin: 0.25rem;
   padding: 0;
 }
@@ -369,12 +342,29 @@ ol > li > input:checked ~ label:before {
 /* ===================================================
 ================= Bootstrap Like Modifications ============
 =================================================== */
-.input-group.sm :where(.input-group-text, .form-control, .form-select) {
+.input-group :where(.input-group-text, .form-control, .form-select) {
   height: 33px;
   line-height: 33px;
 }
 
-.input-group.sm select.form-select {
+.input-group label.input-group-text {
+  color: #454545;
+  font-weight: 600;
+  border: 1px solid #bcbcbc;
+  background-color: #cdcdcd;
+}
+
+.input-group input.form-control,
+.input-group select.form-select,
+.input-group textarea.form-control,
+.input-group button.form-control {
+  border: 1px solid #bcbcbc;
+  color: #454545;
+  font-weight: 500;
+  background-color: #efefef;
+}
+
+.input-group select.form-select {
   padding-top: 0;
 }
 
@@ -412,4 +402,23 @@ ol > li > input:checked ~ label:before {
   margin-top: 0.25rem;
   font-size: 0.875rem;
   color: #dc3545;
+}
+
+/* ===================================================
+================= Styles for placeholder ============
+=================================================== */
+::placeholder {
+  color: #587e8355 !important;
+}
+
+::-moz-placeholder {
+  color: #587e8355 !important;
+}
+
+:-ms-input-placeholder {
+  color: #587e8355 !important;
+}
+
+::-webkit-input-placeholder {
+  color: #587e8355 !important;
 }
