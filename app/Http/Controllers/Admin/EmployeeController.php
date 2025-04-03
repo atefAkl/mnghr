@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Country;
 use App\Models\Department;
+use App\Models\DepartmentLevel;
 use App\Models\Employee;
+use App\Models\EmpUUID;
+use App\Models\Jobtitle;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -18,7 +23,22 @@ class EmployeeController extends Controller
     {
         //
         $employees = Employee::all();
-        return view('admin.employees.index', compact('employees'));
+        $countries = Country::all();
+        $departments = Department::all();
+        $hierarchyGroups = DepartmentLevel::select('id', 'name', 'hierarchy_group')
+        ->orderBy('hierarchy_group')
+        ->get()
+        ->groupBy('hierarchy_group');
+        $jobtitles = Jobtitle::all();
+        
+        $uuid = EmpUUID::generate('HR'.date('y'));
+        return view(
+            'admin.employees.index', 
+            compact(
+                'employees', 'countries', 'departments', 
+                'hierarchyGroups', 'jobtitles', 'uuid'
+                )
+            );
     }
 
     /**
@@ -38,14 +58,39 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name.ar'           => 'required|between:4,150',
+            'name.en'           => 'required|between:4,50',
+            'natid_number'      => 'required|max:20',
+            'natid_type'        => 'required|in:citizen,resident,visitor,tourist,passport',
+            'joined_at'         => 'required|date',
+            'department_id'     => 'required|exists:departments,id',
+            'job_title'         => 'required|exists:jobtitles,id',
+            'group_id'          => 'required|exists:department_levels,id',
+            'uuid'              => 'required|min:13',
+        ]);
+        $validated['created_by'] = Admin::currentUser();
+        $validated['updated_by'] = Admin::currentUser();
+        $validated['status'] = 1;
+        try {
+            $employee = Employee::create($validated);
+            return redirect()->back()->withSuccess('Employee has been added successfully.');
+        } catch (Exception $err) {
+            return redirect()->back()->withError('Error creating employee: '.$err->getMessage());
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Employee.
      */
     public function show(string $id)
     {
         //
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Employee not found');
+        }
+        return view('admin.employees.show', compact('employee'));
     }
 
     /**
@@ -54,6 +99,19 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         //
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Employee not found');
+        }
+        
+        $countries = Country::all();
+        $departments = Department::all();
+        $hierarchyGroups = DepartmentLevel::select('id', 'name', 'hierarchy_group')
+        ->orderBy('hierarchy_group')
+        ->get()
+        ->groupBy('hierarchy_group');
+        $jobtitles = Jobtitle::all();
+        return view ('admin.employees.edit', compact('employee', 'countries', 'departments', 'hierarchyGroups', 'jobtitles'));
     }
 
     /**

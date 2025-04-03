@@ -208,6 +208,61 @@
             </div>
         </div>
     </fieldset>
+    {{-- الموارد البشرية --}}
+    <fieldset class="mt-4">
+        <legend class="px-3"><i class="fas fa-users"></i> {{__('settings.general-settings')}}</legend>
+        <div class="card-body">
+            <div class="row ">
+                <a class="col col-4 setting-item text-secondary" href="{{ route('display-settings-home') }}">
+                    <div class="row">
+                        <div class="item-icon " style="">
+                            <i class="fa fa-tags fa-2x"></i>    
+                        </div>
+                        <div class="col item-text ">
+                            <p class="my-0">{{__('settings.general-settings-home')}}</p>
+                            <small>{{__('settings.general-settings-home-text')}}</small>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.users.roles') }}">
+                    <div class="row">
+                        <div class="item-icon " style="width: 50px">
+                            <i class="fa fa-user-lock fa-2x"></i> 
+                        </div>
+                        <div class="col item-text ">
+                            <p class="my-0">{{__('settings.job-offers')}}</p>
+                            <small>{{__('settings.job-offers-text')}}</small>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.employees') }}">
+                    <div class="row">
+                        <div class="item-icon " style="width: 50px">
+                            <i class="fa fa-users fa-2x"></i> 
+                        </div>
+                        <div class="col item-text ">
+                            <p class="my-0">{{__('settings.salaries')}}</p>
+                            <small>{{__('settings.salaries-text')}}</small>
+                        </div>
+                    </div>
+                </a>
+                
+                <a class="col col-4 setting-item text-secondary" href="{{ route('settings.employees') }}">
+                    <div class="row">
+                        <div class="item-icon " style="width: 50px">
+                            <i class="fa fa-users fa-2x"></i> 
+                        </div>
+                        <div class="col item-text ">
+                            <p class="my-0">{{__('settings.vaccations')}}</p>
+                            <small>{{__('settings.vaccations-text')}}</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </fieldset>
 
 </div>
 @endsection

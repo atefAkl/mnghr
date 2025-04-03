@@ -1,18 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\ItemCategoriesController;
-use App\Http\Controllers\Admin\StoreSettingsController;
+
 use App\Http\Controllers\Admin\PasswordResetController;
-use App\Http\Controllers\Admin\StoreReceiptsController;
-use App\Http\Controllers\Admin\StoreEntriesController;
-use App\Http\Controllers\Admin\StoreReportsController;
+
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\Admin\BranchesController;
-use App\Http\Controllers\Admin\StoresController;
 use App\Http\Controllers\Admin\AdminsController;
+use App\Http\Controllers\Admin\DepartmentLevelController;
 use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\JobtitlesController;
@@ -22,7 +18,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SalariesController;
 use App\Http\Controllers\Admin\VaccationsController;
-use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\Admin\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes
@@ -133,7 +129,17 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::get('/employees',                [SettingsController::class, 'showEmployees'])->name('settings.employees');
         Route::get('/users-options',            [SettingsController::class, 'showUsersOptions'])->name('settings.users.options');
         Route::get('/profile-settings',         [SettingsController::class, 'showProfileSettings'])->name('settings.profile.settings');
+        Route::get('/home',                     [SettingsController::class, 'showGeneralSettings'])->name('display-settings-home');
     });
+
+    Route::prefix('department-level')->group(function () {
+        Route::get('list',                     [DepartmentLevelController::class, 'index'])->name('display-department-levels-list');
+        Route::post('store/info',               [DepartmentLevelController::class, 'store'])->name('department-levels-store');
+        Route::get('edit/info/{id}',            [DepartmentLevelController::class, 'edit'])->name('department-levels-edit');
+        Route::put('update/info',               [DepartmentLevelController::class, 'update'])->name('department-levels-update');
+        Route::delete('delete/{id}',            [DepartmentLevelController::class, 'destroy'])->name('department-levels-destroy');
+    });
+
 
     Route::prefix(('profile'))->group(function () {
         Route::get('/settings', [ProfileController::class, 'index'])->name('profile.settings');
@@ -141,9 +147,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     // Employees Routes
     Route::prefix(('employees'))->group(function () {
-        Route::get('/list', [EmployeeController::class, 'index'])->name('display-employees-list');
-        Route::get('/create', [EmployeeController::class, 'create'])->name('create-new-employee');
-        Route::post('/store', [EmployeeController::class, 'store'])->name('store-employee-info');
+        Route::get('/list',                     [EmployeeController::class, 'index'])->name('display-employees-list');
+        Route::get('/edit/{id}',                [EmployeeController::class, 'edit'])->name('edit-employee-info');
+        Route::post('/store',                   [EmployeeController::class, 'store'])->name('store-employee-info');
+        Route::put('/update',                   [EmployeeController::class, 'update'])->name('update-employee-info');
+        Route::get('/display/{id}',             [EmployeeController::class, 'show'])->name('display-employee-info');
+        Route::delete('/delete',                [EmployeeController::class, 'destroy'])->name('delete-employee');
     });
 
     // Salaries Routes
@@ -158,12 +167,21 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     // Jobtitles Routes
     Route::prefix(('jobtitles'))->group(function () {
-        Route::get('/list', [JobtitlesController::class, 'index'])->name('display-jobtitles-list');
+        Route::get('/list',                     [JobtitlesController::class, 'index'])->name('display-jobtitles-list');
+        Route::post('/store/info',              [JobtitlesController::class, 'store'])->name('store-jobtitle-info');
+        Route::get('/edit/{id}',                [JobtitlesController::class, 'edit'])->name('edit-jobtitle-info');
+        Route::put('/update',                   [JobtitlesController::class, 'update'])->name('update-jobtitle-info');
+        Route::delete('/delete/{id}',           [JobtitlesController::class, 'destroy'])->name('delete-jobtitle');
     });
 
     // Departments Routes
     Route::prefix(('departments'))->group(function () {
-        Route::get('/list', [DepartmentController::class, 'index'])->name('display-departments-list');
+        Route::get('/list',                     [DepartmentController::class, 'index'])->name('display-departments-list');
+        Route::get('/create',                   [DepartmentController::class, 'create'])->name('create-new-department');
+        Route::post('/store',                   [DepartmentController::class, 'store'])->name('store-department-info');
+        Route::get('/edit/{id}',                [DepartmentController::class, 'edit'])->name('edit-department-info');
+        Route::put('/update/{id}',              [DepartmentController::class, 'update'])->name('update-department-info');
+        Route::delete('/delete/{id}',           [DepartmentController::class, 'destroy'])->name('delete-department');
     });
 
 });

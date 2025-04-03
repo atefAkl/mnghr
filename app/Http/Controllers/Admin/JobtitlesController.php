@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Department;
+use App\Models\Jobtitle;
+use Exception;
 use Illuminate\Http\Request;
 
 class JobtitlesController extends Controller
@@ -13,6 +18,9 @@ class JobtitlesController extends Controller
     public function index()
     {
         //
+        $jobtitles = Jobtitle::all();
+        $departments = Department::all();
+        return view('admin.employees.settings.jobtitles.index', compact('jobtitles', 'departments'));
     }
 
     /**
@@ -29,6 +37,22 @@ class JobtitlesController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'title.ar'              => 'required|between:3,100',
+            'title.en'              => 'required|between:3,50',
+            'description.ar'        => 'required|between:20,1024',
+            'description.en'        => 'required|between:20,1024',
+            'parent_id'             => 'nullable|exists:departments,id'
+        ]);
+        try {
+            $validated['created_by'] = Admin::currentUser();
+            $validated['updated_by'] = Admin::currentUser();
+            $validated['status'] = 1;
+            Jobtitle::create($validated);
+            return redirect()->back()->with('success', 'Job title created successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create job title: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -45,14 +69,36 @@ class JobtitlesController extends Controller
     public function edit(string $id)
     {
         //
+        $jobtitles = Jobtitle::all();
+        $jobtitle = Jobtitle::find($id);
+        $departments = Department::all();
+        return view('admin.employees.settings.jobtitles.edit', compact('jobtitles', 'departments', 'jobtitle'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
+        App::setLocale('ar');
+        $jt = Jobtitle::find($request->id);
+        $validated = $request->validate([
+            'title.ar'          => 'required|between:3,100',
+            'title.en'          => 'required|between:3,50',
+            'description.ar'    => 'required|between:20,1024',
+            'description.en'    => 'required|between:20,1024',
+            'parent_id'         => 'nullable|exists:departments,id',
+        ]);
+        $validated['status'] = $request->status ? true:false;
+        $validated['updated_by'] = Admin::currentUser();
+        // return $validated;
+        try {
+            $jt->update($validated);
+            return redirect()->back()->with(['success' => 'Jobtitle updated successfully']);
+        } catch (Exception $err) {
+            return redirect()->back()->with(['success' => 'Jobtitle updated successfully']);
+        }
     }
 
     /**

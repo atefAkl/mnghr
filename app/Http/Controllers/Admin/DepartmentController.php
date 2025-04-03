@@ -18,7 +18,10 @@ class DepartmentController extends Controller
     {
         App::setLocale('ar');
         $departments = Department::all();
-        $levels = DepartmentLevel::all();
+        $levels = DepartmentLevel::select('id', 'name', 'hierarchy_group')
+            ->orderBy('hierarchy_group')
+            ->get()
+            ->groupBy('hierarchy_group');
         return view('admin.employees.settings.departments.index', compact('departments', 'levels'));
     }
 
@@ -39,6 +42,7 @@ class DepartmentController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'name_en' => 'required',
+            'parent_id' => 'required',
             'description' => 'required',
             'description_en' => 'required',
         ]);
@@ -67,7 +71,12 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::findOrFail($id);
-        return view('admin.employees.settings.departments.edit', compact('department'));
+        $departments = Department::all();
+        $levels = DepartmentLevel::select('id', 'name', 'hierarchy_group')
+            ->orderBy('hierarchy_group')
+            ->get()
+            ->groupBy('hierarchy_group');
+        return view('admin.employees.settings.departments.edit', compact('department', 'departments', 'levels'));
     }
 
     /**
@@ -79,15 +88,18 @@ class DepartmentController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'name_en' => 'required',
+            'parent_id' => 'required',
             'description' => 'required',
             'description_en' => 'required',
         ]);
         
+        $validated['level_id'] = $request->level_id;
         $validated['updated_by'] = Admin::currentUser();
         $validated['status'] = $request->status ? true : false;
-
+        
         try {
             $department->update($validated);
+            //return $validated;
             return Redirect::back()->with('success', 'Department updated successfully');
         } catch (\Exception $e) {
             return Redirect::back()->with('error', $e->getMessage());
