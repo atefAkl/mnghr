@@ -690,11 +690,27 @@ if (! function_exists('redirect')) {
     }
 }
 
+if (! function_exists('redirectNotFound')) {
+    /**
+     * Redirect to a new location when a 404 is encountered.
+    *
+    * @param  string  $to
+    * @param  int  $status
+    * @param  array  $headers
+    * @param  bool|null  $secure
+    * @return \Illuminate\Http\RedirectResponse
+    */
+    function employeeNotFound($headers = ['error' => 'Record not found'])
+    {
+        return redirect()->back()->with($headers);
+    }
+}
+
 if (! function_exists('report')) {
     /**
      * Report an exception.
-     *
-     * @param  \Throwable|string  $exception
+ *
+ * @param  \Throwable|string  $exception
      * @return void
      */
     function report($exception)

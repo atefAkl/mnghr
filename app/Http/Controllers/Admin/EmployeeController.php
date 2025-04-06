@@ -10,6 +10,7 @@ use App\Models\DepartmentLevel;
 use App\Models\Employee;
 use App\Models\EmpUUID;
 use App\Models\Jobtitle;
+use App\Models\LegalInfo;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -117,9 +118,64 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
+        $employee = Employee::find($request->id);
+        if (!$employee) {
+            return redirect()->back()->with('error', 'Employee not found');
+        }
+        $validated = $request->validate([
+            'name.ar'           => 'required|between:4,150',
+            'name.en'           => 'required|between:4,50',
+            'natid_number'      => 'required|max:20',
+            'natid_type'        => 'required|in:citizen,resident,visitor,tourist,passport',
+            'joined_at'         => 'required|date',
+            'department_id'     => 'required|exists:departments,id',
+            'job_title'         => 'required|exists:jobtitles,id',
+            'group_id'          => 'required|exists:department_levels,id',
+            'uuid'              => 'required|min:13',
+        ]);
+        
+
+        try {
+            $employee->update($validated);
+            return redirect()->back()->withSuccess('Employee has been updated successfully.');
+        } catch (Exception $err) {
+            return redirect()->back()->withError('Error updating employee: '.$err->getMessage());
+        }
+    }
+
+    // upload profile picture
+    public function uploadProfilePicture(Request $request)
+    {
+        $employee = Employee::find($request->id);
+        if (!$employee) return employeeNotFound(['error' => 'Employee not found']);
+        
+        $request->validate([
+            'profile_picture' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        if ($request->hasFile('profile_picture')) {
+            $image = $request->file('profile_picture');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/employees/'.$employee->id), $imageName);
+            $profile_picture = 'uploads/employees/'.$employee->id.'/' . $imageName;
+        }
+
+        try {
+            $l_info = LegalInfo::where('employee_id', $employee->id)->first();
+            if(!$l_info) {
+                $l_info = LegalInfo::create([
+                    'employee_id' => $employee->id
+                ]);
+            }
+            $l_info->update([
+                'profile_picture' => $profile_picture
+            ]);
+            return redirect()->back()->withSuccess('Profile picture has been uploaded successfully.');
+        } catch (Exception $err) {
+            return redirect()->back()->withError('Error uploading profile picture: '.$err->getMessage());
+        }
     }
 
     /**

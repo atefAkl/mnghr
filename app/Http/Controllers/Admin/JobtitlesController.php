@@ -32,22 +32,24 @@ class JobtitlesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-        $validated = $request->validate([
+ * Store a newly created resource in storage.
+ */
+public function store(Request $request)
+{
+    // return $request->all();
+    $validated = $request->validate([
             'title.ar'              => 'required|between:3,100',
             'title.en'              => 'required|between:3,50',
             'description.ar'        => 'required|between:20,1024',
             'description.en'        => 'required|between:20,1024',
             'parent_id'             => 'nullable|exists:departments,id'
         ]);
+        
         try {
             $validated['created_by'] = Admin::currentUser();
             $validated['updated_by'] = Admin::currentUser();
             $validated['status'] = 1;
+            $validated['unique_title'] = $request->unique_title ? 1 : 0;
             Jobtitle::create($validated);
             return redirect()->back()->with('success', 'Job title created successfully');
         } catch (\Exception $e) {

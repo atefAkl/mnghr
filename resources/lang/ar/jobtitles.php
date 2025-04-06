@@ -6,7 +6,8 @@ return [
     'jobtitles' => 'الوظائف',
     'list' => 'قائمة الوظائف',
     'edit-jobtitle' => 'تعديل بيانات مسمى وظيفي',
-
+    'unique-manager'    => 'وحيد',
+    
     // 
     
     // Labels, Buttons & Placeholders
@@ -22,12 +23,13 @@ return [
     'parent-default-option' => 'اختر الادارة الأم',
 
     // Actions
-    'create'    => 'اضافة جديد',
-    'edit'      => 'تعديل',
-    'delete'    => 'حذف',
-    'save'      => 'حفظ البيانات',
-    'update'    => 'تحديث البيانات',
-    'close'     => 'اغلاق',
-    'back'      => 'العودة',
-    'cancel'    => 'الغاء'
+    'create'            => 'اضافة جديد',
+    'edit'              => 'تعديل',
+    'delete'            => 'حذف',
+    'save'              => 'حفظ البيانات',
+    'update'            => 'تحديث البيانات',
+    'close'             => 'اغلاق',
+    'back'              => 'العودة',
+    'cancel'            => 'الغاء',
+
 ];

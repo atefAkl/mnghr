@@ -153,6 +153,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
         Route::put('/update',                   [EmployeeController::class, 'update'])->name('update-employee-info');
         Route::get('/display/{id}',             [EmployeeController::class, 'show'])->name('display-employee-info');
         Route::delete('/delete',                [EmployeeController::class, 'destroy'])->name('delete-employee');
+        Route::put('/upload-profile-picture',   [EmployeeController::class, 'uploadProfilePicture'])->name('upload-profile-picture');
     });
 
     // Salaries Routes

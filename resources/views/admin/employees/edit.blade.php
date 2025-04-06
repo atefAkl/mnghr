@@ -28,8 +28,10 @@
        </div>
    </div>
 
-    <form class="" action="{{ route('update-employee-info') }}" method="post">
-        @csrf    
+    <form class="" action="{{ route('update-employee-info') }}" method="post" enctype="multipart/form-data">
+        @csrf 
+        @method('put')
+        <input type="hidden" name="id" value="{{$employee->id}}">
         <div class="input-group mb-1">
             <label for="name_ar" class="input-group-text">{{__('employees.name')}}</label>
             <input type="text" value="{{ old('name.ar') ?? $employee->getArabicName() }}" name="name[ar]" 
@@ -95,11 +97,11 @@
             <input type="text" class="form-control" name="uuid" value="{{$employee->uuid}}"/>
         </div>
         <div class="">
-
+            
             @error('hierarchy_group')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
             @enderror
         </div>
         
@@ -108,7 +110,19 @@
             <button type="button" data-bs-toggle="tooltip" data-bs-title="{{__('employees.close')}}" class="btn py-0 btn-outline-danger " data-bs-dismiss="modal"><i class="fa fa-power-off"></i> </button>
         </div>
     </form>
-
+    <form action="{{ route('upload-profile-picture') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('put')
+        <input type="hidden" name="id" value="{{ $employee->id }}">
+        <div class="form-group">
+            <label for="profile_picture">{{ __('employees.profile_picture') }}</label>
+            <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
+        </div>
+        <div class="d-flex justify-content-end gap-1 mx-3 mt-0 mb-3">
+            <button type="submit" data-bs-toggle="tooltip" data-bs-title="{{__('employees.save')}}" class="btn py-0 btn-outline-primary "><i class="fa fa-save"></i> </button>
+            <button type="button" data-bs-toggle="tooltip" data-bs-title="{{__('employees.close')}}" class="btn py-0 btn-outline-danger " data-bs-dismiss="modal"><i class="fa fa-power-off"></i> </button>
+        </div>
+    </form>
 </div>
 
 <script>

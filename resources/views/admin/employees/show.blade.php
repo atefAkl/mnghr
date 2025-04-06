@@ -25,7 +25,7 @@
 <div class="card-body my-4">
     <div class="row">
         <div class="col-md-4">
-            <img src="{{ $employee->profile_picture }}" alt="Profile Picture" class="img-fluid">
+            <img src="{{ asset($employee->profilePicture()) }}" alt="Profile Picture" class="img-fluid">
         </div>
         <div class="col-md-8">
             <p><strong>Employee ID:</strong> {{ $employee->uuid }}</p>

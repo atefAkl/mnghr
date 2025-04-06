@@ -15,15 +15,17 @@ class Jobtitle extends Model
         'title',
         'parent_id',
         'description',
+        'status',
+        'unique_title',
         'created_at',
         'updated_at',
         'created_by',
         'updated_by',
-        'status',
     ];
 
     protected $casts = [
         'status'        => 'boolean',
+        'unique_title'  => 'boolean',
         'created_at'    => 'datetime',
         'updated_at'    => 'datetime',
         'created_by'    => 'integer',

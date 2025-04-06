@@ -95,8 +95,9 @@
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach
                         </select>
+                        <label class="input-group-text"><input type="checkbox"  name="unique_title" id="unique"></label>
+                        <label class="input-group-text" for="unique_title">{{ __('jobtitles.unique-manager') }}</label>
                         <button type="submit" class="btn py-1 btn-outline-primary">{{ __('jobtitles.save') }}</button>
-                        <button type="button" class="btn py-1 btn-outline-danger" data-bs-dismiss="modal">{{ __('settings.close') }}</button>
                     </div>
 
                 </form>

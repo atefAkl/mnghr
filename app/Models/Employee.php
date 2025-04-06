@@ -36,6 +36,10 @@ class Employee extends Model
         'joined_at'         => 'datetime'
     ];
 
+    public function profilePicture() {
+        return $this->legalInfo->profile_picture;
+    }
+
     public function getNameAttribute($value) {
         $nameArr = json_decode($value, true);
         return $nameArr[App::getLocale()] ?? $nameArr['en'];
@@ -89,6 +93,11 @@ class Employee extends Model
     public function salary()
     {
         return $this->hasOne(Salary::class);
+    }
+
+    public function legalInfo()
+    {
+        return $this->hasOne(LegalInfo::class);
     }
 
     function generateEmployeeId($prefix = '') {
