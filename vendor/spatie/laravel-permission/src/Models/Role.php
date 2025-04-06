@@ -22,12 +22,8 @@ class Role extends Model implements RoleContract
 {
     use HasPermissions;
     use RefreshesPermissionCache;
-    protected $guarded = [];
-    public $timestamps = true;
 
-    protected $fillable = [
-        'label', 'brief', 'roleNameAr', 'roleNameEn', 'guard_name', 'created_by', 'updated_by', 'created_at', 'updated_at'
-    ];
+    protected $guarded = [];
 
     public function __construct(array $attributes = [])
     {
@@ -48,7 +44,7 @@ class Role extends Model implements RoleContract
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $params = ['label' => $attributes['label'], 'guard_name' => $attributes['guard_name']];
+        $params = ['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']];
         if (app(PermissionRegistrar::class)->teams) {
             $teamsKey = app(PermissionRegistrar::class)->teamsKey;
 
@@ -59,7 +55,7 @@ class Role extends Model implements RoleContract
             }
         }
         if (static::findByParam($params)) {
-            throw RoleAlreadyExists::create($attributes['label'], $attributes['guard_name']);
+            throw RoleAlreadyExists::create($attributes['name'], $attributes['guard_name']);
         }
 
         return static::query()->create($attributes);
@@ -103,7 +99,7 @@ class Role extends Model implements RoleContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
 
-        $role = static::findByParam(['label' => $name, 'guard_name' => $guardName]);
+        $role = static::findByParam(['name' => $name, 'guard_name' => $guardName]);
 
         if (! $role) {
             throw RoleDoesNotExist::named($name, $guardName);
@@ -192,6 +188,7 @@ class Role extends Model implements RoleContract
             throw GuardDoesNotMatch::create($permission->guard_name, $guardName ? collect([$guardName]) : $this->getGuardNames());
         }
 
-        return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
+        return $this->loadMissing('permissions')->permissions
+            ->contains($permission->getKeyName(), $permission->getKey());
     }
 }

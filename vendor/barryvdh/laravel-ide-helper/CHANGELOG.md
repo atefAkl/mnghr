@@ -1,5 +1,28 @@
 # Changelog
 
+## v3.5.4 - 2025-01-14
+
+### What's Changed
+
+* Convert auth() helper to use Auth facade by @barryvdh in https://github.com/barryvdh/laravel-ide-helper/pull/1656
+* Check if returnType from docblock is not null by @barryvdh in https://github.com/barryvdh/laravel-ide-helper/pull/1658
+
+**Full Changelog**: https://github.com/barryvdh/laravel-ide-helper/compare/v3.5.3...v3.5.4
+
+## v3.5.3 - 2025-01-08
+
+### What's Changed
+
+* Catch meta, tweak auth by @barryvdh in https://github.com/barryvdh/laravel-ide-helper/pull/1654
+* Check if macro is valid by @barryvdh in https://github.com/barryvdh/laravel-ide-helper/pull/1655
+* feat: use generics of return type to determine resulting models by @Bloemendaal in https://github.com/barryvdh/laravel-ide-helper/pull/1653
+
+### New Contributors
+
+* @Bloemendaal made their first contribution in https://github.com/barryvdh/laravel-ide-helper/pull/1653
+
+**Full Changelog**: https://github.com/barryvdh/laravel-ide-helper/compare/v3.5.2...v3.5.3
+
 ## v3.5.2 - 2025-01-06
 
 ### Fixes
